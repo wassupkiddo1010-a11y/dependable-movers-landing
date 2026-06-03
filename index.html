@@ -64,25 +64,28 @@
     }
     .hero-tagline .char {
       display: inline-block;
-      white-space: pre;
+    }
+    .hero-tagline-word {
+      display: inline-block;
+      white-space: nowrap;
+    }
+    .hero-tagline-space {
+      display: inline-block;
+      width: 0.3em;
     }
     @media (min-width: 1024px) {
       .hero-tagline { margin-top: 1.5rem; }
     }
 
-    /* Consultation form — glass tint */
+    /* Consultation form — navy glass (matches nav #16335B) */
     .consultation-section {
       position: relative;
-      background: linear-gradient(
-        135deg,
-        rgba(22, 51, 91, 0.82) 0%,
-        rgba(22, 51, 91, 0.65) 100%
-      );
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      z-index: 5;
+      margin-top: -4rem;
+      background: rgba(22, 51, 91, 0.55);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
     .consultation-inner {
       position: relative;
@@ -621,7 +624,7 @@
   <!-- ============================================================
        3. HERO
        ============================================================ -->
-  <section class="hero-bg relative min-h-[70vh] lg:min-h-[85vh] flex flex-col">
+  <section class="hero-bg relative z-[1] min-h-[70vh] lg:min-h-[85vh] flex flex-col">
     <div class="hero-content px-4 sm:px-6 lg:px-8">
       <h1 class="font-heading font-extrabold text-white text-4xl sm:text-6xl lg:text-[5.5rem] xl:text-[7rem] leading-none tracking-tight">
         Dependable Movers
@@ -634,7 +637,7 @@
 
 
   <!-- 4. CONSULTATION FORM BAND -->
-  <section id="consultation" class="consultation-section text-white py-16 lg:py-24">
+  <section id="consultation" class="consultation-section text-white pt-20 pb-16 lg:pt-28 lg:pb-24">
     <div class="consultation-inner max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="font-heading font-bold text-2xl sm:text-3xl lg:text-4xl text-center mb-10 lg:mb-14 leading-tight">
         Get Instant Quote
@@ -1136,35 +1139,80 @@
        ============================================================ -->
   <script>
     (function () {
-      /* ---- Hero blur text effect ---- */
+      /* ---- Hero blur text effect (replays on scroll into view) ---- */
       (function initHeroBlurText() {
         var text = 'Your trusted moving partner for local, long-distance, and commercial relocations.';
         var el = document.getElementById('hero-tagline-text');
+        var heroSection = document.querySelector('.hero-bg');
         if (!el) return;
 
-        if (typeof gsap === 'undefined') {
-          el.textContent = text;
+        function buildTagline() {
+          el.innerHTML = '';
+          var words = text.split(' ');
+          words.forEach(function (word, wi) {
+            var wordWrap = document.createElement('span');
+            wordWrap.className = 'hero-tagline-word';
+            word.split('').forEach(function (char) {
+              var span = document.createElement('span');
+              span.className = 'char';
+              span.textContent = char;
+              wordWrap.appendChild(span);
+            });
+            el.appendChild(wordWrap);
+            if (wi < words.length - 1) {
+              var space = document.createElement('span');
+              space.className = 'char hero-tagline-space';
+              space.textContent = '\u00A0';
+              el.appendChild(space);
+            }
+          });
+        }
+
+        function resetBlur() {
+          if (typeof gsap === 'undefined') return;
+          var chars = el.querySelectorAll('.char');
+          gsap.killTweensOf(chars);
+          gsap.set(chars, { opacity: 0, y: 10, filter: 'blur(8px)' });
+        }
+
+        function playBlur() {
+          if (typeof gsap === 'undefined') {
+            el.textContent = text;
+            return;
+          }
+          var chars = el.querySelectorAll('.char');
+          if (!chars.length) buildTagline();
+          chars = el.querySelectorAll('.char');
+          gsap.killTweensOf(chars);
+          gsap.set(chars, { opacity: 0, y: 10, filter: 'blur(8px)' });
+          gsap.to(chars, {
+            opacity: 1,
+            y: 0,
+            filter: 'blur(0px)',
+            duration: 0.3,
+            ease: 'power2.out',
+            stagger: 0.015,
+            clearProps: 'filter',
+          });
+        }
+
+        buildTagline();
+
+        if (!heroSection || !('IntersectionObserver' in window)) {
+          playBlur();
           return;
         }
 
-        text.split('').forEach(function (char) {
-          var span = document.createElement('span');
-          span.className = 'char';
-          span.textContent = char === ' ' ? '\u00A0' : char;
-          el.appendChild(span);
-        });
-
-        var chars = el.querySelectorAll('.char');
-        gsap.set(chars, { opacity: 0, y: 10, filter: 'blur(8px)' });
-        gsap.to(chars, {
-          opacity: 1,
-          y: 0,
-          filter: 'blur(0px)',
-          duration: 0.3,
-          ease: 'power2.out',
-          stagger: 0.015,
-          clearProps: 'filter',
-        });
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              playBlur();
+            } else {
+              resetBlur();
+            }
+          });
+        }, { threshold: 0.3, rootMargin: '0px 0px -5% 0px' });
+        observer.observe(heroSection);
       })();
 
       /* ---- Utility mobile menu ---- */

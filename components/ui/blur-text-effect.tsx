@@ -8,6 +8,25 @@ interface BlurTextEffectProps {
   className?: string;
 }
 
+function buildWordSpans(text: string) {
+  return text.split(' ').map((word, wi, words) => (
+    <React.Fragment key={`word-${wi}-${word}`}>
+      <span className="inline-block whitespace-nowrap">
+        {word.split('').map((char, ci) => (
+          <span key={`${wi}-${ci}`} className="char inline-block">
+            {char}
+          </span>
+        ))}
+      </span>
+      {wi < words.length - 1 && (
+        <span className="char inline-block w-[0.3em]" aria-hidden="true">
+          {'\u00A0'}
+        </span>
+      )}
+    </React.Fragment>
+  ));
+}
+
 export const BlurTextEffect: React.FC<BlurTextEffectProps> = ({ children, className = '' }) => {
   const containerRef = useRef<HTMLSpanElement>(null);
 
@@ -31,11 +50,7 @@ export const BlurTextEffect: React.FC<BlurTextEffectProps> = ({ children, classN
 
   return (
     <span className={`inline-block ${className}`} ref={containerRef}>
-      {children.split('').map((char, i) => (
-        <span key={`${char}-${i}`} className="char inline-block" style={{ whiteSpace: 'pre' }}>
-          {char === ' ' ? '\u00A0' : char}
-        </span>
-      ))}
+      {buildWordSpans(children)}
     </span>
   );
 };
