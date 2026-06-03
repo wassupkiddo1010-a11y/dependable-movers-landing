@@ -60,37 +60,10 @@
       line-height: 1.5;
       color: rgba(255, 255, 255, 0.92);
       max-width: 36rem;
-      margin-bottom: 1.25rem;
+      margin-top: 1.25rem;
     }
     @media (min-width: 1024px) {
-      .hero-tagline { margin-bottom: 1.5rem; }
-    }
-    .hero-shimmer {
-      display: inline-block;
-      margin-top: 1.25rem;
-      font-family: Poppins, sans-serif;
-      font-size: clamp(1.125rem, 2vw, 1.5rem);
-      font-weight: 600;
-      text-decoration: none;
-      color: #ffffff;
-      background: linear-gradient(
-        to right,
-        #ffffff 0%,
-        rgba(255, 255, 255, 0.45) 40%,
-        rgba(255, 255, 255, 0.45) 60%,
-        #ffffff 100%
-      );
-      background-size: 50% 200%;
-      background-repeat: no-repeat;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: heroShimmer 1.5s linear 1.5s infinite;
-    }
-    .hero-shimmer:hover { opacity: 0.9; }
-    @keyframes heroShimmer {
-      from { background-position: 250% center; }
-      to { background-position: -100% center; }
+      .hero-tagline { margin-top: 1.5rem; }
     }
 
     /* Form inputs — white fill on navy band */
@@ -131,27 +104,27 @@
     }
     .stats-counter-digits {
       display: inline-flex;
-      overflow: hidden;
-      height: 1em;
+      align-items: baseline;
       line-height: 1;
     }
     .stats-counter-digit {
       position: relative;
-      width: 0.62em;
+      display: inline-block;
+      width: 0.65em;
       height: 1em;
       overflow: hidden;
+      vertical-align: top;
     }
     .stats-counter-digit-inner {
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.06s ease-out;
+      display: block;
+      transition: transform 0.07s ease-out;
+      will-change: transform;
     }
     .stats-counter-digit-inner span {
+      display: block;
       height: 1em;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      line-height: 1;
+      text-align: center;
     }
     .stats-counter-suffix {
       margin-left: 0.05em;
@@ -627,13 +600,12 @@
        ============================================================ -->
   <section class="hero-bg relative min-h-[70vh] lg:min-h-[85vh] flex flex-col">
     <div class="hero-content px-4 sm:px-6 lg:px-8">
-      <p class="hero-tagline">
-        Your trusted moving partner for local, long-distance, and commercial relocations.
-      </p>
       <h1 class="font-heading font-extrabold text-white text-4xl sm:text-6xl lg:text-[5.5rem] xl:text-[7rem] leading-none tracking-tight">
         Dependable Movers
       </h1>
-      <a href="#consultation" class="hero-shimmer">Request A Quote</a>
+      <p class="hero-tagline">
+        Your trusted moving partner for local, long-distance, and commercial relocations.
+      </p>
     </div>
   </section>
 
@@ -1225,20 +1197,22 @@
             inner.appendChild(s);
           }
           wrap.appendChild(inner);
+          container.appendChild(wrap);
           return inner;
         }
 
         var tensInner = createDigitCol();
         var onesInner = createDigitCol();
-        container.appendChild(tensInner.parentElement);
-        container.appendChild(onesInner.parentElement);
 
         function setDigit(inner, digit) {
-          inner.style.transform = 'translateY(-' + digit + 'em)';
+          inner.style.transform = 'translateY(-' + (digit * 10) + '%)';
         }
 
+        setDigit(tensInner, 0);
+        setDigit(onesInner, 0);
+
         var end = 50;
-        var duration = 650;
+        var duration = 700;
         var started = false;
 
         function runCounter() {
@@ -1248,7 +1222,7 @@
           function tick(ts) {
             if (!startTime) startTime = ts;
             var progress = Math.min((ts - startTime) / duration, 1);
-            var val = Math.floor(progress * end);
+            var val = Math.min(Math.floor(progress * end), end);
             setDigit(tensInner, Math.floor(val / 10));
             setDigit(onesInner, val % 10);
             if (progress < 1) {
@@ -1267,11 +1241,13 @@
           return;
         }
         var observer = new IntersectionObserver(function (entries) {
-          if (entries[0].isIntersecting) {
-            runCounter();
-            observer.disconnect();
-          }
-        }, { threshold: 0.25 });
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              runCounter();
+              observer.disconnect();
+            }
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
         observer.observe(section);
       })();
 
