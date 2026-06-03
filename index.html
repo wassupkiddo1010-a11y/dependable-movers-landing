@@ -36,7 +36,127 @@
   <style>
     html { scroll-behavior: smooth; }
 
-    /* HERO — swap URL for owner's lifestyle photo */
+    /* Hero */
+    .hero-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2.5rem 1rem 3rem;
+      max-width: 80rem;
+      margin: 0 auto;
+      width: 100%;
+    }
+    @media (min-width: 640px) {
+      .hero-content { padding: 4rem 1.5rem 4rem; }
+    }
+    @media (min-width: 1024px) {
+      .hero-content { padding: 5rem 2rem 5rem; }
+    }
+    .hero-tagline {
+      font-family: Poppins, sans-serif;
+      font-size: clamp(1rem, 2.5vw, 1.375rem);
+      font-weight: 500;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.92);
+      max-width: 36rem;
+      margin-bottom: 1.25rem;
+    }
+    @media (min-width: 1024px) {
+      .hero-tagline { margin-bottom: 1.5rem; }
+    }
+    .hero-shimmer {
+      display: inline-block;
+      margin-top: 1.25rem;
+      font-family: Poppins, sans-serif;
+      font-size: clamp(1.125rem, 2vw, 1.5rem);
+      font-weight: 600;
+      text-decoration: none;
+      color: #ffffff;
+      background: linear-gradient(
+        to right,
+        #ffffff 0%,
+        rgba(255, 255, 255, 0.45) 40%,
+        rgba(255, 255, 255, 0.45) 60%,
+        #ffffff 100%
+      );
+      background-size: 50% 200%;
+      background-repeat: no-repeat;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: heroShimmer 1.5s linear 1.5s infinite;
+    }
+    .hero-shimmer:hover { opacity: 0.9; }
+    @keyframes heroShimmer {
+      from { background-position: 250% center; }
+      to { background-position: -100% center; }
+    }
+
+    /* Form inputs — white fill on navy band */
+    .form-field {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 0.5rem;
+      padding: 0.875rem 1rem;
+      font-size: 0.875rem;
+      color: #1A1A1A;
+    }
+    .form-field::placeholder { color: #9CA3AF; }
+    .form-field:focus {
+      outline: none;
+      border-color: #ED7D22;
+      box-shadow: 0 0 0 1px #ED7D22;
+    }
+    .form-select-light {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23555555'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+    }
+    .form-select-light option { color: #1A1A1A; background: #fff; }
+
+    /* Stats animated counter */
+    .stats-counter {
+      font-family: Poppins, sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.25rem, 5vw, 3.75rem);
+      line-height: 1;
+      color: #ffffff;
+      display: flex;
+      align-items: baseline;
+      margin-bottom: 0.5rem;
+    }
+    .stats-counter-digits {
+      display: inline-flex;
+      overflow: hidden;
+      height: 1em;
+      line-height: 1;
+    }
+    .stats-counter-digit {
+      position: relative;
+      width: 0.62em;
+      height: 1em;
+      overflow: hidden;
+    }
+    .stats-counter-digit-inner {
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.06s ease-out;
+    }
+    .stats-counter-digit-inner span {
+      height: 1em;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .stats-counter-suffix {
+      margin-left: 0.05em;
+    }
+
     .hero-bg {
       background-image: linear-gradient(to bottom, rgba(22,51,91,0.15) 0%, rgba(22,51,91,0.45) 100%),
         url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80');
@@ -506,23 +626,14 @@
        3. HERO
        ============================================================ -->
   <section class="hero-bg relative min-h-[70vh] lg:min-h-[85vh] flex flex-col">
-    <!-- Split display heading -->
-    <div class="flex-1 flex flex-col justify-start pt-10 sm:pt-16 lg:pt-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+    <div class="hero-content px-4 sm:px-6 lg:px-8">
+      <p class="hero-tagline">
+        Your trusted moving partner for local, long-distance, and commercial relocations.
+      </p>
       <h1 class="font-heading font-extrabold text-white text-4xl sm:text-6xl lg:text-[5.5rem] xl:text-[7rem] leading-none tracking-tight">
         Dependable Movers
       </h1>
-    </div>
-
-    <!-- Cream callout card -->
-    <div class="px-4 sm:px-6 lg:px-8 pb-10 lg:pb-16 max-w-7xl mx-auto w-full flex justify-end">
-      <div class="bg-cream rounded-2xl p-6 sm:p-8 max-w-md w-full lg:w-auto shadow-xl">
-        <h2 class="font-heading font-bold text-heading text-xl sm:text-2xl leading-snug mb-6">
-          Your trusted moving partner for local, long-distance, and commercial relocations.
-        </h2>
-        <a href="#consultation" class="inline-block btn-navy text-white font-semibold px-7 py-3.5 rounded-lg text-sm">
-          Request A Quote
-        </a>
-      </div>
+      <a href="#consultation" class="hero-shimmer">Request A Quote</a>
     </div>
   </section>
 
@@ -530,7 +641,6 @@
   <!-- 4. CONSULTATION FORM BAND -->
   <section id="consultation" class="bg-navy text-white py-16 lg:py-24">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <p class="text-white/60 text-xs sm:text-sm mb-6 tracking-wide">Home &rsaquo; Get Your Quote</p>
       <h2 class="font-heading font-bold text-2xl sm:text-3xl lg:text-4xl text-center mb-10 lg:mb-14 leading-tight">
         Get Instant Quote
       </h2>
@@ -576,7 +686,7 @@
             <div class="autocomplete-wrap">
               <label for="moving-from" class="sr-only">Moving From</label>
               <input type="text" id="moving-from" name="moving-from" required placeholder="Enter From Zip / City *" autocomplete="off"
-                class="w-full bg-transparent border border-white/40 rounded-lg px-4 py-3.5 text-sm text-white placeholder-white/50 focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange"
+                class="form-field"
                 role="combobox" aria-expanded="false" aria-controls="moving-from-list" aria-autocomplete="list">
               <ul id="moving-from-list" class="autocomplete-list hidden" role="listbox"></ul>
               <p class="error-msg text-orange text-xs mt-1 hidden">Please fill in this field.</p>
@@ -584,7 +694,7 @@
             <div class="autocomplete-wrap">
               <label for="moving-to" class="sr-only">Moving To</label>
               <input type="text" id="moving-to" name="moving-to" required placeholder="Enter To Zip / City *" autocomplete="off"
-                class="w-full bg-transparent border border-white/40 rounded-lg px-4 py-3.5 text-sm text-white placeholder-white/50 focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange"
+                class="form-field"
                 role="combobox" aria-expanded="false" aria-controls="moving-to-list" aria-autocomplete="list">
               <ul id="moving-to-list" class="autocomplete-list hidden" role="listbox"></ul>
               <p class="error-msg text-orange text-xs mt-1 hidden">Please fill in this field.</p>
@@ -603,13 +713,13 @@
             <div>
               <label for="move-date" class="sr-only">Moving Date</label>
               <input type="date" id="move-date" name="move-date" required
-                class="w-full bg-transparent border border-white/40 rounded-lg px-4 py-3.5 text-sm text-white placeholder-white/50 focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange [color-scheme:dark]">
+                class="form-field">
               <p class="error-msg text-orange text-xs mt-1 hidden">Please fill in this field.</p>
             </div>
             <div>
               <label for="move-size" class="sr-only">Move Size</label>
               <select id="move-size" name="move-size" required
-                class="form-select w-full bg-transparent border border-white/40 rounded-lg px-4 py-3.5 text-sm text-white focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange">
+                class="form-field form-select-light">
                 <option value="" disabled selected class="text-gray-500">Move Size *</option>
                 <option value="studio">Studio</option>
                 <option value="1">1 Bedroom</option>
@@ -623,7 +733,7 @@
             <div class="sm:col-span-2">
               <label for="move-type" class="sr-only">Move Type</label>
               <select id="move-type" name="move-type" required
-                class="form-select w-full bg-transparent border border-white/40 rounded-lg px-4 py-3.5 text-sm text-white focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange">
+                class="form-field form-select-light">
                 <option value="" disabled selected class="text-gray-500">Move Type *</option>
                 <option value="house">House</option>
                 <option value="apartment">Apartment</option>
@@ -648,25 +758,25 @@
             <div>
               <label for="first-name" class="sr-only">First Name</label>
               <input type="text" id="first-name" name="first-name" required placeholder="First Name *"
-                class="w-full bg-transparent border border-white/40 rounded-lg px-4 py-3.5 text-sm text-white placeholder-white/50 focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange">
+                class="form-field">
               <p class="error-msg text-orange text-xs mt-1 hidden">Please fill in this field.</p>
             </div>
             <div>
               <label for="last-name" class="sr-only">Last Name</label>
               <input type="text" id="last-name" name="last-name" required placeholder="Last Name *"
-                class="w-full bg-transparent border border-white/40 rounded-lg px-4 py-3.5 text-sm text-white placeholder-white/50 focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange">
+                class="form-field">
               <p class="error-msg text-orange text-xs mt-1 hidden">Please fill in this field.</p>
             </div>
             <div>
               <label for="email" class="sr-only">Email Address</label>
               <input type="email" id="email" name="email" required placeholder="Email Address *"
-                class="w-full bg-transparent border border-white/40 rounded-lg px-4 py-3.5 text-sm text-white placeholder-white/50 focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange">
+                class="form-field">
               <p class="error-msg text-orange text-xs mt-1 hidden">Please fill in this field.</p>
             </div>
             <div>
               <label for="phone" class="sr-only">Phone Number</label>
               <input type="tel" id="phone" name="phone" required placeholder="Phone Number *"
-                class="w-full bg-transparent border border-white/40 rounded-lg px-4 py-3.5 text-sm text-white placeholder-white/50 focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange">
+                class="form-field">
               <p class="error-msg text-orange text-xs mt-1 hidden">Please fill in this field.</p>
             </div>
           </div>
@@ -777,7 +887,9 @@
         <div class="w-1 bg-orange shrink-0"></div>
         <div class="space-y-10">
           <div>
-            <p class="font-heading font-extrabold text-white text-4xl sm:text-5xl lg:text-6xl leading-none mb-2">50+</p>
+            <div id="stats-counter" class="stats-counter" aria-label="50 plus years of combined moving experience">
+              <span class="stats-counter-digits" id="stats-counter-digits"></span><span class="stats-counter-suffix">+</span>
+            </div>
             <p class="text-white/80 text-sm sm:text-base">years of combined moving experience</p>
           </div>
           <div>
@@ -1096,6 +1208,72 @@
       }
 
       initAccordion('faq-accordion');
+
+      /* ---- Stats counter (fast roll to 50) ---- */
+      (function initStatsCounter() {
+        var container = document.getElementById('stats-counter-digits');
+        if (!container) return;
+
+        function createDigitCol() {
+          var wrap = document.createElement('span');
+          wrap.className = 'stats-counter-digit';
+          var inner = document.createElement('span');
+          inner.className = 'stats-counter-digit-inner';
+          for (var i = 0; i <= 9; i++) {
+            var s = document.createElement('span');
+            s.textContent = String(i);
+            inner.appendChild(s);
+          }
+          wrap.appendChild(inner);
+          return inner;
+        }
+
+        var tensInner = createDigitCol();
+        var onesInner = createDigitCol();
+        container.appendChild(tensInner.parentElement);
+        container.appendChild(onesInner.parentElement);
+
+        function setDigit(inner, digit) {
+          inner.style.transform = 'translateY(-' + digit + 'em)';
+        }
+
+        var end = 50;
+        var duration = 650;
+        var started = false;
+
+        function runCounter() {
+          if (started) return;
+          started = true;
+          var startTime = null;
+          function tick(ts) {
+            if (!startTime) startTime = ts;
+            var progress = Math.min((ts - startTime) / duration, 1);
+            var val = Math.floor(progress * end);
+            setDigit(tensInner, Math.floor(val / 10));
+            setDigit(onesInner, val % 10);
+            if (progress < 1) {
+              requestAnimationFrame(tick);
+            } else {
+              setDigit(tensInner, 5);
+              setDigit(onesInner, 0);
+            }
+          }
+          requestAnimationFrame(tick);
+        }
+
+        var section = document.querySelector('.stats-bg');
+        if (!section || !('IntersectionObserver' in window)) {
+          runCounter();
+          return;
+        }
+        var observer = new IntersectionObserver(function (entries) {
+          if (entries[0].isIntersecting) {
+            runCounter();
+            observer.disconnect();
+          }
+        }, { threshold: 0.25 });
+        observer.observe(section);
+      })();
 
       /* ---- Consultation form: 3-step wizard + ZIP autocomplete ---- */
       var consultForm = document.getElementById('consultation-form');
