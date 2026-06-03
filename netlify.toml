@@ -1,0 +1,10 @@
+# Production site is the static landing page at repo root (index.html).
+# The Next.js app in /app is only a component preview for local dev.
+
+[build]
+  command = "echo 'Deploying static index.html'"
+  publish = "."
+
+# Ignore Next.js output if present
+[build.processing]
+  skip_processing = false
