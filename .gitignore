@@ -1,7 +1,8 @@
 node_modules/
 .next/
 out/
-dist/
+public/index.html
 .env*.local
 *.tsbuildinfo
 next-env.d.ts
+dist/
