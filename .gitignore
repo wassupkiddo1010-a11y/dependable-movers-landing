@@ -2,6 +2,9 @@ node_modules/
 .next/
 out/
 public/index.html
+public/favicon.png
+public/logo.png
+public/assets/
 .env*.local
 *.tsbuildinfo
 next-env.d.ts

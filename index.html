@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="United Global Vanline — Top-notch moving services for businesses and individuals across the U.S. Local, long-distance, and commercial moves.">
-  <title>United Global Vanline | Top-Notch Moving Services Across the U.S.</title>
+  <meta name="description" content="Dependable Movers — your trusted partner for local, long-distance, and commercial relocations across the U.S.">
+  <title>Dependable Movers</title>
+
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -68,6 +71,21 @@
       letter-spacing: 0.06em;
       text-transform: uppercase;
       white-space: nowrap;
+    }
+
+    /* Header logo — transparent PNG, no duplicate wordmark */
+    .site-logo {
+      display: block;
+      height: 2.875rem; /* ~46px */
+      width: auto;
+      max-width: min(44vw, 10rem);
+      object-fit: contain;
+    }
+    @media (min-width: 1024px) {
+      .site-logo {
+        height: 3.75rem; /* ~60px */
+        max-width: 13rem;
+      }
     }
 
     /* Consultation — solid navy base + full-span glass tint overlay */
@@ -770,20 +788,18 @@
        ============================================================ -->
   <div class="bg-white border-b border-gray-100 relative lg:sticky lg:top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-14 lg:h-16">
+      <div class="flex items-center justify-between min-h-14 lg:min-h-16 py-1">
 
         <!-- Logo -->
-        <a href="#" class="flex items-center gap-2.5 shrink-0" aria-label="Dependable Movers home">
-          <!-- LOGO PLACEHOLDER: swap for owner's logo asset -->
-          <svg class="w-9 h-9 lg:w-10 lg:h-10" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-            <rect x="2" y="2" width="44" height="44" rx="8" fill="#16335B"/>
-            <rect x="14" y="18" width="20" height="14" rx="2" fill="#ED7D22"/>
-            <path d="M10 24l4-6h4l-4 6H10zm24 0l4-6h4l-4 6h-4z" fill="#fff"/>
-            <path d="M20 10h8v4h-8z" fill="#fff" opacity="0.6"/>
-          </svg>
-          <div>
-            <span class="font-logo font-bold text-navy text-base sm:text-lg lg:text-xl leading-tight">Dependable Movers</span>
-          </div>
+        <a href="#" class="shrink-0 flex items-center" aria-label="Dependable Movers home">
+          <img
+            src="assets/logo.png"
+            alt="Dependable Movers"
+            class="site-logo"
+            width="200"
+            height="80"
+            decoding="async"
+          >
         </a>
 
         <!-- Desktop utility links -->

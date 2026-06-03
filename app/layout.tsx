@@ -10,8 +10,13 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Dependable Movers | Testimonial Components",
-  description: "React component preview for Dependable Movers landing page.",
+  title: "Dependable Movers",
+  description:
+    "Dependable Movers — your trusted partner for local, long-distance, and commercial relocations across the U.S.",
+  icons: {
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+  },
 };
 
 export default function RootLayout({

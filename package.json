@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "node scripts/sync-landing-to-public.mjs && next build",
+    "process-logo": "python3 scripts/process-logo.py",
     "start": "next start",
     "lint": "next lint"
   },
