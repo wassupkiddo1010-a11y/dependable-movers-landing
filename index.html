@@ -36,7 +36,32 @@
   <style>
     html { scroll-behavior: smooth; }
 
-    /* Hero */
+    /* Hero + consultation — unified tinted glass over photo */
+    .hero-experience {
+      position: relative;
+      isolation: isolate;
+    }
+    .hero-experience__photo {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+    .hero-experience__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(22, 51, 91, 0.72);
+      backdrop-filter: blur(14px) saturate(130%);
+      -webkit-backdrop-filter: blur(14px) saturate(130%);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      z-index: 1;
+    }
+    .hero-experience__inner {
+      position: relative;
+      z-index: 2;
+    }
     .hero-content {
       flex: 1;
       display: flex;
@@ -46,12 +71,21 @@
       max-width: 80rem;
       margin: 0 auto;
       width: 100%;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.18);
     }
     @media (min-width: 640px) {
       .hero-content { padding: 4rem 1.5rem 4rem; }
     }
     @media (min-width: 1024px) {
       .hero-content { padding: 5rem 2rem 5rem; }
+    }
+
+    /* Consultation — sits inside hero-experience glass */
+    .consultation-section {
+      padding: 1rem 0 4rem;
+    }
+    @media (min-width: 1024px) {
+      .consultation-section { padding-bottom: 6rem; }
     }
     .hero-tagline {
       font-family: Poppins, sans-serif;
@@ -90,6 +124,7 @@
       color: #ffffff;
       text-align: center;
       margin-bottom: 1rem;
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.15);
     }
     @media (min-width: 1024px) {
       .consultation-heading { white-space: nowrap; }
@@ -99,7 +134,7 @@
       font-weight: 400;
       font-size: clamp(0.9375rem, 1.6vw, 1.0625rem);
       line-height: 1.6;
-      color: rgba(255, 255, 255, 0.72);
+      color: rgba(255, 255, 255, 0.88);
       text-align: center;
       max-width: 36rem;
       margin: 0 auto 2.75rem;
@@ -186,7 +221,7 @@
     .form-step-note {
       font-size: 0.875rem;
       line-height: 1.6;
-      color: rgba(255, 255, 255, 0.55);
+      color: rgba(255, 255, 255, 0.68);
       text-align: center;
       max-width: 28rem;
       margin: 1.5rem auto 0;
@@ -229,13 +264,6 @@
     }
     .stats-counter-suffix {
       margin-left: 0.05em;
-    }
-
-    .hero-bg {
-      background-image: linear-gradient(to bottom, rgba(22,51,91,0.15) 0%, rgba(22,51,91,0.45) 100%),
-        url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80');
-      background-size: cover;
-      background-position: center;
     }
 
     /* STATS BAND — swap URL for owner's family/lifestyle photo */
@@ -696,24 +724,22 @@
   </header>
 
 
-  <!-- ============================================================
-       3. HERO
-       ============================================================ -->
-  <section class="hero-bg relative min-h-[70vh] lg:min-h-[85vh] flex flex-col">
-    <div class="hero-content px-4 sm:px-6 lg:px-8">
-      <h1 class="font-heading font-extrabold text-white text-4xl sm:text-6xl lg:text-[5.5rem] xl:text-[7rem] leading-none tracking-tight">
-        Dependable Movers
-      </h1>
-      <p class="hero-tagline">
-        <span id="hero-tagline-text" class="inline-block" aria-label="Your trusted moving partner for local, long-distance, and commercial relocations."></span>
-      </p>
-    </div>
-  </section>
+  <!-- HERO + CONSULTATION (unified tinted glass) -->
+  <section class="hero-experience">
+    <div class="hero-experience__photo" aria-hidden="true"></div>
+    <div class="hero-experience__overlay" aria-hidden="true"></div>
+    <div class="hero-experience__inner">
+      <div class="hero-content px-4 sm:px-6 lg:px-8 min-h-[50vh] lg:min-h-[58vh]">
+        <h1 class="font-heading font-extrabold text-white text-4xl sm:text-6xl lg:text-[5.5rem] xl:text-[7rem] leading-none tracking-tight">
+          Dependable Movers
+        </h1>
+        <p class="hero-tagline">
+          <span id="hero-tagline-text" class="inline-block" aria-label="Your trusted moving partner for local, long-distance, and commercial relocations."></span>
+        </p>
+      </div>
 
-
-  <!-- 4. CONSULTATION FORM BAND -->
-  <section id="consultation" class="bg-navy text-white py-16 lg:py-24">
-    <div class="consultation-wrap mx-auto px-4 sm:px-6 lg:px-8">
+      <div id="consultation" class="consultation-section text-white">
+        <div class="consultation-wrap mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="consultation-heading">
         Every relocation starts with a conversation
       </h2>
@@ -887,6 +913,8 @@
           </div>
         </div>
       </form>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1223,7 +1251,7 @@
       (function initHeroBlurText() {
         var text = 'Your trusted moving partner for local, long-distance, and commercial relocations.';
         var el = document.getElementById('hero-tagline-text');
-        var heroSection = document.querySelector('.hero-bg');
+        var heroSection = document.querySelector('.hero-experience');
         if (!el) return;
 
         function buildTagline() {
