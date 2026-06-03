@@ -1,7 +1,17 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* Static index.html at repo root is served separately for GitHub Pages. */
+  /* Production landing page lives at repo root (index.html). */
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: "/",
+          destination: "/index.html",
+        },
+      ],
+    };
+  },
 };
 
 export default nextConfig;
