@@ -62,8 +62,31 @@
       max-width: 36rem;
       margin-top: 1.25rem;
     }
+    .hero-tagline .char {
+      display: inline-block;
+      white-space: pre;
+    }
     @media (min-width: 1024px) {
       .hero-tagline { margin-top: 1.5rem; }
+    }
+
+    /* Consultation form — glass tint */
+    .consultation-section {
+      position: relative;
+      background: linear-gradient(
+        135deg,
+        rgba(22, 51, 91, 0.82) 0%,
+        rgba(22, 51, 91, 0.65) 100%
+      );
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+    .consultation-inner {
+      position: relative;
+      z-index: 1;
     }
 
     /* Form inputs — white fill on navy band */
@@ -117,7 +140,7 @@
     }
     .stats-counter-digit-inner {
       display: block;
-      transition: transform 0.07s ease-out;
+      transition: transform 0.14s ease-out;
       will-change: transform;
     }
     .stats-counter-digit-inner span {
@@ -604,15 +627,15 @@
         Dependable Movers
       </h1>
       <p class="hero-tagline">
-        Your trusted moving partner for local, long-distance, and commercial relocations.
+        <span id="hero-tagline-text" class="inline-block" aria-label="Your trusted moving partner for local, long-distance, and commercial relocations."></span>
       </p>
     </div>
   </section>
 
 
   <!-- 4. CONSULTATION FORM BAND -->
-  <section id="consultation" class="bg-navy text-white py-16 lg:py-24">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section id="consultation" class="consultation-section text-white py-16 lg:py-24">
+    <div class="consultation-inner max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="font-heading font-bold text-2xl sm:text-3xl lg:text-4xl text-center mb-10 lg:mb-14 leading-tight">
         Get Instant Quote
       </h2>
@@ -1105,11 +1128,45 @@
   </footer>
 
 
+  <!-- GSAP for hero blur text -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+
   <!-- ============================================================
        VANILLA JS
        ============================================================ -->
   <script>
     (function () {
+      /* ---- Hero blur text effect ---- */
+      (function initHeroBlurText() {
+        var text = 'Your trusted moving partner for local, long-distance, and commercial relocations.';
+        var el = document.getElementById('hero-tagline-text');
+        if (!el) return;
+
+        if (typeof gsap === 'undefined') {
+          el.textContent = text;
+          return;
+        }
+
+        text.split('').forEach(function (char) {
+          var span = document.createElement('span');
+          span.className = 'char';
+          span.textContent = char === ' ' ? '\u00A0' : char;
+          el.appendChild(span);
+        });
+
+        var chars = el.querySelectorAll('.char');
+        gsap.set(chars, { opacity: 0, y: 10, filter: 'blur(8px)' });
+        gsap.to(chars, {
+          opacity: 1,
+          y: 0,
+          filter: 'blur(0px)',
+          duration: 0.3,
+          ease: 'power2.out',
+          stagger: 0.015,
+          clearProps: 'filter',
+        });
+      })();
+
       /* ---- Utility mobile menu ---- */
       var utilToggle = document.getElementById('utility-toggle');
       var utilityMobile = document.getElementById('utility-mobile');
@@ -1212,12 +1269,25 @@
         setDigit(onesInner, 0);
 
         var end = 50;
-        var duration = 700;
-        var started = false;
+        var duration = 1800;
+        var animFrame = null;
+        var animating = false;
+
+        function resetCounter() {
+          if (animFrame) {
+            cancelAnimationFrame(animFrame);
+            animFrame = null;
+          }
+          animating = false;
+          setDigit(tensInner, 0);
+          setDigit(onesInner, 0);
+        }
 
         function runCounter() {
-          if (started) return;
-          started = true;
+          if (animating) return;
+          animating = true;
+          setDigit(tensInner, 0);
+          setDigit(onesInner, 0);
           var startTime = null;
           function tick(ts) {
             if (!startTime) startTime = ts;
@@ -1226,13 +1296,15 @@
             setDigit(tensInner, Math.floor(val / 10));
             setDigit(onesInner, val % 10);
             if (progress < 1) {
-              requestAnimationFrame(tick);
+              animFrame = requestAnimationFrame(tick);
             } else {
               setDigit(tensInner, 5);
               setDigit(onesInner, 0);
+              animating = false;
+              animFrame = null;
             }
           }
-          requestAnimationFrame(tick);
+          animFrame = requestAnimationFrame(tick);
         }
 
         var section = document.querySelector('.stats-bg');
@@ -1244,10 +1316,11 @@
           entries.forEach(function (entry) {
             if (entry.isIntersecting) {
               runCounter();
-              observer.disconnect();
+            } else {
+              resetCounter();
             }
           });
-        }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+        }, { threshold: 0.25, rootMargin: '0px 0px -5% 0px' });
         observer.observe(section);
       })();
 
