@@ -77,35 +77,6 @@
       .hero-tagline { margin-top: 1.5rem; }
     }
 
-    /* Consultation — transparent wrapper over hero image */
-    .consultation-section {
-      position: relative;
-      z-index: 5;
-      background: transparent;
-      padding: 2rem 1rem 4rem;
-    }
-    @media (min-width: 1024px) {
-      .consultation-section { padding: 3rem 1.5rem 6rem; }
-    }
-
-    /* Frosted glass quote card */
-    .quote-card {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 48px 40px;
-      background: rgba(22, 51, 91, 0.35);
-      backdrop-filter: blur(20px) saturate(140%);
-      -webkit-backdrop-filter: blur(20px) saturate(140%);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 24px;
-      box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.25),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    }
-    @media (max-width: 640px) {
-      .quote-card { padding: 32px 24px; border-radius: 20px; }
-    }
-
     /* Form inputs — white fill on navy band */
     .form-field {
       width: 100%;
@@ -638,8 +609,8 @@
   <!-- ============================================================
        3. HERO
        ============================================================ -->
-  <section class="hero-bg relative z-[1] flex flex-col">
-    <div class="hero-content px-4 sm:px-6 lg:px-8 min-h-[50vh] lg:min-h-[55vh]">
+  <section class="hero-bg relative min-h-[70vh] lg:min-h-[85vh] flex flex-col">
+    <div class="hero-content px-4 sm:px-6 lg:px-8">
       <h1 class="font-heading font-extrabold text-white text-4xl sm:text-6xl lg:text-[5.5rem] xl:text-[7rem] leading-none tracking-tight">
         Dependable Movers
       </h1>
@@ -647,10 +618,12 @@
         <span id="hero-tagline-text" class="inline-block" aria-label="Your trusted moving partner for local, long-distance, and commercial relocations."></span>
       </p>
     </div>
+  </section>
 
-    <!-- Get Instant Quote — glass card on hero -->
-    <div id="consultation" class="consultation-section text-white">
-      <div class="quote-card">
+
+  <!-- 4. CONSULTATION FORM BAND -->
+  <section id="consultation" class="bg-navy text-white py-16 lg:py-24">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="font-heading font-bold text-2xl sm:text-3xl lg:text-4xl text-center mb-10 lg:mb-14 leading-tight">
         Get Instant Quote
       </h2>
@@ -819,7 +792,6 @@
           </div>
         </div>
       </form>
-      </div>
     </div>
   </section>
 
