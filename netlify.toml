@@ -1,10 +1,11 @@
-# Production site is the static landing page at repo root (index.html).
-# The Next.js app in /app is only a component preview for local dev.
+# Production site = static index.html (not the Next.js app in /app).
+#
+# If deploys fail with "Plugin Error", remove @netlify/plugin-nextjs:
+# Netlify → Site configuration → Build & deploy → Build plugins → Remove Next.js
 
 [build]
-  command = "echo 'Deploying static index.html'"
-  publish = "."
+  command = "npm run build"
+  publish = "dist"
 
-# Ignore Next.js output if present
-[build.processing]
-  skip_processing = false
+[build.environment]
+  NPM_FLAGS = "--omit=dev"
