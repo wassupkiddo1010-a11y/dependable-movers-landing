@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -85,9 +85,7 @@
     #utility-mobile { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
     #utility-mobile.open { max-height: 400px; }
 
-    /* Carousel */
-    .carousel-track { transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1); }
-
+    /* Carousel — removed; testimonials use card grid */
     /* Focus styles */
     :focus-visible { outline: 2px solid #ED7D22; outline-offset: 2px; }
 
@@ -211,14 +209,187 @@
       .difference-image-wrap { order: 2; }
       .difference-image { min-height: 320px; }
     }
+
+    /* How It Works — editorial process cards */
+    .how-it-works-section {
+      background-color: #F5F0E8;
+      padding: 80px max(5vw, 24px);
+    }
+    .how-it-works-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .how-it-works-heading {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: clamp(36px, 5vw, 52px);
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: #1A1A1A;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .how-it-works-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 0 max(4vw, 24px);
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .how-it-works-card {
+      background: #FFFFFF;
+      border: 1px solid #D4CFC6;
+      border-radius: 16px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-height: 240px;
+      box-shadow: none;
+    }
+    .how-it-works-step {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #999999;
+      margin-bottom: 16px;
+    }
+    .how-it-works-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(22px, 2.5vw, 28px);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      color: #1A1A1A;
+      margin-bottom: 24px;
+    }
+    .how-it-works-body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.6;
+      color: #777777;
+      margin: 0;
+    }
+    @media (max-width: 900px) {
+      .how-it-works-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .how-it-works-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Testimonial cards — shadcn-style grid (vanilla port) */
+    .testimonials-section {
+      background: #ffffff;
+      padding: 80px max(5vw, 24px);
+    }
+    .testimonials-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .testimonials-heading {
+      font-family: Poppins, sans-serif;
+      font-weight: 700;
+      font-size: clamp(28px, 4vw, 42px);
+      color: #1A1A1A;
+      text-align: center;
+      margin-bottom: 48px;
+      line-height: 1.15;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    @media (min-width: 768px) {
+      .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px) {
+      .testimonials-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .testimonial-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid rgba(22, 51, 91, 0.1);
+      background: #ffffff;
+      padding: 24px;
+      transition: box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    @media (min-width: 768px) {
+      .testimonial-card { padding: 32px; }
+    }
+    .testimonial-card:hover {
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+    }
+    .testimonial-card-quote {
+      position: absolute;
+      right: 24px;
+      top: 24px;
+      font-family: Georgia, serif;
+      font-size: 3.75rem;
+      line-height: 1;
+      color: rgba(85, 85, 85, 0.2);
+      pointer-events: none;
+      user-select: none;
+    }
+    .testimonial-card-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      justify-content: space-between;
+      height: 100%;
+    }
+    .testimonial-stars {
+      display: flex;
+      gap: 4px;
+    }
+    .testimonial-stars svg {
+      width: 16px;
+      height: 16px;
+    }
+    .testimonial-text {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #555555;
+      text-wrap: pretty;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .testimonial-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 9999px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #F4F6F9;
+    }
+    .testimonial-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .testimonial-name {
+      font-weight: 600;
+      color: #1A1A1A;
+      font-size: 0.9375rem;
+    }
+    .testimonial-role {
+      font-size: 0.875rem;
+      color: #555555;
+    }
   </style>
 </head>
 <body class="font-body text-body antialiased bg-white">
 
-  <!-- LICENSE BAR -->
-  <div class="bg-navy text-white text-center text-xs py-2 px-4">
-    Licensed Moving Broker &nbsp;&middot;&nbsp; DOT: 4014864 &nbsp;&middot;&nbsp; MC: 01512730
-  </div>
 
   <!-- ============================================================
        1. TOP UTILITY BAR
@@ -571,30 +742,26 @@
   </div>
 
 
-  <!-- ============================================================
-       7. PROCESS SECTION
-       ============================================================ -->
-  <section class="bg-cream py-20 lg:py-28">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-heading font-bold text-heading text-3xl sm:text-4xl lg:text-5xl text-center mb-14 lg:mb-20 leading-tight">
-        How It Works
-      </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
-        <div class="bg-white border border-gray-200 rounded-xl p-6 lg:p-8">
-          <p class="text-orange font-heading font-bold text-xs tracking-widest mb-4">01</p>
-          <h3 class="font-heading font-bold text-heading text-lg mb-3">Contact Us</h3>
-          <p class="text-body text-sm leading-relaxed">Get in touch with us via phone or e-mail.</p>
-        </div>
-        <div class="bg-white border border-gray-200 rounded-xl p-6 lg:p-8">
-          <p class="text-orange font-heading font-bold text-xs tracking-widest mb-4">02</p>
-          <h3 class="font-heading font-bold text-heading text-lg mb-3">State Your Requirements</h3>
-          <p class="text-body text-sm leading-relaxed">We'll give you a free estimate according to the size and distance of your move.</p>
-        </div>
-        <div class="bg-white border border-gray-200 rounded-xl p-6 lg:p-8">
-          <p class="text-orange font-heading font-bold text-xs tracking-widest mb-4">03</p>
-          <h3 class="font-heading font-bold text-heading text-lg mb-3">Enjoy a Smooth Move!</h3>
-          <p class="text-body text-sm leading-relaxed">Our experienced movers will take care of all your needs.</p>
-        </div>
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works-section">
+    <div class="how-it-works-inner">
+      <h2 class="how-it-works-heading">How It Works</h2>
+      <div class="how-it-works-grid">
+        <article class="how-it-works-card">
+          <p class="how-it-works-step">ONE</p>
+          <h3 class="how-it-works-title">Contact Us</h3>
+          <p class="how-it-works-body">Get in touch with us via phone or e-mail.</p>
+        </article>
+        <article class="how-it-works-card">
+          <p class="how-it-works-step">TWO</p>
+          <h3 class="how-it-works-title">State Your Requirements</h3>
+          <p class="how-it-works-body">We'll give you a free estimate according to the size and distance of your move.</p>
+        </article>
+        <article class="how-it-works-card">
+          <p class="how-it-works-step">THREE</p>
+          <h3 class="how-it-works-title">Enjoy a Smooth Move!</h3>
+          <p class="how-it-works-body">Our experienced movers will take care of all your needs.</p>
+        </article>
       </div>
     </div>
   </section>
@@ -623,43 +790,81 @@
   </section>
 
 
-  <!-- ============================================================
-       9. TESTIMONIALS CAROUSEL
-       ============================================================ -->
-  <section class="bg-white py-20 lg:py-28">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-heading font-bold text-heading text-3xl sm:text-4xl lg:text-5xl text-center mb-14 leading-tight">
-        What Our Happy Clients Say
-      </h2>
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section" aria-label="Client testimonials">
+    <div class="testimonials-inner">
+      <h2 class="testimonials-heading">What Our Happy Clients Say</h2>
+      <div class="testimonials-grid">
 
-      <div class="relative" id="testimonial-carousel" aria-roledescription="carousel" aria-label="Client testimonials">
-        <div class="overflow-hidden">
-          <div class="carousel-track flex" id="carousel-track">
-            <!-- Slide 1 -->
-            <blockquote class="w-full shrink-0 px-2 sm:px-8 text-center">
-              <p class="font-heading text-heading text-xl sm:text-2xl lg:text-3xl leading-relaxed mb-8">&ldquo;Working with United Global Vanline has been an absolute delight! They're an extremely professional and caring team—their friendly attitude kept me calm throughout the move. I highly recommend their services!&rdquo;</p>
-              <footer class="text-body font-medium">&mdash; Jenny A.</footer>
-            </blockquote>
-            <blockquote class="w-full shrink-0 px-2 sm:px-8 text-center">
-              <p class="font-heading text-heading text-xl sm:text-2xl lg:text-3xl leading-relaxed mb-8">&ldquo;United Global Vanline made it super easy to pack up my home and move across the state without any additional stress or worry. Loved working with them!&rdquo;</p>
-              <footer class="text-body font-medium">&mdash; Anne K.</footer>
-            </blockquote>
-            <blockquote class="w-full shrink-0 px-2 sm:px-8 text-center">
-              <p class="font-heading text-heading text-xl sm:text-2xl lg:text-3xl leading-relaxed mb-8">&ldquo;Our business needed to pack up some heavy equipment and move it safely across the city to our new office. We were really worried until we saw how helpful and professional the team at United Global Vanline is. I couldn't be happier with their services.&rdquo;</p>
-              <footer class="text-body font-medium">&mdash; Shayne E.</footer>
-            </blockquote>
+        <article class="testimonial-card">
+          <span class="testimonial-card-quote" aria-hidden="true">&ldquo;</span>
+          <div class="testimonial-card-inner">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <p class="testimonial-text">Working with United Global Vanline has been an absolute delight! They're an extremely professional and caring team—their friendly attitude kept me calm throughout the move. I highly recommend their services!</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop" alt="Jenny A." width="48" height="48" loading="lazy">
+              </div>
+              <div>
+                <p class="testimonial-name">Jenny A.</p>
+                <p class="testimonial-role">Homeowner</p>
+              </div>
+            </div>
           </div>
-        </div>
+        </article>
 
-        <!-- Controls -->
-        <div class="flex justify-center gap-4 mt-10">
-          <button id="carousel-prev" class="w-12 h-12 rounded-full border-2 border-navy text-navy flex items-center justify-center hover:bg-navy hover:text-white transition-colors" aria-label="Previous testimonial">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-          </button>
-          <button id="carousel-next" class="w-12 h-12 rounded-full border-2 border-navy text-navy flex items-center justify-center hover:bg-navy hover:text-white transition-colors" aria-label="Next testimonial">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-          </button>
-        </div>
+        <article class="testimonial-card">
+          <span class="testimonial-card-quote" aria-hidden="true">&ldquo;</span>
+          <div class="testimonial-card-inner">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <p class="testimonial-text">United Global Vanline made it super easy to pack up my home and move across the state without any additional stress or worry. Loved working with them!</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop" alt="Anne K." width="48" height="48" loading="lazy">
+              </div>
+              <div>
+                <p class="testimonial-name">Anne K.</p>
+                <p class="testimonial-role">Homeowner</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="testimonial-card">
+          <span class="testimonial-card-quote" aria-hidden="true">&ldquo;</span>
+          <div class="testimonial-card-inner">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <p class="testimonial-text">Our business needed to pack up some heavy equipment and move it safely across the city to our new office. We were really worried until we saw how helpful and professional the team at United Global Vanline is. I couldn't be happier with their services.</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop" alt="Shayne E." width="48" height="48" loading="lazy">
+              </div>
+              <div>
+                <p class="testimonial-name">Shayne E.</p>
+                <p class="testimonial-role">Business Owner</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
       </div>
     </div>
   </section>
@@ -1104,25 +1309,6 @@
 
       initAutocomplete('moving-from', 'moving-from-list');
       initAutocomplete('moving-to', 'moving-to-list');
-
-      /* ---- Testimonial carousel ---- */
-      var track = document.getElementById('carousel-track');
-      var slides = track.children;
-      var total = slides.length;
-      var current = 0;
-
-      function goTo(index) {
-        current = ((index % total) + total) % total;
-        track.style.transform = 'translateX(-' + (current * 100) + '%)';
-      }
-
-      document.getElementById('carousel-prev').addEventListener('click', function () { goTo(current - 1); });
-      document.getElementById('carousel-next').addEventListener('click', function () { goTo(current + 1); });
-
-      document.getElementById('testimonial-carousel').addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowLeft') goTo(current - 1);
-        if (e.key === 'ArrowRight') goTo(current + 1);
-      });
 
       /* ---- Subscribe form ---- */
       var subForm = document.getElementById('subscribe-form');
