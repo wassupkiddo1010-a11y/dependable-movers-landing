@@ -6,12 +6,16 @@
     "dev": "next dev",
     "build": "node scripts/sync-landing-to-public.mjs && next build",
     "process-logo": "python3 scripts/process-logo.py",
+    "process-trust-icons": "python3 scripts/process-trust-icons.py",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-avatar": "^1.1.10",
+    "@radix-ui/react-separator": "^1.1.8",
     "clsx": "^2.1.1",
+    "framer-motion": "^12.40.0",
     "gsap": "^3.13.0",
     "lucide-react": "^0.525.0",
     "motion": "^12.40.0",

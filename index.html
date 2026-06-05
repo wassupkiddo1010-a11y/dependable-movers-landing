@@ -11,7 +11,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,500;0,600;0,700;0,800;1,500&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800;900&family=Fredoka:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,500;0,600;0,700;0,800;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -26,6 +26,11 @@
             'footer-bg': '#F4F6F9',
             heading: '#1A1A1A',
             body: '#555555',
+            primary: '#16335B',
+            muted: '#F4F6F9',
+            'muted-foreground': '#555555',
+            card: '#ffffff',
+            border: '#e5e7eb',
           },
           fontFamily: {
             heading: ['Poppins', 'sans-serif'],
@@ -38,39 +43,611 @@
   </script>
 
   <style>
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+    body {
+      overflow-x: hidden;
+      margin: 0;
+    }
 
-    /* Hero — photo only, no glass */
+    /* Hero — full viewport, premium logistics aesthetic */
     .hero-bg {
-      background-image: linear-gradient(to bottom, rgba(22,51,91,0.15) 0%, rgba(22,51,91,0.45) 100%),
-        url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80');
+      background-color: #102141;
+      background-image: linear-gradient(
+          105deg,
+          rgba(16, 33, 65, 0.78) 0%,
+          rgba(16, 33, 65, 0.35) 60%,
+          rgba(16, 33, 65, 0.2) 100%
+        ),
+        url('assets/hero.png');
       background-size: cover;
-      background-position: center;
+      background-position: center center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      min-height: 100svh;
+      height: 100vh;
+      height: 100svh;
+      padding-top: 5.25rem;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+    @media (min-width: 1024px) {
+      .hero-bg { padding-top: 6.75rem; }
     }
     .hero-content {
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 1.25rem max(4vw, 32px) 1.25rem max(5vw, 40px);
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+    }
+    .hero-layout {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    @media (min-width: 768px) {
+      .hero-layout {
+        grid-template-columns: minmax(0, 1fr) 420px;
+        gap: 3rem;
+        justify-content: space-between;
+      }
+    }
+    .hero-copy {
+      max-width: 36rem;
+      min-width: 0;
+    }
+    @media (min-width: 1024px) {
+      .hero-copy {
+        max-width: 42rem;
+        padding-right: 1.5rem;
+      }
+    }
+    /* Experience-hero style display heading */
+    .hero-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(3.5rem, 9.5vw, 8.5rem);
+      line-height: 0.87;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      color: #ffffff;
+      margin: 0;
+    }
+    .hero-title-outline {
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.92);
+    }
+    .hero-tagline {
+      margin-top: 2rem;
+      font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 500;
+      font-size: 11px;
+      line-height: 1.65;
+      color: #ffffff;
+      opacity: 1;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      max-width: 20rem;
+    }
+    .hero-tagline .char {
+      display: inline-block;
+    }
+    .hero-tagline-word {
+      display: inline-block;
+      white-space: nowrap;
+    }
+    @media (max-width: 767px) {
+      .hero-tagline-word { white-space: normal; }
+    }
+    .hero-tagline-space {
+      display: inline-block;
+      width: 0.3em;
+    }
+    /* Glass quote card */
+    .hero-form-card {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 90vw;
+      margin: 0 auto;
+      padding: 2.5rem 2.25rem 2.25rem;
+      background: rgba(15, 35, 65, 0.6);
+      backdrop-filter: blur(24px) saturate(160%);
+      -webkit-backdrop-filter: blur(24px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      max-height: min(85vh, 720px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      box-sizing: border-box;
+    }
+    @media (min-width: 768px) {
+      .hero-form-card {
+        width: 420px;
+        max-width: 420px;
+        margin: 0 0 0 auto;
+        justify-self: end;
+      }
+    }
+    @media (max-width: 767px) {
+      .hero-form-card {
+        margin-top: 2rem;
+      }
+    }
+    .hero-form-card__title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      letter-spacing: 0.02em;
+      color: #ffffff;
+      text-align: center;
+      margin: 0 0 0.375rem;
+      line-height: 1.05;
+    }
+    .hero-form-card__lead {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 400;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.7);
+      text-align: center;
+      margin: 0 0 1.5rem;
+    }
+    .hero-form-card .wizard-progress { margin-bottom: 1.5rem; }
+    .hero-form-card .progress-label {
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 9px;
+    }
+    .hero-form-card .progress-step.active .progress-label,
+    .hero-form-card .progress-step.complete .progress-label {
+      color: #ffffff;
+    }
+    .hero-form-card .progress-node {
+      background-color: rgba(255, 255, 255, 0.25);
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .hero-form-card .progress-step.active .progress-node,
+    .hero-form-card .progress-step.complete .progress-node {
+      background-color: #ED7D22;
+      color: #fff;
+    }
+    .hero-form-card .progress-connector {
+      background-color: rgba(255, 255, 255, 0.25);
+    }
+    .hero-form-card .progress-connector.complete {
+      background-color: #ED7D22;
+    }
+    .hero-form-card .form-field {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 0.9375rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: rgba(255, 255, 255, 0.95);
+      border: 2px solid transparent;
+      border-radius: 10px;
+      color: #1A1A1A;
+      margin-bottom: 12px;
+      transition: border-color 0.2s ease;
+      box-sizing: border-box;
+    }
+    .hero-form-card .form-field::placeholder {
+      color: #888888;
+    }
+    .hero-form-card .form-field:focus {
+      outline: none;
+      border-color: #ED7D22;
+      background: #ffffff;
+      box-shadow: none;
+    }
+    .hero-form-card .form-select-light {
+      color: #1A1A1A;
+      background-color: rgba(255, 255, 255, 0.95);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2316335B'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+    }
+    .hero-form-card .form-select-light option {
+      color: #1A1A1A;
+      background: #fff;
+    }
+    .hero-form-card input[type="date"].form-field {
+      color-scheme: light;
+    }
+    .hero-form-card input[type="date"].form-field::-webkit-calendar-picker-indicator {
+      filter: none;
+      opacity: 0.65;
+    }
+    .hero-form-card .form-btn-primary {
+      width: 100%;
+      padding: 15px;
+      background: #ED7D22;
+      color: #ffffff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: background 0.2s ease, transform 0.1s ease;
+      display: inline-block;
+      text-align: center;
+    }
+    .hero-form-card .form-btn-primary:hover {
+      background: #D4691A;
+      transform: translateY(-1px);
+    }
+    .hero-form-card .form-btn-primary:active {
+      transform: translateY(0);
+    }
+    .hero-form-card .form-btn-outline {
+      width: 100%;
+      padding: 14px;
+      color: #ffffff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: 10px;
+      background: transparent;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .hero-form-card .form-btn-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.85);
+    }
+    .hero-form-card .form-step-note {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.55);
+      text-align: center;
+      margin: 0.5rem 0 1rem;
+      max-width: none;
+    }
+    .hero-form-card .form-step .grid { gap: 0.75rem; }
+    .hero-form-card .text-center.mt-5,
+    .hero-form-card .text-center.mt-8 {
+      margin-top: 0.5rem;
+    }
+    .hero-form-card #form-success {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+    }
+    .hero-form-card #form-success p { color: #ffffff; }
+    .hero-form-card label.text-white\/50,
+    .hero-form-card .text-white\/50 {
+      color: rgba(255, 255, 255, 0.65) !important;
+    }
+    .hero-form-card .text-white\/50 a {
+      color: #ffffff !important;
+      text-decoration: underline;
+    }
+    .hero-form-card input[type="checkbox"] {
+      border-color: rgba(255, 255, 255, 0.45);
+      accent-color: #ED7D22;
+    }
+
+    /* Trust — HighlightCard (brand navy + orange) */
+    .trust-section {
+      background: #F0F2F7;
+      padding: 60px max(5vw, 32px);
+      margin: 0;
+    }
+    .trust-section__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .trust-section__heading {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: clamp(36px, 5vw, 52px);
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: #1A1A1A;
+      text-align: center;
+      margin: 0 0 48px;
+    }
+    .trust-grid {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: stretch;
+      justify-content: center;
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      .trust-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    .highlight-card-wrap {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 280px;
+      width: 100%;
+      max-width: 350px;
+      min-height: 420px;
+      height: auto;
+      cursor: pointer;
+      transform: translateZ(0);
+      transition: transform 0.5s ease;
+      box-sizing: border-box;
+    }
+    .highlight-card-wrap:hover {
+      transform: scale(1.05) rotate(-1deg);
+    }
+    .highlight-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+      overflow: hidden;
+      border-radius: 16px;
+      box-sizing: border-box;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: linear-gradient(145deg, #16335B 0%, #1e4a7a 48%, #102141 100%);
+      color: #ffffff;
+      box-shadow: 0 20px 40px rgba(22, 51, 91, 0.28);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: border-color 0.5s ease, box-shadow 0.5s ease;
+    }
+    .highlight-card-wrap:hover .highlight-card {
+      border-color: rgba(237, 125, 34, 0.45);
+      box-shadow: 0 24px 48px rgba(237, 125, 34, 0.15), 0 20px 40px rgba(22, 51, 91, 0.35);
+    }
+    .highlight-card__fx {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .highlight-card__fx-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top right, rgba(255, 255, 255, 0.1), rgba(237, 125, 34, 0.12));
+      opacity: 0.4;
+      transition: opacity 0.5s ease;
+    }
+    .highlight-card-wrap:hover .highlight-card__fx-gradient {
+      opacity: 0.6;
+    }
+    .highlight-card__fx-orb {
+      position: absolute;
+      bottom: -5rem;
+      left: -5rem;
+      width: 12rem;
+      height: 12rem;
+      border-radius: 50%;
+      background: linear-gradient(to top right, rgba(237, 125, 34, 0.25), transparent);
+      filter: blur(40px);
+      opacity: 0.3;
+      transition: transform 0.7s ease, opacity 0.7s ease;
+    }
+    .highlight-card-wrap:hover .highlight-card__fx-orb {
+      opacity: 0.5;
+      transform: scale(1.1);
+    }
+    .highlight-card__fx-ping-a {
+      position: absolute;
+      top: 2.5rem;
+      left: 2.5rem;
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      background: rgba(237, 125, 34, 0.12);
+      filter: blur(20px);
+      animation: highlightPing 2s ease-out infinite;
+    }
+    .highlight-card__fx-ping-b {
+      position: absolute;
+      bottom: 4rem;
+      right: 4rem;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      filter: blur(14px);
+      animation: highlightPing 2s ease-out infinite 0.5s;
+    }
+    .highlight-card__fx-shine {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.12), transparent);
+      transform: skewX(-12deg) translateX(100%);
+      transition: transform 1s ease;
+    }
+    .highlight-card-wrap:hover .highlight-card__fx-shine {
+      transform: skewX(-12deg) translateX(-200%);
+    }
+    @keyframes highlightPing {
+      0% { transform: scale(1); opacity: 0.6; }
+      70%, 100% { transform: scale(1.4); opacity: 0; }
+    }
+    .highlight-card__body {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      width: 100%;
+      min-height: 0;
+      height: 100%;
+      padding: 2rem;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    .highlight-card__icon-ring {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      flex-shrink: 0;
+    }
+    .highlight-card__icon-ring::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px solid rgba(237, 125, 34, 0.35);
+      animation: highlightPing 2s ease-out infinite;
+    }
+    .highlight-card__icon-box {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      border-radius: 50%;
+      box-sizing: border-box;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: linear-gradient(145deg, rgba(22, 51, 91, 0.95), rgba(16, 33, 65, 0.9));
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+    .highlight-card__icon-slot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 4.5rem;
+      height: 4.5rem;
+      flex-shrink: 0;
+    }
+    .highlight-card-wrap:hover .highlight-card__icon-box {
+      transform: scale(1.1) rotate(12deg);
+      box-shadow: 0 16px 32px rgba(237, 125, 34, 0.2);
+    }
+    .highlight-card__icon-box img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-width: 4.5rem;
+      max-height: 4.5rem;
+      object-fit: contain;
+      object-position: center center;
+      margin: 0;
+      transition: transform 0.7s ease;
+    }
+    .highlight-card-wrap:hover .highlight-card__icon-box img {
+      transform: rotate(180deg);
+    }
+    .highlight-card__title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 2.25rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #ffffff;
+      margin: 0 0 1rem;
+      line-height: 1.1;
+      transition: transform 0.3s ease;
+    }
+    .highlight-card-wrap:hover .highlight-card__title {
+      transform: scale(1.05);
+    }
+    .highlight-card__content {
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: 2.5rem 1rem 3rem;
-      max-width: 80rem;
-      margin: 0 auto;
+      align-items: center;
+      width: 100%;
+      min-height: 0;
+    }
+    .highlight-card__desc {
+      max-width: 20rem;
       width: 100%;
     }
-    @media (min-width: 640px) {
-      .hero-content { padding: 4rem 1.5rem 4rem; }
+    .highlight-card__desc p {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.95);
+      margin: 0 0 0.35rem;
+      transition: color 0.3s ease;
     }
-    @media (min-width: 1024px) {
-      .hero-content { padding: 5rem 2rem 5rem; }
+    .highlight-card-wrap:hover .highlight-card__desc p {
+      color: #ffffff;
     }
-    .hero-title {
-      font-family: Poppins, sans-serif;
-      font-weight: 700;
-      font-size: clamp(1.875rem, 5.2vw, 4.5rem);
-      line-height: 1;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      white-space: nowrap;
+    .highlight-card__footer {
+      margin-top: auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      padding-top: 1.25rem;
+    }
+    .highlight-card__divider {
+      display: block;
+      margin: 0;
+      padding: 0;
+      width: 33%;
+      height: 2px;
+      max-height: 2px;
+      min-height: 2px;
+      flex-shrink: 0;
+      border: none;
+      border-radius: 0;
+      background: linear-gradient(to right, transparent, #ED7D22 50%, transparent);
+      box-shadow: none;
+      transition: width 0.5s ease;
+    }
+    .highlight-card-wrap:hover .highlight-card__divider {
+      width: 50%;
+    }
+    .highlight-card__corner-tl,
+    .highlight-card__corner-br {
+      position: absolute;
+      width: 5rem;
+      height: 5rem;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .highlight-card__corner-tl {
+      top: 0;
+      left: 0;
+      border-radius: 0 0 1.5rem 0;
+      background: linear-gradient(to bottom right, rgba(237, 125, 34, 0.22), transparent);
+    }
+    .highlight-card__corner-br {
+      bottom: 0;
+      right: 0;
+      border-radius: 1.5rem 0 0 0;
+      background: linear-gradient(to top left, rgba(255, 255, 255, 0.12), transparent);
+    }
+    .highlight-card-wrap:hover .highlight-card__corner-tl,
+    .highlight-card-wrap:hover .highlight-card__corner-br {
+      opacity: 1;
     }
 
     /* Header logo — transparent PNG, no duplicate wordmark */
@@ -83,120 +660,49 @@
     }
     @media (min-width: 1024px) {
       .site-logo {
-        height: 3.75rem; /* ~60px */
-        max-width: 13rem;
+        height: 4.375rem; /* ~70px */
+        max-width: 15rem;
       }
     }
 
-    /* Consultation — solid navy base + full-span glass tint overlay */
-    .consultation-section {
-      position: relative;
-      isolation: isolate;
-      background-color: #16335B;
-      padding: 4rem 0;
+    /* Glass pill header (ResponsiveHeroBanner nav pattern) */
+    .rb-header__logo-img {
+      height: 4.375rem; /* ~70px */
+      width: auto;
+      max-width: min(52vw, 15rem);
+      object-fit: contain;
+      display: block;
+    }
+    #header-mobile {
+      max-height: 0;
       overflow: hidden;
+      transition: max-height 0.4s ease;
     }
-    @media (min-width: 1024px) {
-      .consultation-section { padding: 6rem 0; }
+    #header-mobile.open {
+      max-height: 28rem;
     }
-    .consultation-section__glass {
-      position: absolute;
-      inset: 0;
+    #header-mobile a.is-active {
+      color: #ffffff;
+    }
+    .navbar {
+      position: fixed;
+      top: 0;
       width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        160deg,
-        rgba(255, 255, 255, 0.11) 0%,
-        rgba(255, 255, 255, 0.03) 42%,
-        rgba(255, 255, 255, 0.06) 100%
-      );
-      border-top: 1px solid rgba(255, 255, 255, 0.14);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.16),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.06);
-      pointer-events: none;
-      z-index: 1;
+      background: transparent;
+      transition: transform 0.3s ease;
     }
-    /* Reflective sheen — top rim + diagonal specular highlight */
-    .consultation-section__glass::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.24) 0%,
-        rgba(255, 255, 255, 0.08) 10%,
-        rgba(255, 255, 255, 0.02) 22%,
-        transparent 38%
-      );
-      pointer-events: none;
+    .navbar.nav-hidden {
+      transform: translateY(-100%);
     }
-    .consultation-section__glass::after {
-      content: "";
-      position: absolute;
-      top: -15%;
-      left: -5%;
-      width: 52%;
-      height: 130%;
-      background: linear-gradient(
-        118deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.02) 38%,
-        rgba(255, 255, 255, 0.16) 50%,
-        rgba(255, 255, 255, 0.05) 58%,
-        transparent 70%
-      );
-      transform: rotate(-10deg);
-      pointer-events: none;
-    }
-    .consultation-section__reflect {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      background: linear-gradient(
-        22deg,
-        transparent 0%,
-        transparent 62%,
-        rgba(255, 255, 255, 0.04) 78%,
-        rgba(255, 255, 255, 0.09) 88%,
-        rgba(255, 255, 255, 0.03) 96%,
-        transparent 100%
-      );
-    }
-    .consultation-wrap {
-      position: relative;
-      z-index: 2;
-      max-width: 52rem;
-      margin: 0 auto;
-    }
-    .hero-tagline {
-      font-family: Poppins, sans-serif;
-      font-size: clamp(1rem, 2.5vw, 1.375rem);
-      font-weight: 500;
-      font-style: italic;
-      line-height: 1.5;
-      color: rgba(255, 255, 255, 0.92);
-      max-width: 36rem;
-      margin-top: 1.25rem;
-    }
-    .hero-tagline .char {
-      display: inline-block;
-    }
-    .hero-tagline-word {
-      display: inline-block;
-      white-space: nowrap;
-    }
-    .hero-tagline-space {
-      display: inline-block;
-      width: 0.3em;
-    }
-    @media (min-width: 1024px) {
-      .hero-tagline { margin-top: 1.5rem; }
+    .rb-header__glass {
+      background: rgba(15, 35, 65, 0.6);
+      backdrop-filter: blur(24px) saturate(160%);
+      -webkit-backdrop-filter: blur(24px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
 
-    /* Consultation — Sirva-style editorial form */
+    /* Consultation — Sirva-style editorial form (shared form tokens) */
     .consultation-heading {
       font-family: Inter, system-ui, sans-serif;
       font-weight: 600;
@@ -308,53 +814,6 @@
       margin: 1.5rem auto 0;
     }
 
-    /* Stats animated counter */
-    .stats-counter {
-      font-family: Poppins, sans-serif;
-      font-weight: 800;
-      font-size: clamp(2.25rem, 5vw, 3.75rem);
-      line-height: 1;
-      color: #ffffff;
-      display: flex;
-      align-items: baseline;
-      margin-bottom: 0.5rem;
-    }
-    .stats-counter-digits {
-      display: inline-flex;
-      align-items: baseline;
-      line-height: 1;
-    }
-    .stats-counter-digit {
-      position: relative;
-      display: inline-block;
-      width: 0.65em;
-      height: 1em;
-      overflow: hidden;
-      vertical-align: top;
-    }
-    .stats-counter-digit-inner {
-      display: block;
-      transition: transform 0.14s ease-out;
-      will-change: transform;
-    }
-    .stats-counter-digit-inner span {
-      display: block;
-      height: 1em;
-      line-height: 1;
-      text-align: center;
-    }
-    .stats-counter-suffix {
-      margin-left: 0.05em;
-    }
-
-    /* STATS BAND — swap URL for owner's family/lifestyle photo */
-    .stats-bg {
-      background-image: linear-gradient(to right, rgba(22,51,91,0.88) 0%, rgba(22,51,91,0.55) 45%, rgba(22,51,91,0.2) 100%),
-        url('https://images.unsplash.com/photo-1511895426328-dc8714191300?w=1920&q=80');
-      background-size: cover;
-      background-position: center;
-    }
-
     .btn-orange {
       background-color: #ED7D22;
       transition: background-color 0.2s ease, transform 0.15s ease;
@@ -369,7 +828,100 @@
     .btn-navy:hover { background-color: #1e4578; }
     .btn-navy:active { transform: scale(0.98); }
 
-    /* Accordion */
+    /* FAQ section — centered heading + accordion (reference layout) */
+    .faq-section__inner {
+      width: 100%;
+      max-width: 48rem;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      box-sizing: border-box;
+    }
+    @media (min-width: 640px) {
+      .faq-section__inner {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+    }
+    .faq-section__title {
+      margin: 0 0 2rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.5rem, 4vw, 1.875rem);
+      line-height: 1.2;
+      text-align: center;
+      color: #1A1A1A;
+      letter-spacing: -0.02em;
+    }
+    /* FAQ accordion (matches components/ui/faq-accordion.tsx) */
+    .faq-accordion {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .faq-accordion__trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem;
+      border: none;
+      border-radius: 1rem;
+      background: #ffffff;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      transition: background 0.2s ease, box-shadow 0.2s ease;
+    }
+    .faq-accordion__trigger:hover {
+      background: rgba(249, 250, 251, 0.9);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+    .accordion-item.open .faq-accordion__trigger {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    .faq-accordion__trigger-main {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      min-width: 0;
+    }
+    .faq-accordion__help-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+      flex-shrink: 0;
+      color: #4b5563;
+    }
+    .faq-accordion__question {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.125rem;
+      font-weight: 500;
+      line-height: 1.35;
+      color: #3f3f46;
+      letter-spacing: 0.01em;
+    }
+    .faq-accordion__chevron-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      flex-shrink: 0;
+      border-radius: 9999px;
+      background: #e5e7eb;
+      transition: transform 0.3s ease;
+    }
+    .accordion-item.open .faq-accordion__chevron-wrap {
+      transform: rotate(180deg);
+    }
+    .faq-accordion__chevron {
+      width: 1rem;
+      height: 1rem;
+      color: #1f2937;
+    }
     .accordion-panel {
       display: grid;
       grid-template-rows: 0fr;
@@ -377,16 +929,49 @@
     }
     .accordion-panel.open { grid-template-rows: 1fr; }
     .accordion-panel > div { overflow: hidden; }
+    .faq-accordion__answer-wrap {
+      margin-top: 1rem;
+      margin-left: 3.5rem;
+      padding-bottom: 0.5rem;
+    }
+    .faq-accordion__answer {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: 1rem;
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    .faq-accordion__answer-text {
+      flex: 1;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: #3f3f46;
+      margin: 0;
+    }
+    .faq-accordion__answer-text a {
+      color: #2E6DB4;
+      text-decoration: underline;
+    }
+    .faq-accordion__msg-icon-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      flex-shrink: 0;
+      border-radius: 9999px;
+      background: rgba(209, 213, 219, 0.7);
+    }
+    .faq-accordion__msg-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: #374151;
+    }
 
-    .accordion-chevron { transition: transform 0.3s ease; }
-    .accordion-item.open .accordion-chevron { transform: rotate(180deg); }
-    .accordion-item.open .accordion-icon { color: #ED7D22; }
-
-    /* Mobile nav */
-    #mobile-nav { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
-    #mobile-nav.open { max-height: 600px; }
-    #utility-mobile { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
-    #utility-mobile.open { max-height: 400px; }
+    /* Mobile nav — header uses #header-mobile */
 
     /* Carousel — removed; testimonials use card grid */
     /* Focus styles */
@@ -453,64 +1038,93 @@
     }
     .form-select option { color: #1A1A1A; background: #fff; }
 
-    /* The Dependable difference — 2-column feature section */
-    .difference-section {
+    /* About Us — two-column editorial layout */
+    .about-section {
+      background: #ffffff;
+      padding: 80px max(6vw, 40px);
+    }
+    .about-section__inner {
       display: grid;
       grid-template-columns: 45fr 52fr;
-      gap: 60px;
-      align-items: start;
-      padding: 80px max(5vw, 24px);
-      background: #ffffff;
-      width: 100%;
-      max-width: 1280px;
+      gap: 64px;
+      align-items: center;
+      max-width: 1200px;
       margin: 0 auto;
     }
-    .difference-heading {
-      font-family: Poppins, sans-serif;
-      font-size: clamp(40px, 5vw, 56px);
+    .about-section__visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    /* Hidden when photo includes its own decorative backdrop */
+    .about-section__circle {
+      display: none;
+    }
+    .about-section__photo {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+    }
+    .about-section__heading {
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 800;
+      font-size: clamp(36px, 5vw, 52px);
+      letter-spacing: -0.03em;
       line-height: 1.05;
       color: #1A1A1A;
-      margin-bottom: 40px;
+      text-align: left;
+      margin: 0 0 24px;
     }
-    .difference-block {
-      margin-top: 32px;
-    }
-    .difference-block:first-of-type {
-      margin-top: 0;
-    }
-    /* Toggle orange subheads: add class "difference-subhead--orange" to .difference-subhead */
-    .difference-subhead {
-      font-family: Poppins, sans-serif;
-      font-size: 26px;
-      font-weight: 600;
-      color: #1A1A1A;
-      margin-bottom: 8px;
-    }
-    .difference-subhead--orange { color: #ED7D22; }
-    .difference-body {
-      font-family: Inter, sans-serif;
-      font-size: 16px;
+    .about-section__text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 400;
-      color: #555555;
-      line-height: 1.6;
+      font-size: 16px;
+      line-height: 1.75;
+      color: #444444;
+      margin: 0 0 18px;
+      max-width: 540px;
     }
-    .difference-image {
-      width: 100%;
-      min-height: 520px;
-      height: auto;
-      object-fit: cover;
-      border-radius: 16px;
-      display: block;
+    .about-section__btn {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 14px 36px;
+      background: #ED7D22;
+      color: #ffffff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .about-section__btn:hover {
+      background: #D4691A;
+      transform: translateY(-2px);
+      color: #ffffff;
     }
     @media (max-width: 768px) {
-      .difference-section {
+      .about-section {
+        padding: 60px max(6vw, 24px);
+      }
+      .about-section__inner {
         grid-template-columns: 1fr;
         gap: 40px;
-        padding: 60px 24px;
       }
-      .difference-image-wrap { order: 2; }
-      .difference-image { min-height: 320px; }
+      .about-section__visual {
+        max-width: 360px;
+      }
     }
 
     /* How It Works — editorial process cards */
@@ -584,142 +1198,34 @@
       .how-it-works-grid { grid-template-columns: 1fr; }
     }
 
-    /* Testimonial cards — shadcn-style grid (vanilla port) */
-    .testimonials-section {
-      background: #ffffff;
-      padding: 80px max(5vw, 24px);
-    }
-    .testimonials-inner {
-      max-width: 1280px;
-      margin: 0 auto;
-    }
-    .testimonials-heading {
-      font-family: Poppins, sans-serif;
-      font-weight: 700;
-      font-size: clamp(28px, 4vw, 42px);
-      color: #1A1A1A;
-      text-align: center;
-      margin-bottom: 48px;
-      line-height: 1.15;
-    }
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-    @media (min-width: 768px) {
-      .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (min-width: 1024px) {
-      .testimonials-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    .testimonial-card {
+    /* Animated testimonials — matches AnimatedTestimonials component */
+    [data-testimonial-stage] {
       position: relative;
-      overflow: hidden;
-      border-radius: 16px;
-      border: 1px solid rgba(22, 51, 91, 0.1);
-      background: #ffffff;
-      padding: 24px;
-      transition: box-shadow 0.2s ease;
-      display: flex;
-      flex-direction: column;
+      min-height: 300px;
+      width: 100%;
     }
     @media (min-width: 768px) {
-      .testimonial-card { padding: 32px; }
+      [data-testimonial-stage] { min-height: 400px; }
     }
-    .testimonial-card:hover {
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
-    }
-    .testimonial-card-quote {
+    [data-testimonial-stage] .testimonial-slide {
       position: absolute;
-      right: 24px;
-      top: 24px;
-      font-family: Georgia, serif;
-      font-size: 3.75rem;
-      line-height: 1;
-      color: rgba(85, 85, 85, 0.2);
-      pointer-events: none;
-      user-select: none;
-    }
-    .testimonial-card-inner {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      justify-content: space-between;
-      height: 100%;
-    }
-    .testimonial-stars {
-      display: flex;
-      gap: 4px;
-    }
-    .testimonial-stars svg {
-      width: 16px;
-      height: 16px;
-    }
-    .testimonial-text {
-      font-size: 1rem;
-      line-height: 1.6;
-      color: #555555;
-      text-wrap: pretty;
-    }
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .testimonial-avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 9999px;
-      overflow: hidden;
-      flex-shrink: 0;
-      background: #F4F6F9;
-    }
-    .testimonial-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .testimonial-name {
-      font-weight: 600;
-      color: #1A1A1A;
-      font-size: 0.9375rem;
-    }
-    .testimonial-role {
-      font-size: 0.875rem;
-      color: #555555;
+      inset: 0;
+      transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     }
 
     /* ---- Mobile performance & polish (≤1023px — desktop unchanged) ---- */
     @media (max-width: 1023px) {
       html { scroll-behavior: auto; }
 
-      /* Lighter hero / stats photos */
+      /* Hero stacks on mobile — allow scroll inside tall card */
       .hero-bg {
-        background-image: linear-gradient(to bottom, rgba(22,51,91,0.2) 0%, rgba(22,51,91,0.5) 100%),
-          url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=75');
+        height: auto;
+        min-height: 100svh;
+        overflow-y: auto;
       }
-      .stats-bg {
-        background-image: linear-gradient(to right, rgba(22,51,91,0.9) 0%, rgba(22,51,91,0.65) 100%),
-          url('https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800&q=75');
+      .hero-form-card {
+        max-height: none;
       }
-
-      /* Simpler glass — fewer composited layers while scrolling */
-      .consultation-section__glass::after,
-      .consultation-section__reflect { display: none; }
-      .consultation-section__glass::before {
-        background: linear-gradient(
-          to bottom,
-          rgba(255, 255, 255, 0.14) 0%,
-          transparent 28%
-        );
-      }
-      .consultation-section__glass {
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
-      }
-
-      .consultation-section { padding: 3rem 0; }
-      .consultation-lead { margin-bottom: 2rem; }
 
       /* Hero tagline — CSS fade instead of per-char blur */
       .hero-tagline--mobile-in {
@@ -750,29 +1256,26 @@
       }
       .form-step.active { animation: none; }
 
-      .stats-counter-digit-inner { will-change: auto; }
-
-      .difference-section { padding: 48px 20px; gap: 32px; }
-      .difference-heading { font-size: clamp(2rem, 8vw, 2.5rem); margin-bottom: 28px; }
-      .difference-subhead { font-size: 1.25rem; }
-      .difference-block { margin-top: 24px; }
-      .difference-image { min-height: 260px; border-radius: 12px; }
+      .about-section { padding: 48px 20px; }
+      .about-section__inner { gap: 32px; }
+      .about-section__visual { max-width: 300px; }
 
       .how-it-works-section { padding: 48px 20px; }
       .how-it-works-grid { padding: 0; gap: 12px; }
       .how-it-works-heading { margin-bottom: 28px; font-size: clamp(1.75rem, 7vw, 2.25rem); }
+      .trust-section__heading,
+      .about-section__heading {
+        margin-bottom: 32px;
+        font-size: clamp(1.75rem, 7vw, 2.25rem);
+      }
+      .about-section__heading { margin-bottom: 24px; }
       .how-it-works-card { padding: 24px 20px; min-height: auto; border-radius: 12px; }
 
-      .testimonials-section { padding: 48px 20px; }
-      .testimonials-heading { margin-bottom: 28px; font-size: clamp(1.5rem, 6vw, 2rem); }
-      .testimonial-card { padding: 20px; }
-      .testimonial-card-quote { font-size: 2.5rem; right: 16px; top: 16px; }
 
       /* Defer paint for below-fold sections */
-      #difference,
+      #about,
       .how-it-works-section,
-      .stats-bg,
-      .testimonials-section,
+      #testimonials,
       #faq {
         content-visibility: auto;
         contain-intrinsic-size: auto 480px;
@@ -783,132 +1286,119 @@
 <body class="font-body text-body antialiased bg-white">
 
 
-  <!-- ============================================================
-       1. TOP UTILITY BAR
-       ============================================================ -->
-  <div class="bg-white border-b border-gray-100 relative lg:sticky lg:top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between min-h-14 lg:min-h-16 py-1">
-
-        <!-- Logo -->
-        <a href="#" class="shrink-0 flex items-center" aria-label="Dependable Movers home">
+  <!-- SITE HEADER — glass pill nav (ResponsiveHeroBanner pattern) -->
+  <header class="navbar rb-header z-50 isolate">
+    <div class="mx-4 sm:mx-6 xl:mx-auto xl:max-w-[1400px] pb-3 sm:pb-4">
+      <div class="flex items-center justify-between pt-3 sm:pt-4 gap-3">
+        <a href="#" class="shrink-0 inline-flex items-center" aria-label="Dependable Movers home">
           <img
             src="assets/logo.png"
             alt="Dependable Movers"
-            class="site-logo"
-            width="200"
-            height="80"
+            class="rb-header__logo-img"
+            width="220"
+            height="70"
             decoding="async"
           >
         </a>
 
-        <!-- Desktop utility links -->
-        <div class="hidden lg:flex items-center gap-5 text-sm">
-          <a href="tel:18003395798" class="flex items-center gap-1.5 text-heading hover:text-secondary-blue transition-colors font-semibold">
-            <svg class="w-4 h-4 text-orange" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
-            800-339-5798
-          </a>
-          <a href="#contact" class="text-heading hover:text-secondary-blue transition-colors">Contact Us</a>
-          <a href="#difference" class="text-heading hover:text-secondary-blue transition-colors">About Us</a>
-        </div>
-
-        <!-- Mobile hamburger (utility) -->
-        <button id="utility-toggle" class="lg:hidden p-2 text-navy" aria-label="Open menu" aria-expanded="false">
-          <svg id="util-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-          <svg id="util-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-      </div>
-
-      <!-- Mobile utility panel -->
-      <nav id="utility-mobile" class="lg:hidden border-t border-gray-100 pb-4" aria-label="Utility navigation">
-        <div class="pt-3 flex flex-col gap-2 text-sm">
-          <a href="tel:18003395798" class="px-2 py-2 text-heading hover:text-secondary-blue font-semibold">800-339-5798</a>
-          <a href="#contact" class="px-2 py-2 text-heading hover:text-secondary-blue">Contact Us</a>
-          <a href="#difference" class="px-2 py-2 text-heading hover:text-secondary-blue">About Us</a>
-        </div>
-      </nav>
-    </div>
-  </div>
-
-
-  <!-- ============================================================
-       2. PRIMARY NAV BAR
-       ============================================================ -->
-  <header class="bg-navy text-white sticky top-0 lg:top-16 z-40">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-12 lg:h-14">
-
-        <!-- Desktop nav -->
-        <nav class="hidden lg:flex items-center gap-1 text-sm" aria-label="Primary navigation">
-          <a href="#consultation" class="flex items-center gap-1 px-3 py-2 hover:text-orange transition-colors">Local Moving <svg class="w-3 h-3 opacity-60" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></a>
-          <a href="#consultation" class="flex items-center gap-1 px-3 py-2 hover:text-orange transition-colors">Long Distance Moving <svg class="w-3 h-3 opacity-60" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></a>
-          <a href="#consultation" class="flex items-center gap-1 px-3 py-2 hover:text-orange transition-colors">Commercial Moving <svg class="w-3 h-3 opacity-60" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></a>
-          <a href="#consultation" class="flex items-center gap-1 px-3 py-2 hover:text-orange transition-colors">Furniture Moving <svg class="w-3 h-3 opacity-60" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></a>
-          <a href="#contact" class="px-3 py-2 hover:text-orange transition-colors">Contact</a>
+        <nav class="hidden md:flex items-center gap-2" aria-label="Primary navigation">
+          <div class="rb-header__glass flex items-center gap-1 rounded-full px-1 py-1">
+            <a href="#" class="px-3 py-2 text-sm font-medium text-white/90 font-sans transition-colors whitespace-nowrap">Home</a>
+            <a href="#consultation" class="px-3 py-2 text-sm font-medium text-white/80 hover:text-white font-sans transition-colors whitespace-nowrap">Local Moving</a>
+            <a href="#consultation" class="px-3 py-2 text-sm font-medium text-white/80 hover:text-white font-sans transition-colors whitespace-nowrap">Long Distance Moving</a>
+            <a href="#consultation" class="px-3 py-2 text-sm font-medium text-white/80 hover:text-white font-sans transition-colors whitespace-nowrap hidden lg:inline-block">Commercial Moving</a>
+            <a href="#consultation" class="px-3 py-2 text-sm font-medium text-white/80 hover:text-white font-sans transition-colors whitespace-nowrap hidden xl:inline-block">Furniture Moving</a>
+            <a href="tel:+18008230395" class="px-3 py-2 text-sm font-semibold text-white/90 hover:text-white font-sans transition-colors whitespace-nowrap hidden lg:inline-flex items-center gap-1.5">
+              <svg class="h-4 w-4 shrink-0 opacity-90" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
+              800-823-0395
+            </a>
+            <a
+              href="#consultation"
+              class="ml-1 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-2 text-sm font-medium text-neutral-900 hover:bg-white/90 font-sans transition-colors whitespace-nowrap"
+            >
+              Request A Quote
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0" aria-hidden="true">
+                <path d="M7 7h10v10" />
+                <path d="M7 17 17 7" />
+              </svg>
+            </a>
+          </div>
         </nav>
 
-        <a href="#consultation" class="hidden lg:inline-flex bg-white text-navy font-semibold text-sm px-5 py-2 rounded-full hover:bg-cream transition-colors shrink-0">
-          Request A Quote
-        </a>
-
-        <!-- Mobile nav toggle -->
-        <button id="nav-toggle" class="lg:hidden flex items-center gap-2 text-sm font-medium py-2" aria-label="Open navigation" aria-expanded="false">
-          Menu
-          <svg id="nav-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-          <svg id="nav-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        <button
+          id="header-toggle"
+          type="button"
+          class="rb-header__glass md:hidden inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
+          aria-expanded="false"
+          aria-controls="header-mobile"
+          aria-label="Toggle menu"
+        >
+          <svg id="header-open" class="h-5 w-5 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="header-close" class="h-5 w-5 text-white/90 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
         </button>
       </div>
 
-      <!-- Mobile nav panel -->
-      <nav id="mobile-nav" class="lg:hidden border-t border-white/10 pb-4" aria-label="Mobile primary navigation">
-        <div class="pt-3 flex flex-col gap-1 text-sm">
-          <a href="#consultation" class="px-2 py-2.5 hover:text-orange">Local Moving</a>
-          <a href="#consultation" class="px-2 py-2.5 hover:text-orange">Long Distance Moving</a>
-          <a href="#consultation" class="px-2 py-2.5 hover:text-orange">Commercial Moving</a>
-          <a href="#consultation" class="px-2 py-2.5 hover:text-orange">Furniture Moving</a>
-          <a href="#contact" class="px-2 py-2.5 hover:text-orange">Contact</a>
-          <a href="#consultation" class="mx-2 mt-2 bg-white text-navy font-semibold text-center px-5 py-3 rounded-full">Request A Quote</a>
+      <nav
+        id="header-mobile"
+        class="rb-header__glass md:hidden mt-3 rounded-2xl overflow-hidden"
+        aria-label="Mobile navigation"
+      >
+        <div class="px-4 py-3 flex flex-col gap-0.5 font-sans">
+          <a href="tel:+18008230395" class="py-2.5 text-sm font-semibold text-white/95">800-823-0395</a>
+          <a href="#" class="py-2 text-sm font-medium text-white/90">Home</a>
+          <a href="#consultation" class="py-2 text-sm font-medium text-white/80 hover:text-white transition-colors">Local Moving</a>
+          <a href="#consultation" class="py-2 text-sm font-medium text-white/80 hover:text-white transition-colors">Long Distance Moving</a>
+          <a href="#consultation" class="py-2 text-sm font-medium text-white/80 hover:text-white transition-colors">Commercial Moving</a>
+          <a href="#consultation" class="py-2 text-sm font-medium text-white/80 hover:text-white transition-colors">Furniture Moving</a>
+          <a
+            href="#consultation"
+            class="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-medium text-neutral-900 hover:bg-white/90 transition-colors"
+          >
+            Request A Quote
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
+              <path d="M7 7h10v10" />
+              <path d="M7 17 17 7" />
+            </svg>
+          </a>
         </div>
       </nav>
     </div>
   </header>
 
 
-  <!-- HERO -->
-  <section class="hero-bg relative min-h-[62vh] sm:min-h-[70vh] lg:min-h-[85vh] flex flex-col">
-    <div class="hero-content px-4 sm:px-6 lg:px-8">
-      <h1 class="hero-title text-white">
-        Dependable Movers
-      </h1>
-      <p class="hero-tagline">
-        <span id="hero-tagline-text" class="inline-block" aria-label="Your trusted moving partner for local, long-distance, and commercial relocations."></span>
-      </p>
-    </div>
-  </section>
+  <!-- HERO + QUOTE FORM -->
+  <section id="consultation" class="hero-bg relative">
+    <div class="hero-content">
+      <div class="hero-layout">
+        <div class="hero-copy">
+          <h1 class="hero-title">
+            Dependable<br>
+            <span class="hero-title-outline">Movers</span>
+          </h1>
+          <p class="hero-tagline">
+            <span id="hero-tagline-text" class="inline-block" aria-label="Your trusted moving partner for local, long-distance, and commercial relocations."></span>
+          </p>
+        </div>
 
+        <div class="hero-form-card">
+          <h2 class="hero-form-card__title">Speak. Save. Move.</h2>
+          <p class="hero-form-card__lead">
+            Share a few details and a coordinator will reach out with your personalized plan.
+          </p>
 
-  <!-- CONSULTATION FORM — navy + glass tint overlay -->
-  <section id="consultation" class="consultation-section text-white">
-    <div class="consultation-section__glass" aria-hidden="true"></div>
-    <div class="consultation-section__reflect" aria-hidden="true"></div>
-    <div class="consultation-wrap mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="consultation-heading">
-        Speak. Save. Move.
-      </h2>
-      <p class="consultation-lead">
-        Share a few details below and a dedicated coordinator will reach out with a personalized plan.
-      </p>
+          <div id="form-success" class="hidden rounded-xl p-6 text-center" role="alert">
+            <svg class="w-10 h-10 text-orange mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <p class="font-heading font-semibold text-base">Thank you — we'll be in touch shortly.</p>
+          </div>
 
-      <!-- Success message (shown after final submit) -->
-      <div id="form-success" class="hidden bg-white/10 border border-white/20 rounded-xl p-8 text-center" role="alert">
-        <svg class="w-12 h-12 text-orange mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-        <p class="font-heading font-semibold text-lg">Thank you — we'll be in touch shortly.</p>
-      </div>
-
-      <form id="consultation-form" novalidate>
+          <form id="consultation-form" novalidate>
 
         <!-- Progress indicator -->
-        <div class="wizard-progress mb-10 lg:mb-12 px-2" id="wizard-progress" aria-label="Form progress">
+        <div class="wizard-progress mb-8 px-1" id="wizard-progress" aria-label="Form progress">
           <div class="progress-step active" data-progress="1">
             <div class="progress-node" aria-current="step">
               <span class="step-num">1</span>
@@ -936,7 +1426,7 @@
 
         <!-- STEP 1 — Location -->
         <div class="form-step active" data-step="1">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mb-8">
+          <div class="grid grid-cols-1 gap-3 mb-4">
             <div class="autocomplete-wrap">
               <label for="moving-from" class="sr-only">Moving From</label>
               <input type="text" id="moving-from" name="moving-from" required placeholder="Enter From Zip / City *" autocomplete="off"
@@ -955,7 +1445,7 @@
             </div>
           </div>
           <p class="form-step-note">Tell us where you're headed — we'll match you with the right crew and timeline.</p>
-          <div class="text-center mt-8">
+          <div class="text-center mt-5">
             <button type="button" data-action="next" class="form-btn-primary">
               Next
             </button>
@@ -964,7 +1454,7 @@
 
         <!-- STEP 2 — Details -->
         <div class="form-step" data-step="2">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mb-5">
+          <div class="grid grid-cols-1 gap-3 mb-4">
             <div>
               <label for="move-date" class="sr-only">Moving Date</label>
               <input type="date" id="move-date" name="move-date" required
@@ -985,7 +1475,7 @@
               </select>
               <p class="error-msg text-orange text-xs mt-1 hidden">Please fill in this field.</p>
             </div>
-            <div class="sm:col-span-2">
+            <div>
               <label for="move-type" class="sr-only">Move Type</label>
               <select id="move-type" name="move-type" required
                 class="form-field form-select-light">
@@ -998,7 +1488,7 @@
             </div>
           </div>
           <p class="form-step-note">The more we know about your move, the more accurate your estimate will be.</p>
-          <div class="flex flex-col sm:flex-row justify-center gap-3 mt-8">
+          <div class="flex flex-col gap-2 mt-5">
             <button type="button" data-action="back" class="form-btn-outline">
               Back
             </button>
@@ -1010,7 +1500,7 @@
 
         <!-- STEP 3 — Quote -->
         <div class="form-step" data-step="3">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mb-5">
+          <div class="grid grid-cols-1 gap-3 mb-4">
             <div>
               <label for="first-name" class="sr-only">First Name</label>
               <input type="text" id="first-name" name="first-name" required placeholder="First Name *"
@@ -1037,7 +1527,7 @@
             </div>
           </div>
 
-          <div class="space-y-3 mb-6 max-w-2xl mx-auto">
+          <div class="space-y-2.5 mb-4">
             <div class="flex items-start gap-2">
               <input type="checkbox" id="sms-marketing" name="sms-marketing" class="mt-1 w-4 h-4 rounded border-white/40 bg-transparent focus:ring-orange">
               <label for="sms-marketing" class="text-white/50 text-xs leading-relaxed">
@@ -1051,11 +1541,11 @@
               </label>
             </div>
           </div>
-          <p class="text-white/50 text-xs leading-relaxed mb-8 max-w-2xl mx-auto text-center">
-            *We do not share your information. If you do not consent to texts, call <a href="tel:18003395798" class="text-white underline">800-339-5798</a>.
+          <p class="text-white/50 text-xs leading-relaxed mb-5 text-center">
+            *We do not share your information. If you do not consent to texts, call <a href="tel:+18008230395" class="text-white underline">800-823-0395</a>.
           </p>
 
-          <div class="flex flex-col sm:flex-row justify-center gap-3">
+          <div class="flex flex-col gap-2">
             <button type="button" data-action="back" class="form-btn-outline">
               Back
             </button>
@@ -1064,52 +1554,138 @@
             </button>
           </div>
         </div>
-      </form>
+          </form>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- THE DEPENDABLE DIFFERENCE -->
-  <div class="bg-white w-full">
-  <section id="difference" class="difference-section">
-    <div class="difference-content">
-      <h2 class="difference-heading">The Dependable difference</h2>
-
-      <div class="difference-block">
-        <h3 class="difference-subhead">Dedicated concierge</h3>
-        <p class="difference-body">One point of contact handling every detail from start to finish, so you can focus on what's next.</p>
-      </div>
-
-      <div class="difference-block">
-        <h3 class="difference-subhead">Nationwide expertise</h3>
-        <p class="difference-body">Covering local, long-distance, and cross-country moves — we coordinate every detail of your relocation with precision and care.</p>
-      </div>
-
-      <div class="difference-block">
-        <h3 class="difference-subhead">White-glove service</h3>
-        <p class="difference-body">Your move, managed with discretion and care. Planned around your timeline, your home, and your priorities.</p>
-      </div>
-
-      <div class="difference-block">
-        <h3 class="difference-subhead">Stress-free from day one</h3>
-        <p class="difference-body">We handle providers, schedules, and logistics so everything stays organized and nothing falls through the cracks.</p>
-      </div>
+  <!-- TRUST / Our Credibility -->
+  <section class="trust-section" id="credibility" aria-labelledby="trust-section-heading">
+    <div class="trust-section__inner">
+      <h2 id="trust-section-heading" class="trust-section__heading">Our Credibility</h2>
+      <div class="trust-grid">
+      <article class="highlight-card-wrap">
+        <div class="highlight-card">
+          <div class="highlight-card__fx" aria-hidden="true">
+            <div class="highlight-card__fx-gradient"></div>
+            <div class="highlight-card__fx-orb"></div>
+            <div class="highlight-card__fx-ping-a"></div>
+            <div class="highlight-card__fx-ping-b"></div>
+            <div class="highlight-card__fx-shine"></div>
+          </div>
+          <div class="highlight-card__corner-tl" aria-hidden="true"></div>
+          <div class="highlight-card__corner-br" aria-hidden="true"></div>
+          <div class="highlight-card__body">
+            <div class="highlight-card__icon-ring">
+              <div class="highlight-card__icon-box">
+                <span class="highlight-card__icon-slot"><img src="assets/trust-trusted.png" alt="" width="72" height="72" loading="lazy" decoding="async"></span>
+              </div>
+            </div>
+            <div class="highlight-card__content">
+              <h3 class="highlight-card__title">Trusted</h3>
+              <div class="highlight-card__desc">
+                <p>We bring years of combined experience to every move,</p>
+                <p>ensuring your belongings are handled with absolute care,</p>
+                <p>and delivered safely to your destination.</p>
+              </div>
+            </div>
+            <div class="highlight-card__footer">
+              <div class="highlight-card__divider" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="highlight-card-wrap">
+        <div class="highlight-card">
+          <div class="highlight-card__fx" aria-hidden="true">
+            <div class="highlight-card__fx-gradient"></div>
+            <div class="highlight-card__fx-orb"></div>
+            <div class="highlight-card__fx-ping-a"></div>
+            <div class="highlight-card__fx-ping-b"></div>
+            <div class="highlight-card__fx-shine"></div>
+          </div>
+          <div class="highlight-card__corner-tl" aria-hidden="true"></div>
+          <div class="highlight-card__corner-br" aria-hidden="true"></div>
+          <div class="highlight-card__body">
+            <div class="highlight-card__icon-ring">
+              <div class="highlight-card__icon-box">
+                <span class="highlight-card__icon-slot"><img src="assets/trust-secure.png" alt="" width="72" height="72" loading="lazy" decoding="async"></span>
+              </div>
+            </div>
+            <div class="highlight-card__content">
+              <h3 class="highlight-card__title">Secure</h3>
+              <div class="highlight-card__desc">
+                <p>We coordinate only with vetted, professional moving crews</p>
+                <p>so your cargo is always in experienced, accountable hands.</p>
+              </div>
+            </div>
+            <div class="highlight-card__footer">
+              <div class="highlight-card__divider" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="highlight-card-wrap">
+        <div class="highlight-card">
+          <div class="highlight-card__fx" aria-hidden="true">
+            <div class="highlight-card__fx-gradient"></div>
+            <div class="highlight-card__fx-orb"></div>
+            <div class="highlight-card__fx-ping-a"></div>
+            <div class="highlight-card__fx-ping-b"></div>
+            <div class="highlight-card__fx-shine"></div>
+          </div>
+          <div class="highlight-card__corner-tl" aria-hidden="true"></div>
+          <div class="highlight-card__corner-br" aria-hidden="true"></div>
+          <div class="highlight-card__body">
+            <div class="highlight-card__icon-ring">
+              <div class="highlight-card__icon-box">
+                <span class="highlight-card__icon-slot"><img src="assets/trust-affordable.png" alt="" width="72" height="72" loading="lazy" decoding="async"></span>
+              </div>
+            </div>
+            <div class="highlight-card__content">
+              <h3 class="highlight-card__title">Affordable</h3>
+              <div class="highlight-card__desc">
+                <p>Moving is stressful enough.</p>
+                <p>We provide competitive rates for families and businesses nationwide</p>
+                <p>no hidden fees, no surprises.</p>
+              </div>
+            </div>
+            <div class="highlight-card__footer">
+              <div class="highlight-card__divider" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+      </article>
     </div>
-
-    <div class="difference-image-wrap">
-      <!-- REPLACE with your own photo: swap src below for {{YOUR_INTERIOR_PHOTO}} -->
-      <img
-        src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=900&q=80"
-        srcset="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&q=75 600w,
-                https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=900&q=80 900w"
-        sizes="(max-width: 1023px) 100vw, 900px"
-        alt="Bright modern living room interior"
-        class="difference-image"
-        loading="lazy"
-        decoding="async"
-      >
     </div>
   </section>
-  </div>
+
+  <!-- ABOUT US -->
+  <section id="about" class="about-section">
+    <div class="about-section__inner">
+      <div class="about-section__visual">
+        <div class="about-section__circle" aria-hidden="true"></div>
+        <!-- REPLACE {{YOUR_MOVER_PHOTO}}: swap src below with your mover photo path -->
+        <img
+          src="assets/about-mover.png"
+          alt="Professional mover carrying boxes"
+          class="about-section__photo"
+          width="480"
+          height="480"
+          loading="lazy"
+          decoding="async"
+        >
+      </div>
+      <div class="about-section__content">
+        <h2 class="about-section__heading">About Us</h2>
+        <p class="about-section__text">Dependable Movers is a top-notch moving company serving families and businesses across the U.S. With years of combined experience, you can be confident that we'll handle your items with absolute precision and care.</p>
+        <p class="about-section__text">Our team of dedicated, hardworking movers have one goal — your complete satisfaction. Whether you're moving locally, across the country, or relocating your business, we've got you covered every step of the way.</p>
+        <p class="about-section__text">Contact us today to get a free quote!</p>
+        <a href="#about" class="about-section__btn">Read more</a>
+      </div>
+    </div>
+  </section>
 
 
   <!-- HOW IT WORKS -->
@@ -1137,178 +1713,109 @@
   </section>
 
 
-  <!-- ============================================================
-       8. STATS BAND
-       Placeholder stats — owner can edit numbers
-       ============================================================ -->
-  <section class="stats-bg py-16 sm:py-24 lg:py-32">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-stretch gap-8 max-w-md">
-        <div class="w-1 bg-orange shrink-0"></div>
-        <div class="space-y-10">
-          <div>
-            <div id="stats-counter" class="stats-counter" aria-label="50 plus years of combined moving experience">
-              <span class="stats-counter-digits" id="stats-counter-digits"></span><span class="stats-counter-suffix">+</span>
+  <!-- TESTIMONIALS — AnimatedTestimonials (globalvanlines.com reviews) -->
+  <section id="testimonials" class="overflow-hidden bg-[#F4F6F9]/30 py-24" aria-label="Client testimonials">
+    <div id="animated-testimonials" class="mx-auto max-w-7xl px-4 md:px-6">
+      <div class="grid w-full grid-cols-1 gap-16 md:grid-cols-2 lg:gap-24">
+        <div class="flex flex-col justify-center">
+          <div class="space-y-6">
+            <div class="inline-flex items-center rounded-full bg-[#16335B]/10 px-3 py-1 text-sm font-medium text-[#16335B]">
+              <svg class="mr-1 h-3.5 w-3.5 fill-[#16335B]" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Trusted by families nationwide</span>
             </div>
-            <p class="text-white/80 text-sm sm:text-base">years of combined moving experience</p>
+            <h2 class="font-heading text-3xl font-bold tracking-tighter text-heading sm:text-4xl md:text-5xl">We've Helped Relocate More Than 200,000 Customers</h2>
+            <p class="max-w-[600px] font-body text-body md:text-xl/relaxed">At Global Van Lines, we are committed to your complete satisfaction. With our extensive network of professional service providers, we can move you across town, coast to coast, or around the world with personalized moving services.</p>
+            <div class="flex items-center gap-3 pt-4" data-testimonial-dots role="tablist" aria-label="Select testimonial"></div>
           </div>
-          <div>
-            <p class="font-heading font-extrabold text-white text-4xl sm:text-5xl lg:text-6xl leading-none mb-2">Best Rated</p>
-            <p class="text-white/80 text-sm sm:text-base">provider — customer satisfied</p>
-          </div>
+        </div>
+        <div class="relative mr-10 min-h-[300px] md:min-h-[400px]" data-testimonial-stage>
+          <div class="absolute -bottom-6 -left-6 h-24 w-24 rounded-xl bg-[#16335B]/5" aria-hidden="true"></div>
+          <div class="absolute -top-6 -right-6 h-24 w-24 rounded-xl bg-[#16335B]/5" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="mt-24 text-center">
+        <h3 class="mb-8 text-sm font-medium text-body">Moves completed across the United States</h3>
+        <div class="flex flex-wrap justify-center gap-x-12 gap-y-8">
+          <span class="text-2xl font-semibold text-body/50">New York</span>
+          <span class="text-2xl font-semibold text-body/50">Chicago</span>
+          <span class="text-2xl font-semibold text-body/50">Dallas</span>
+          <span class="text-2xl font-semibold text-body/50">San Diego</span>
+          <span class="text-2xl font-semibold text-body/50">Raleigh</span>
+          <span class="text-2xl font-semibold text-body/50">Norfolk</span>
         </div>
       </div>
     </div>
   </section>
-
-
-  <!-- TESTIMONIALS -->
-  <section class="testimonials-section" aria-label="Client testimonials">
-    <div class="testimonials-inner">
-      <h2 class="testimonials-heading">What Our Happy Clients Say</h2>
-      <div class="testimonials-grid">
-
-        <article class="testimonial-card">
-          <span class="testimonial-card-quote" aria-hidden="true">&ldquo;</span>
-          <div class="testimonial-card-inner">
-            <div class="testimonial-stars" aria-label="5 out of 5 stars">
-              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-            <p class="testimonial-text">Working with United Global Vanline has been an absolute delight! They're an extremely professional and caring team—their friendly attitude kept me calm throughout the move. I highly recommend their services!</p>
-            <div class="testimonial-author">
-              <div class="testimonial-avatar">
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop" alt="Jenny A." width="48" height="48" loading="lazy">
-              </div>
-              <div>
-                <p class="testimonial-name">Jenny A.</p>
-                <p class="testimonial-role">Homeowner</p>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="testimonial-card">
-          <span class="testimonial-card-quote" aria-hidden="true">&ldquo;</span>
-          <div class="testimonial-card-inner">
-            <div class="testimonial-stars" aria-label="5 out of 5 stars">
-              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-            <p class="testimonial-text">United Global Vanline made it super easy to pack up my home and move across the state without any additional stress or worry. Loved working with them!</p>
-            <div class="testimonial-author">
-              <div class="testimonial-avatar">
-                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop" alt="Anne K." width="48" height="48" loading="lazy">
-              </div>
-              <div>
-                <p class="testimonial-name">Anne K.</p>
-                <p class="testimonial-role">Homeowner</p>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="testimonial-card">
-          <span class="testimonial-card-quote" aria-hidden="true">&ldquo;</span>
-          <div class="testimonial-card-inner">
-            <div class="testimonial-stars" aria-label="5 out of 5 stars">
-              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-            <p class="testimonial-text">Our business needed to pack up some heavy equipment and move it safely across the city to our new office. We were really worried until we saw how helpful and professional the team at United Global Vanline is. I couldn't be happier with their services.</p>
-            <div class="testimonial-author">
-              <div class="testimonial-avatar">
-                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop" alt="Shayne E." width="48" height="48" loading="lazy">
-              </div>
-              <div>
-                <p class="testimonial-name">Shayne E.</p>
-                <p class="testimonial-role">Business Owner</p>
-              </div>
-            </div>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
+  <script src="js/animated-testimonials.js" defer></script>
 
   <!-- ============================================================
        10. FAQ SECTION
        ============================================================ -->
-  <section id="faq" class="bg-white py-14 sm:py-20 lg:py-28 border-t border-gray-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20">
-        <h2 class="font-heading font-bold text-heading text-3xl sm:text-4xl lg:text-5xl leading-tight">
-          Frequently asked questions
-        </h2>
-
-        <div id="faq-accordion" class="divide-y divide-gray-200" role="region" aria-label="Frequently asked questions">
-          <div class="accordion-item py-5" data-accordion="faq">
-            <button class="accordion-trigger w-full flex items-center justify-between gap-4 text-left" aria-expanded="false">
-              <span class="font-heading font-semibold text-heading text-sm sm:text-base">How much does a move with United Global Vanline cost?</span>
-              <svg class="accordion-chevron w-5 h-5 text-gray-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+  <section id="faq" class="faq-section bg-white py-14 sm:py-20 lg:py-28 border-t border-gray-100">
+    <div class="faq-section__inner">
+      <h2 class="faq-section__title">Frequently asked questions</h2>
+      <div id="faq-accordion" class="faq-accordion" role="region" aria-label="Frequently asked questions">
+          <div class="accordion-item faq-accordion__item">
+            <button type="button" class="accordion-trigger faq-accordion__trigger" aria-expanded="false">
+              <span class="faq-accordion__trigger-main">
+                <svg class="faq-accordion__help-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                <span class="faq-accordion__question">How much does a move with Dependable Movers cost?</span>
+              </span>
+              <span class="faq-accordion__chevron-wrap" aria-hidden="true"><svg class="faq-accordion__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
             </button>
-            <div class="accordion-panel"><div>
-              <p class="pt-3 pb-1 text-body text-sm leading-relaxed">Pricing depends on the size and distance of your move. We'll give you a free estimate according to your requirements—contact us via phone, email, or the quote form above.</p>
-            </div></div>
+            <div class="accordion-panel"><div><div class="faq-accordion__answer-wrap"><div class="faq-accordion__answer"><p class="faq-accordion__answer-text">Pricing depends on the size and distance of your move. We provide a free estimate based on your requirements. Contact us by phone, email, or the quote form above.</p><span class="faq-accordion__msg-icon-wrap" aria-hidden="true"><svg class="faq-accordion__msg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.5L2 22Z"/></svg></span></div></div></div></div>
           </div>
-          <div class="accordion-item py-5" data-accordion="faq">
-            <button class="accordion-trigger w-full flex items-center justify-between gap-4 text-left" aria-expanded="false">
-              <span class="font-heading font-semibold text-heading text-sm sm:text-base">Do you handle local and long-distance moves?</span>
-              <svg class="accordion-chevron w-5 h-5 text-gray-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          <div class="accordion-item faq-accordion__item">
+            <button type="button" class="accordion-trigger faq-accordion__trigger" aria-expanded="false">
+              <span class="faq-accordion__trigger-main">
+                <svg class="faq-accordion__help-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                <span class="faq-accordion__question">Do you handle local and long-distance moves?</span>
+              </span>
+              <span class="faq-accordion__chevron-wrap" aria-hidden="true"><svg class="faq-accordion__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
             </button>
-            <div class="accordion-panel"><div>
-              <p class="pt-3 pb-1 text-body text-sm leading-relaxed">Yes. We offer local moving across the city as well as long-distance and interstate relocations with experienced movers who handle every detail.</p>
-            </div></div>
+            <div class="accordion-panel"><div><div class="faq-accordion__answer-wrap"><div class="faq-accordion__answer"><p class="faq-accordion__answer-text">Yes. We offer local moving across the city as well as long-distance and interstate relocations with experienced crews who handle every detail.</p><span class="faq-accordion__msg-icon-wrap" aria-hidden="true"><svg class="faq-accordion__msg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.5L2 22Z"/></svg></span></div></div></div></div>
           </div>
-          <div class="accordion-item py-5" data-accordion="faq">
-            <button class="accordion-trigger w-full flex items-center justify-between gap-4 text-left" aria-expanded="false">
-              <span class="font-heading font-semibold text-heading text-sm sm:text-base">Can you move furniture and pianos?</span>
-              <svg class="accordion-chevron w-5 h-5 text-gray-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          <div class="accordion-item faq-accordion__item">
+            <button type="button" class="accordion-trigger faq-accordion__trigger" aria-expanded="false">
+              <span class="faq-accordion__trigger-main">
+                <svg class="faq-accordion__help-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                <span class="faq-accordion__question">Can you move furniture and pianos?</span>
+              </span>
+              <span class="faq-accordion__chevron-wrap" aria-hidden="true"><svg class="faq-accordion__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
             </button>
-            <div class="accordion-panel"><div>
-              <p class="pt-3 pb-1 text-body text-sm leading-relaxed">Absolutely. Our qualified movers move furniture safely across the state, and we specialize in piano moving—your piano will arrive just as it was when you handed it over.</p>
-            </div></div>
+            <div class="accordion-panel"><div><div class="faq-accordion__answer-wrap"><div class="faq-accordion__answer"><p class="faq-accordion__answer-text">Absolutely. Our qualified movers transport furniture safely statewide, and we specialize in piano moving so your instrument arrives in the same condition you entrusted to us.</p><span class="faq-accordion__msg-icon-wrap" aria-hidden="true"><svg class="faq-accordion__msg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.5L2 22Z"/></svg></span></div></div></div></div>
           </div>
-          <div class="accordion-item py-5" data-accordion="faq">
-            <button class="accordion-trigger w-full flex items-center justify-between gap-4 text-left" aria-expanded="false">
-              <span class="font-heading font-semibold text-heading text-sm sm:text-base">Do you offer last-second or commercial moves?</span>
-              <svg class="accordion-chevron w-5 h-5 text-gray-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          <div class="accordion-item faq-accordion__item">
+            <button type="button" class="accordion-trigger faq-accordion__trigger" aria-expanded="false">
+              <span class="faq-accordion__trigger-main">
+                <svg class="faq-accordion__help-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                <span class="faq-accordion__question">Do you offer last-minute or commercial moves?</span>
+              </span>
+              <span class="faq-accordion__chevron-wrap" aria-hidden="true"><svg class="faq-accordion__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
             </button>
-            <div class="accordion-panel"><div>
-              <p class="pt-3 pb-1 text-body text-sm leading-relaxed">Yes. We coordinate timely business relocations and handle last-second moves—including exhibitions—without extra charges. We also specialize in heavy equipment moves.</p>
-            </div></div>
+            <div class="accordion-panel"><div><div class="faq-accordion__answer-wrap"><div class="faq-accordion__answer"><p class="faq-accordion__answer-text">Yes. We coordinate timely business relocations and last-minute moves, including exhibitions, without surprise fees. We also specialize in heavy equipment moves.</p><span class="faq-accordion__msg-icon-wrap" aria-hidden="true"><svg class="faq-accordion__msg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.5L2 22Z"/></svg></span></div></div></div></div>
           </div>
-          <div class="accordion-item py-5" data-accordion="faq">
-            <button class="accordion-trigger w-full flex items-center justify-between gap-4 text-left" aria-expanded="false">
-              <span class="font-heading font-semibold text-heading text-sm sm:text-base">What happens after I request a quote?</span>
-              <svg class="accordion-chevron w-5 h-5 text-gray-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          <div class="accordion-item faq-accordion__item">
+            <button type="button" class="accordion-trigger faq-accordion__trigger" aria-expanded="false">
+              <span class="faq-accordion__trigger-main">
+                <svg class="faq-accordion__help-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                <span class="faq-accordion__question">What happens after I request a quote?</span>
+              </span>
+              <span class="faq-accordion__chevron-wrap" aria-hidden="true"><svg class="faq-accordion__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
             </button>
-            <div class="accordion-panel"><div>
-              <p class="pt-3 pb-1 text-body text-sm leading-relaxed">Our agents will assist you throughout the move and provide accurate, thorough estimates while explaining the full relocation process in great detail.</p>
-            </div></div>
+            <div class="accordion-panel"><div><div class="faq-accordion__answer-wrap"><div class="faq-accordion__answer"><p class="faq-accordion__answer-text">Our agents guide you through the move and provide accurate, thorough estimates while explaining the full relocation process in detail.</p><span class="faq-accordion__msg-icon-wrap" aria-hidden="true"><svg class="faq-accordion__msg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.5L2 22Z"/></svg></span></div></div></div></div>
           </div>
-          <div class="accordion-item py-5" data-accordion="faq">
-            <button class="accordion-trigger w-full flex items-center justify-between gap-4 text-left" aria-expanded="false">
-              <span class="font-heading font-semibold text-heading text-sm sm:text-base">How can I get in touch?</span>
-              <svg class="accordion-chevron w-5 h-5 text-gray-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          <div class="accordion-item faq-accordion__item">
+            <button type="button" class="accordion-trigger faq-accordion__trigger" aria-expanded="false">
+              <span class="faq-accordion__trigger-main">
+                <svg class="faq-accordion__help-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                <span class="faq-accordion__question">How can I get in touch?</span>
+              </span>
+              <span class="faq-accordion__chevron-wrap" aria-hidden="true"><svg class="faq-accordion__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
             </button>
-            <div class="accordion-panel"><div>
-              <p class="pt-3 pb-1 text-body text-sm leading-relaxed">Call us at <a href="tel:18003395798" class="text-secondary-blue hover:underline">800-339-5798</a>, email <a href="mailto:support@unitedglobalvanline.com" class="text-secondary-blue hover:underline">support@unitedglobalvanline.com</a>, or submit the quote form above.</p>
-            </div></div>
+            <div class="accordion-panel"><div><div class="faq-accordion__answer-wrap"><div class="faq-accordion__answer"><p class="faq-accordion__answer-text">Call us at <a href="tel:+18008230395">800-823-0395</a>, email <a href="mailto:support@unitedglobalvanline.com">support@unitedglobalvanline.com</a>, or submit the quote form above.</p><span class="faq-accordion__msg-icon-wrap" aria-hidden="true"><svg class="faq-accordion__msg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.5L2 22Z"/></svg></span></div></div></div></div>
           </div>
         </div>
-      </div>
     </div>
   </section>
 
@@ -1323,7 +1830,7 @@
           <h4 class="font-heading font-bold text-heading text-sm uppercase tracking-wide mb-4">Quick Links</h4>
           <ul class="space-y-2.5 text-sm">
             <li><a href="#" class="text-body hover:text-secondary-blue transition-colors">Home</a></li>
-            <li><a href="#difference" class="text-body hover:text-secondary-blue transition-colors">About Us</a></li>
+            <li><a href="#about" class="text-body hover:text-secondary-blue transition-colors">About Us</a></li>
             <li><a href="#consultation" class="text-body hover:text-secondary-blue transition-colors">Our Services</a></li>
             <li><a href="#contact" class="text-body hover:text-secondary-blue transition-colors">Contact Us</a></li>
             <li><a href="#" class="text-body hover:text-secondary-blue transition-colors">Make a Payment</a></li>
@@ -1352,7 +1859,7 @@
         <div>
           <h4 class="font-heading font-bold text-heading text-sm uppercase tracking-wide mb-4">Get in Touch</h4>
           <ul class="space-y-2.5 text-sm text-body">
-            <li><a href="tel:18003395798" class="hover:text-secondary-blue transition-colors font-semibold">800-339-5798</a></li>
+            <li><a href="tel:+18008230395" class="hover:text-secondary-blue transition-colors font-semibold">800-823-0395</a></li>
             <li><a href="mailto:support@unitedglobalvanline.com" class="hover:text-secondary-blue transition-colors">support@unitedglobalvanline.com</a></li>
             <li>7202 S US Highway 1<br>Port Saint Lucie, FL 34952</li>
           </ul>
@@ -1490,45 +1997,64 @@
         document.head.appendChild(gsapScript);
       })();
 
-      /* ---- Utility mobile menu ---- */
-      var utilToggle = document.getElementById('utility-toggle');
-      var utilityMobile = document.getElementById('utility-mobile');
-      var utilOpen = document.getElementById('util-open');
-      var utilClose = document.getElementById('util-close');
+      /* ---- Site header mobile menu ---- */
+      var headerToggle = document.getElementById('header-toggle');
+      var headerMobile = document.getElementById('header-mobile');
+      var headerOpen = document.getElementById('header-open');
+      var headerClose = document.getElementById('header-close');
 
-      utilToggle.addEventListener('click', function () {
-        var open = utilityMobile.classList.toggle('open');
-        utilOpen.classList.toggle('hidden', open);
-        utilClose.classList.toggle('hidden', !open);
-        utilToggle.setAttribute('aria-expanded', open);
-      });
-
-      /* ---- Primary nav mobile menu ---- */
-      var navToggle = document.getElementById('nav-toggle');
-      var mobileNav = document.getElementById('mobile-nav');
-      var navOpen = document.getElementById('nav-open');
-      var navClose = document.getElementById('nav-close');
-
-      navToggle.addEventListener('click', function () {
-        var open = mobileNav.classList.toggle('open');
-        navOpen.classList.toggle('hidden', open);
-        navClose.classList.toggle('hidden', !open);
-        navToggle.setAttribute('aria-expanded', open);
-      });
-
-      mobileNav.querySelectorAll('a').forEach(function (link) {
-        link.addEventListener('click', function () {
-          mobileNav.classList.remove('open');
-          navOpen.classList.remove('hidden');
-          navClose.classList.add('hidden');
-          navToggle.setAttribute('aria-expanded', 'false');
+      if (headerToggle && headerMobile) {
+        headerToggle.addEventListener('click', function () {
+          var open = headerMobile.classList.toggle('open');
+          headerOpen.classList.toggle('hidden', open);
+          headerClose.classList.toggle('hidden', !open);
+          headerToggle.setAttribute('aria-expanded', open);
         });
-      });
+
+        headerMobile.querySelectorAll('a').forEach(function (link) {
+          link.addEventListener('click', function () {
+            headerMobile.classList.remove('open');
+            headerOpen.classList.remove('hidden');
+            headerClose.classList.add('hidden');
+            headerToggle.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+
+      /* ---- Navbar auto-hide on scroll down ---- */
+      (function () {
+        var navbar = document.querySelector('.navbar');
+        if (!navbar) return;
+        var lastScrollY = window.scrollY;
+        window.addEventListener('scroll', function () {
+          var currentScrollY = window.scrollY;
+          if (currentScrollY > lastScrollY && currentScrollY > 80) {
+            navbar.classList.add('nav-hidden');
+          } else {
+            navbar.classList.remove('nav-hidden');
+          }
+          lastScrollY = currentScrollY;
+        }, { passive: true });
+      })();
 
       /* ---- Accordion (single-open per group) ---- */
-      function initAccordion(containerId) {
+      function initAccordion(containerId, openFirst) {
         var container = document.getElementById(containerId);
         if (!container) return;
+
+        function setOpen(item, open) {
+          var trigger = item.querySelector('.accordion-trigger');
+          var panel = item.querySelector('.accordion-panel');
+          if (open) {
+            item.classList.add('open');
+            panel.classList.add('open');
+            trigger.setAttribute('aria-expanded', 'true');
+          } else {
+            item.classList.remove('open');
+            panel.classList.remove('open');
+            trigger.setAttribute('aria-expanded', 'false');
+          }
+        }
 
         container.querySelectorAll('.accordion-item').forEach(function (item) {
           var trigger = item.querySelector('.accordion-trigger');
@@ -1557,97 +2083,14 @@
             }
           });
         });
+
+        if (openFirst) {
+          var firstItem = container.querySelector('.accordion-item');
+          if (firstItem) setOpen(firstItem, true);
+        }
       }
 
-      initAccordion('faq-accordion');
-
-      /* ---- Stats counter (fast roll to 50) ---- */
-      (function initStatsCounter() {
-        var container = document.getElementById('stats-counter-digits');
-        if (!container) return;
-
-        function createDigitCol() {
-          var wrap = document.createElement('span');
-          wrap.className = 'stats-counter-digit';
-          var inner = document.createElement('span');
-          inner.className = 'stats-counter-digit-inner';
-          for (var i = 0; i <= 9; i++) {
-            var s = document.createElement('span');
-            s.textContent = String(i);
-            inner.appendChild(s);
-          }
-          wrap.appendChild(inner);
-          container.appendChild(wrap);
-          return inner;
-        }
-
-        var tensInner = createDigitCol();
-        var onesInner = createDigitCol();
-
-        function setDigit(inner, digit) {
-          inner.style.transform = 'translateY(-' + (digit * 10) + '%)';
-        }
-
-        setDigit(tensInner, 0);
-        setDigit(onesInner, 0);
-
-        var end = 50;
-        var duration = isMobileLayout ? 1200 : 1800;
-        var animFrame = null;
-        var animating = false;
-        var hasPlayed = false;
-
-        function resetCounter() {
-          if (animFrame) {
-            cancelAnimationFrame(animFrame);
-            animFrame = null;
-          }
-          animating = false;
-          setDigit(tensInner, 0);
-          setDigit(onesInner, 0);
-        }
-
-        function runCounter() {
-          if (animating || (isMobileLayout && hasPlayed)) return;
-          animating = true;
-          setDigit(tensInner, 0);
-          setDigit(onesInner, 0);
-          var startTime = null;
-          function tick(ts) {
-            if (!startTime) startTime = ts;
-            var progress = Math.min((ts - startTime) / duration, 1);
-            var val = Math.min(Math.floor(progress * end), end);
-            setDigit(tensInner, Math.floor(val / 10));
-            setDigit(onesInner, val % 10);
-            if (progress < 1) {
-              animFrame = requestAnimationFrame(tick);
-            } else {
-              setDigit(tensInner, 5);
-              setDigit(onesInner, 0);
-              animating = false;
-              animFrame = null;
-              hasPlayed = true;
-            }
-          }
-          animFrame = requestAnimationFrame(tick);
-        }
-
-        var section = document.querySelector('.stats-bg');
-        if (!section || !('IntersectionObserver' in window)) {
-          runCounter();
-          return;
-        }
-        var observer = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              runCounter();
-            } else if (!isMobileLayout) {
-              resetCounter();
-            }
-          });
-        }, { threshold: isMobileLayout ? 0.15 : 0.25, rootMargin: '0px 0px -5% 0px' });
-        observer.observe(section);
-      })();
+      initAccordion('faq-accordion', true);
 
       /* ---- Consultation form: 3-step wizard + ZIP autocomplete ---- */
       var consultForm = document.getElementById('consultation-form');
