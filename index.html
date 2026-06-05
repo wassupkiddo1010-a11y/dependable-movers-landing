@@ -54,6 +54,8 @@
 
     /* Hero — full viewport, premium logistics aesthetic */
     .hero-bg {
+      position: relative;
+      z-index: 0;
       background-color: #102141;
       background-image: linear-gradient(
           105deg,
@@ -341,10 +343,29 @@
       accent-color: #ED7D22;
     }
 
+    /* Uniform section vertical rhythm — py-16 md:py-24 */
+    .trust-section,
+    .services-section,
+    .about-hero,
+    .areas-section {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
+    @media (min-width: 768px) {
+      .trust-section,
+      .services-section,
+      .about-hero,
+      .areas-section {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+      }
+    }
+
     /* Trust — HighlightCard (brand navy + orange) */
     .trust-section {
-      background: #F0F2F7;
-      padding: 60px max(5vw, 32px);
+      background: linear-gradient(160deg, #16335B 0%, #1a3d6b 42%, #102141 78%, #0d1a2e 100%);
+      padding-left: max(5vw, 32px);
+      padding-right: max(5vw, 32px);
       margin: 0;
     }
     .trust-section__inner {
@@ -357,7 +378,7 @@
       font-size: clamp(36px, 5vw, 52px);
       letter-spacing: -0.03em;
       line-height: 1.05;
-      color: #1A1A1A;
+      color: #ffffff;
       text-align: center;
       margin: 0 0 48px;
     }
@@ -386,11 +407,15 @@
       min-height: 420px;
       height: auto;
       cursor: pointer;
-      transform: translateZ(0);
-      transition: transform 0.5s ease;
       box-sizing: border-box;
     }
-    .highlight-card-wrap:hover {
+    @media (prefers-reduced-motion: reduce) {
+      .trust-section .highlight-card-wrap {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+    .highlight-card-wrap:hover .highlight-card {
       transform: scale(1.05) rotate(-1deg);
     }
     .highlight-card {
@@ -405,12 +430,13 @@
       border-radius: 16px;
       box-sizing: border-box;
       border: 1px solid rgba(255, 255, 255, 0.15);
-      background: linear-gradient(145deg, #16335B 0%, #1e4a7a 48%, #102141 100%);
+      background: rgba(255, 255, 255, 0.08);
       color: #ffffff;
       box-shadow: 0 20px 40px rgba(22, 51, 91, 0.28);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      transition: border-color 0.5s ease, box-shadow 0.5s ease;
+      transform: translateZ(0);
+      transition: border-color 0.5s ease, box-shadow 0.5s ease, transform 0.5s ease;
     }
     .highlight-card-wrap:hover .highlight-card {
       border-color: rgba(237, 125, 34, 0.45);
@@ -559,12 +585,16 @@
     .highlight-card-wrap:hover .highlight-card__icon-box img {
       transform: rotate(180deg);
     }
+    .highlight-card,
+    .highlight-card * {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
     .highlight-card__title {
-      font-family: 'Barlow Condensed', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 800;
       font-size: 2.25rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      text-transform: none;
       color: #ffffff;
       margin: 0 0 1rem;
       line-height: 1.1;
@@ -587,8 +617,9 @@
     }
     .highlight-card__desc p {
       font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 400;
       font-size: 1.0625rem;
-      line-height: 1.65;
+      line-height: 1.75;
       color: rgba(255, 255, 255, 0.95);
       margin: 0 0 0.35rem;
       transition: color 0.3s ease;
@@ -623,6 +654,7 @@
     .highlight-card-wrap:hover .highlight-card__divider {
       width: 50%;
     }
+
     .highlight-card__corner-tl,
     .highlight-card__corner-br {
       position: absolute;
@@ -700,6 +732,115 @@
       -webkit-backdrop-filter: blur(24px) saturate(160%);
       border: 1px solid rgba(255, 255, 255, 0.2);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    /* TextRoll — navbar link hover (motion/react port) */
+    .nav-text-roll-link {
+      display: inline-block;
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+      text-decoration: none;
+      vertical-align: middle;
+    }
+    .text-roll {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      line-height: 0.85;
+    }
+    .text-roll__row {
+      display: block;
+      white-space: nowrap;
+    }
+    .text-roll__row--bottom {
+      position: absolute;
+      inset: 0;
+    }
+    .text-roll__char {
+      display: inline-block;
+      transition: transform 0.35s ease-in-out;
+    }
+    .text-roll__char--space {
+      width: 0.4em;
+      min-width: 0.4em;
+    }
+    .text-roll__row--bottom .text-roll__char {
+      transform: translateY(100%);
+    }
+    .nav-text-roll-link:hover .text-roll__row--top .text-roll__char {
+      transform: translateY(-100%);
+    }
+    .nav-text-roll-link:hover .text-roll__row--bottom .text-roll__char {
+      transform: translateY(0);
+    }
+
+    /* ButtonWithIcon — Request A Quote CTA */
+    .btn-with-icon {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      height: 2.5rem;
+      margin-left: 0.25rem;
+      padding: 0.25rem 3rem 0.25rem 1.25rem;
+      border: none;
+      border-radius: 9999px;
+      background: #ffffff;
+      color: #171717;
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      line-height: 1;
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: padding 0.5s ease, background-color 0.2s ease;
+    }
+    .btn-with-icon:hover {
+      padding-left: 3rem;
+      padding-right: 1.25rem;
+      background: rgba(255, 255, 255, 0.9);
+    }
+    .btn-with-icon__label {
+      position: relative;
+      z-index: 1;
+    }
+    .btn-with-icon__icon {
+      position: absolute;
+      right: 0.25rem;
+      top: 50%;
+      width: 2rem;
+      height: 2rem;
+      margin-top: -1rem;
+      border-radius: 9999px;
+      background: #f5f5f5;
+      color: #171717;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: right 0.5s ease, transform 0.5s ease;
+    }
+    .btn-with-icon:hover .btn-with-icon__icon {
+      right: calc(100% - 2.25rem);
+      transform: rotate(45deg);
+    }
+    .btn-with-icon--block {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      margin-left: 0;
+      margin-top: 0.5rem;
+    }
+    .btn-with-icon--orange {
+      background: #ED7D22;
+      color: #ffffff;
+    }
+    .btn-with-icon--orange:hover {
+      background: #D4691A;
+      color: #ffffff;
+    }
+    .btn-with-icon--orange .btn-with-icon__icon {
+      background: rgba(255, 255, 255, 0.22);
+      color: #ffffff;
     }
 
     /* Consultation — Sirva-style editorial form (shared form tokens) */
@@ -813,6 +954,7 @@
       max-width: 28rem;
       margin: 1.5rem auto 0;
     }
+
 
     .btn-orange {
       background-color: #ED7D22;
@@ -1038,105 +1180,229 @@
     }
     .form-select option { color: #1A1A1A; background: #fff; }
 
-    /* About Us — two-column editorial layout */
-    .about-section {
-      background: #ffffff;
-      padding: 80px max(6vw, 40px);
+    /* About Us — clip-path hero layout (UI Layouts template) */
+    .about-hero {
+      background: #f9f9f9;
+      padding-left: max(1.5rem, 24px);
+      padding-right: max(1.5rem, 24px);
+      scroll-margin-top: 6rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
-    .about-section__inner {
-      display: grid;
-      grid-template-columns: 45fr 52fr;
-      gap: 64px;
+    .about-hero__container {
+      max-width: 72rem;
+      margin: 0 auto;
+    }
+    .about-hero__top {
+      position: relative;
+      margin-bottom: 3.5rem;
+    }
+    .about-hero__badge-row {
+      position: absolute;
+      z-index: 10;
+      top: -0.75rem;
+      display: flex;
+      width: 85%;
       align-items: center;
+      margin-bottom: 2rem;
+    }
+    @media (min-width: 640px) { .about-hero__badge-row { top: -0.5rem; } }
+    @media (min-width: 768px) { .about-hero__badge-row { top: 0; } }
+    @media (min-width: 1024px) { .about-hero__badge-row { top: 1rem; } }
+    .about-hero__badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #16335B;
+    }
+    .about-hero__badge-star {
+      color: #ED7D22;
+      animation: aboutStarSpin 6s linear infinite;
+    }
+    @keyframes aboutStarSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .about-hero__figure {
+      margin: 0;
+      width: 100%;
+      aspect-ratio: 100 / 40;
+    }
+    .about-hero__figure svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 100 / 40;
+    }
+    .about-hero__stats {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem 1.5rem;
+      padding: 1.5rem 0 2rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.875rem;
+    }
+    @media (min-width: 1024px) {
+      .about-hero__stats { justify-content: flex-start; }
+    }
+    .about-hero__stats-left {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .about-hero__stat {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .about-hero__stat strong {
+      font-weight: 700;
+      color: #ED7D22;
+    }
+    .about-hero__stat span { color: #4b5563; }
+    .about-hero__stat-sep { color: #d1d5db; }
+    .about-hero__stats-right {
+      display: flex;
+      flex-direction: row-reverse;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    @media (min-width: 1024px) {
+      .about-hero__stats-right {
+        position: absolute;
+        right: 0;
+        bottom: 4rem;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0;
+      }
+    }
+    .about-hero__stat--lg {
+      font-size: clamp(1.25rem, 3vw, 2.25rem);
+      font-weight: 600;
+    }
+    .about-hero__stat--lg strong { font-weight: 600; color: #ED7D22; }
+    .about-hero__stat--lg span {
+      text-transform: uppercase;
+      color: #4b5563;
+    }
+    .about-hero__grid {
+      display: grid;
+      gap: 3rem;
+      margin-top: 1rem;
+    }
+    @media (min-width: 768px) {
+      .about-hero__grid { grid-template-columns: 2fr 1fr; gap: 3.5rem; margin-top: 1.5rem; }
+    }
+    .about-hero__title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: #1A1A1A;
+      margin: 0 0 2.75rem;
+    }
+    .about-hero__copy {
+      display: grid;
+      gap: 2.5rem;
+      color: #4b5563;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(0.75rem, 2vw, 1rem);
+      line-height: 1.65;
+    }
+    @media (min-width: 768px) {
+      .about-hero__copy { grid-template-columns: 1fr 1fr; }
+    }
+    .about-hero__copy p {
+      margin: 0;
+      text-align: justify;
+    }
+    .about-hero__aside {
+      text-align: right;
+    }
+    .about-hero__brand {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #16335B;
+      margin: 0 0 0.5rem;
+    }
+    .about-hero__tagline {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.875rem;
+      color: #4b5563;
+      margin: 0 0 2rem;
+    }
+    .about-hero__cta-text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 500;
+      color: #111827;
+      margin: 0 0 1rem;
+    }
+    .about-hero__aside .btn-with-icon {
+      margin-left: auto;
+    }
+    @media (max-width: 767px) {
+      .about-hero__aside { text-align: left; margin-top: 0.5rem; }
+      .about-hero__aside .btn-with-icon { margin-left: 0; }
+      .about-hero__stat-sep--mobile { display: inline; }
+    }
+    @media (min-width: 768px) {
+      .about-hero__stat-sep--mobile { display: none; }
+    }
+
+    /* Scroll-triggered timeline reveal (production index.html) */
+    .about-hero [data-timeline] {
+      opacity: 0;
+      transform: translateY(-20px);
+      filter: blur(10px);
+      will-change: opacity, transform, filter;
+      transition:
+        opacity 0.4s ease,
+        transform 0.4s ease,
+        filter 0.4s ease;
+      transition-delay: calc(var(--timeline-i, 0) * 0.22s);
+    }
+    .about-hero.is-in-view [data-timeline] {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+    .about-hero__word-mask {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+    }
+    .about-hero__word {
+      display: inline-block;
+      transform: translateY(100%);
+      will-change: transform;
+      transition: transform 0.55s cubic-bezier(0.34, 1.45, 0.64, 1);
+      transition-delay: calc(1.5s + var(--word-i, 0) * 0.08s);
+    }
+    .about-hero.is-in-view .about-hero__word {
+      transform: translateY(0);
+    }
+
+    /* Our Services */
+    .services-section {
+      background: #ffffff;
+      padding-left: max(6vw, 40px);
+      padding-right: max(6vw, 40px);
+    }
+    .services-section__inner {
       max-width: 1200px;
       margin: 0 auto;
     }
-    .about-section__visual {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      max-width: 480px;
-      margin: 0 auto;
-    }
-    /* Hidden when photo includes its own decorative backdrop */
-    .about-section__circle {
-      display: none;
-    }
-    .about-section__photo {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 420px;
-      height: auto;
-      object-fit: contain;
-      display: block;
-      margin: 0 auto;
-    }
-    .about-section__heading {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 800;
-      font-size: clamp(36px, 5vw, 52px);
-      letter-spacing: -0.03em;
-      line-height: 1.05;
-      color: #1A1A1A;
-      text-align: left;
-      margin: 0 0 24px;
-    }
-    .about-section__text {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 1.75;
-      color: #444444;
-      margin: 0 0 18px;
-      max-width: 540px;
-    }
-    .about-section__btn {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 14px 36px;
-      background: #ED7D22;
-      color: #ffffff;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 600;
-      font-size: 16px;
-      border-radius: 8px;
-      border: none;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background 0.2s ease, transform 0.15s ease;
-    }
-    .about-section__btn:hover {
-      background: #D4691A;
-      transform: translateY(-2px);
-      color: #ffffff;
-    }
-    @media (max-width: 768px) {
-      .about-section {
-        padding: 60px max(6vw, 24px);
-      }
-      .about-section__inner {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-      .about-section__visual {
-        max-width: 360px;
-      }
-    }
-
-    /* How It Works — editorial process cards */
-    .how-it-works-section {
-      background-color: #F5F0E8;
-      padding: 80px max(5vw, 24px);
-    }
-    .how-it-works-inner {
-      max-width: 1280px;
-      margin: 0 auto;
-    }
-    .how-it-works-heading {
+    .services-section__heading {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 800;
       font-size: clamp(36px, 5vw, 52px);
@@ -1144,59 +1410,159 @@
       line-height: 1.05;
       color: #1A1A1A;
       text-align: center;
-      margin-bottom: 48px;
+      margin: 0 0 48px;
     }
-    .how-it-works-grid {
+    .services-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      padding: 0 max(4vw, 24px);
-      max-width: 1280px;
-      margin: 0 auto;
+      gap: 24px;
     }
-    .how-it-works-card {
-      background: #FFFFFF;
-      border: 1px solid #D4CFC6;
-      border-radius: 16px;
-      padding: 32px 28px;
+    .services-card {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      min-height: 240px;
-      box-shadow: none;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(22, 51, 91, 0.06);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
-    .how-it-works-step {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #999999;
-      margin-bottom: 16px;
+    .services-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(22, 51, 91, 0.1);
     }
-    .how-it-works-title {
+    .services-card__media {
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: #e8edf3;
+    }
+    .services-card__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .services-card__body {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 1.5rem 1.5rem 1.75rem;
+    }
+    .services-card__title {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(22px, 2.5vw, 28px);
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+      color: #16335B;
+      margin: 0 0 0.75rem;
+      line-height: 1.25;
+    }
+    .services-card__text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 400;
-      letter-spacing: -0.01em;
-      line-height: 1.2;
-      color: #1A1A1A;
-      margin-bottom: 24px;
-    }
-    .how-it-works-body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 15px;
-      font-weight: 400;
-      line-height: 1.6;
-      color: #777777;
+      line-height: 1.65;
+      color: #555555;
       margin: 0;
+      flex: 1;
     }
-    @media (max-width: 900px) {
-      .how-it-works-grid { grid-template-columns: repeat(2, 1fr); }
+    .services-card__link {
+      display: inline-block;
+      margin-top: 1rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      color: #ED7D22;
+      text-decoration: none;
+      transition: color 0.2s ease;
     }
-    @media (max-width: 560px) {
-      .how-it-works-grid { grid-template-columns: 1fr; }
+    .services-card__link:hover {
+      color: #D4691A;
     }
+    @media (max-width: 1024px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .services-section__heading { margin-bottom: 32px; }
+      .services-grid { grid-template-columns: 1fr; gap: 20px; }
+    }
+
+    /* Areas We Serve */
+    .areas-section {
+      background: #f9f9f9;
+      padding-left: max(6vw, 40px);
+      padding-right: max(6vw, 40px);
+      scroll-margin-top: 6rem;
+    }
+    .areas-section__inner {
+      max-width: 960px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .areas-section__heading {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: clamp(36px, 5vw, 52px);
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: #1A1A1A;
+      margin: 0 0 40px;
+    }
+    .areas-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px 24px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      text-align: left;
+    }
+    .areas-grid__item a {
+      display: block;
+      padding: 14px 18px;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      background: #F4F6F9;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.0625rem;
+      font-weight: 600;
+      color: #16335B;
+      text-decoration: none;
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+    .areas-grid__item a:hover {
+      background: #16335B;
+      border-color: #16335B;
+      color: #ffffff;
+    }
+    .areas-section__cta {
+      margin-top: 40px;
+    }
+    .areas-section__btn {
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: 8px;
+      background: #ED7D22;
+      color: #ffffff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .areas-section__btn:hover {
+      background: #D4691A;
+      transform: translateY(-2px);
+      color: #ffffff;
+    }
+    @media (max-width: 768px) {
+      .areas-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .areas-section { padding: 60px max(6vw, 24px); }
+      .areas-grid { grid-template-columns: 1fr; }
+    }
+
 
     /* Animated testimonials — matches AnimatedTestimonials component */
     [data-testimonial-stage] {
@@ -1256,26 +1622,21 @@
       }
       .form-step.active { animation: none; }
 
-      .about-section { padding: 48px 20px; }
-      .about-section__inner { gap: 32px; }
-      .about-section__visual { max-width: 300px; }
+      .about-hero { padding-left: 20px; padding-right: 20px; }
 
-      .how-it-works-section { padding: 48px 20px; }
-      .how-it-works-grid { padding: 0; gap: 12px; }
-      .how-it-works-heading { margin-bottom: 28px; font-size: clamp(1.75rem, 7vw, 2.25rem); }
       .trust-section__heading,
-      .about-section__heading {
+      .services-section__heading,
+      .areas-section__heading {
         margin-bottom: 32px;
         font-size: clamp(1.75rem, 7vw, 2.25rem);
       }
       .about-section__heading { margin-bottom: 24px; }
-      .how-it-works-card { padding: 24px 20px; min-height: auto; border-radius: 12px; }
 
 
       /* Defer paint for below-fold sections */
       #about,
-      .how-it-works-section,
       #testimonials,
+      #areas-we-serve,
       #faq {
         content-visibility: auto;
         contain-intrinsic-size: auto 480px;
@@ -1303,24 +1664,20 @@
 
         <nav class="hidden md:flex items-center gap-2" aria-label="Primary navigation">
           <div class="rb-header__glass flex items-center gap-1 rounded-full px-1 py-1">
-            <a href="#" class="px-3 py-2 text-sm font-medium text-white/90 font-sans transition-colors whitespace-nowrap">Home</a>
-            <a href="#consultation" class="px-3 py-2 text-sm font-medium text-white/80 hover:text-white font-sans transition-colors whitespace-nowrap">Local Moving</a>
-            <a href="#consultation" class="px-3 py-2 text-sm font-medium text-white/80 hover:text-white font-sans transition-colors whitespace-nowrap">Long Distance Moving</a>
-            <a href="#consultation" class="px-3 py-2 text-sm font-medium text-white/80 hover:text-white font-sans transition-colors whitespace-nowrap hidden lg:inline-block">Commercial Moving</a>
-            <a href="#consultation" class="px-3 py-2 text-sm font-medium text-white/80 hover:text-white font-sans transition-colors whitespace-nowrap hidden xl:inline-block">Furniture Moving</a>
+            <a href="#" data-text-roll data-text-roll-center class="px-3 py-2 text-sm font-medium text-white/90 font-sans transition-colors whitespace-nowrap">Home</a>
+            <a href="#about" data-text-roll data-text-roll-center class="px-3 py-2 text-sm font-medium text-white/80 hover:text-white font-sans transition-colors whitespace-nowrap">About</a>
+            <a href="#services" data-text-roll data-text-roll-center class="px-3 py-2 text-sm font-medium text-white/80 hover:text-white font-sans transition-colors whitespace-nowrap">Services</a>
+            <a href="#areas-we-serve" data-text-roll data-text-roll-center class="px-3 py-2 text-sm font-medium text-white/80 hover:text-white font-sans transition-colors whitespace-nowrap">Areas We Serve</a>
+            <a href="#contact" data-text-roll data-text-roll-center class="px-3 py-2 text-sm font-medium text-white/80 hover:text-white font-sans transition-colors whitespace-nowrap">Contact</a>
             <a href="tel:+18008230395" class="px-3 py-2 text-sm font-semibold text-white/90 hover:text-white font-sans transition-colors whitespace-nowrap hidden lg:inline-flex items-center gap-1.5">
               <svg class="h-4 w-4 shrink-0 opacity-90" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
               800-823-0395
             </a>
-            <a
-              href="#consultation"
-              class="ml-1 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-2 text-sm font-medium text-neutral-900 hover:bg-white/90 font-sans transition-colors whitespace-nowrap"
-            >
-              Request A Quote
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0" aria-hidden="true">
-                <path d="M7 7h10v10" />
-                <path d="M7 17 17 7" />
-              </svg>
+            <a href="#consultation" class="btn-with-icon">
+              <span class="btn-with-icon__label">Request A Quote</span>
+              <span class="btn-with-icon__icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+              </span>
             </a>
           </div>
         </nav>
@@ -1350,25 +1707,20 @@
         <div class="px-4 py-3 flex flex-col gap-0.5 font-sans">
           <a href="tel:+18008230395" class="py-2.5 text-sm font-semibold text-white/95">800-823-0395</a>
           <a href="#" class="py-2 text-sm font-medium text-white/90">Home</a>
-          <a href="#consultation" class="py-2 text-sm font-medium text-white/80 hover:text-white transition-colors">Local Moving</a>
-          <a href="#consultation" class="py-2 text-sm font-medium text-white/80 hover:text-white transition-colors">Long Distance Moving</a>
-          <a href="#consultation" class="py-2 text-sm font-medium text-white/80 hover:text-white transition-colors">Commercial Moving</a>
-          <a href="#consultation" class="py-2 text-sm font-medium text-white/80 hover:text-white transition-colors">Furniture Moving</a>
-          <a
-            href="#consultation"
-            class="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-medium text-neutral-900 hover:bg-white/90 transition-colors"
-          >
-            Request A Quote
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
-              <path d="M7 7h10v10" />
-              <path d="M7 17 17 7" />
-            </svg>
+          <a href="#about" class="py-2 text-sm font-medium text-white/80 hover:text-white transition-colors">About</a>
+          <a href="#services" class="py-2 text-sm font-medium text-white/80 hover:text-white transition-colors">Services</a>
+          <a href="#areas-we-serve" class="py-2 text-sm font-medium text-white/80 hover:text-white transition-colors">Areas We Serve</a>
+          <a href="#contact" class="py-2 text-sm font-medium text-white/80 hover:text-white transition-colors">Contact</a>
+          <a href="#consultation" class="btn-with-icon btn-with-icon--block">
+            <span class="btn-with-icon__label">Request A Quote</span>
+            <span class="btn-with-icon__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+            </span>
           </a>
         </div>
       </nav>
     </div>
   </header>
-
 
   <!-- HERO + QUOTE FORM -->
   <section id="consultation" class="hero-bg relative">
@@ -1661,60 +2013,148 @@
     </div>
   </section>
 
-  <!-- ABOUT US -->
-  <section id="about" class="about-section">
-    <div class="about-section__inner">
-      <div class="about-section__visual">
-        <div class="about-section__circle" aria-hidden="true"></div>
-        <!-- REPLACE {{YOUR_MOVER_PHOTO}}: swap src below with your mover photo path -->
-        <img
-          src="assets/about-mover.png"
-          alt="Professional mover carrying boxes"
-          class="about-section__photo"
-          width="480"
-          height="480"
-          loading="lazy"
-          decoding="async"
-        >
-      </div>
-      <div class="about-section__content">
-        <h2 class="about-section__heading">About Us</h2>
-        <p class="about-section__text">Dependable Movers is a top-notch moving company serving families and businesses across the U.S. With years of combined experience, you can be confident that we'll handle your items with absolute precision and care.</p>
-        <p class="about-section__text">Our team of dedicated, hardworking movers have one goal — your complete satisfaction. Whether you're moving locally, across the country, or relocating your business, we've got you covered every step of the way.</p>
-        <p class="about-section__text">Contact us today to get a free quote!</p>
-        <a href="#about" class="about-section__btn">Read more</a>
+  <!-- OUR SERVICES — content from unitedglobalvanline.com -->
+  <section id="services" class="services-section" aria-labelledby="services-section-heading">
+    <div class="services-section__inner">
+      <h2 id="services-section-heading" class="services-section__heading">Our Services</h2>
+      <div class="services-grid">
+        <article class="services-card">
+          <div class="services-card__media">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=640&q=80" alt="Local moving service" width="640" height="400" loading="lazy" decoding="async">
+          </div>
+          <div class="services-card__body">
+            <h3 class="services-card__title">Local Moving</h3>
+            <p class="services-card__text">Need to pack your stuff up and move it across the city at an affordable price? We've got your back.</p>
+            <a href="#consultation" class="services-card__link">Get a quote</a>
+          </div>
+        </article>
+        <article class="services-card">
+          <div class="services-card__media">
+            <img src="https://images.unsplash.com/photo-1449965404649-47605b6e7f8?w=640&q=80" alt="Long distance moving service" width="640" height="400" loading="lazy" decoding="async">
+          </div>
+          <div class="services-card__body">
+            <h3 class="services-card__title">Long Distance Moving</h3>
+            <p class="services-card__text">Move across long distances without any hassle or worries with the help of our experienced long distance movers.</p>
+            <a href="#consultation" class="services-card__link">Get a quote</a>
+          </div>
+        </article>
+        <article class="services-card">
+          <div class="services-card__media">
+            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=640&q=80" alt="Furniture moving service" width="640" height="400" loading="lazy" decoding="async">
+          </div>
+          <div class="services-card__body">
+            <h3 class="services-card__title">Furniture Moving</h3>
+            <p class="services-card__text">Move your furniture across the state safely and efficiently with the help of our professional movers.</p>
+            <a href="#consultation" class="services-card__link">Get a quote</a>
+          </div>
+        </article>
+        <article class="services-card">
+          <div class="services-card__media">
+            <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=640&q=80" alt="Piano moving service" width="640" height="400" loading="lazy" decoding="async">
+          </div>
+          <div class="services-card__body">
+            <h3 class="services-card__title">Piano Moving</h3>
+            <p class="services-card__text">Our qualified movers can keep your beautiful piano safe as it travels across the state. It'll be just the same as when you handed it over!</p>
+            <a href="#consultation" class="services-card__link">Get a quote</a>
+          </div>
+        </article>
+        <article class="services-card">
+          <div class="services-card__media">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=640&q=80" alt="Commercial moving service" width="640" height="400" loading="lazy" decoding="async">
+          </div>
+          <div class="services-card__body">
+            <h3 class="services-card__title">Commercial Moving</h3>
+            <p class="services-card__text">Coordinate a timely relocation for your business with the help of our smooth, professional moving services.</p>
+            <a href="#consultation" class="services-card__link">Get a quote</a>
+          </div>
+        </article>
+        <article class="services-card">
+          <div class="services-card__media">
+            <img src="https://images.unsplash.com/photo-1600518464441-915949a3f065?w=640&q=80" alt="Last-second moving service" width="640" height="400" loading="lazy" decoding="async">
+          </div>
+          <div class="services-card__body">
+            <h3 class="services-card__title">Last-Second Moves</h3>
+            <p class="services-card__text">Do you need to pack up your exhibition and move it across the city or state at the last second? Don't worry about any extra charges; we've got you covered.</p>
+            <a href="#consultation" class="services-card__link">Get a quote</a>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
-
-  <!-- HOW IT WORKS -->
-  <section class="how-it-works-section">
-    <div class="how-it-works-inner">
-      <h2 class="how-it-works-heading">How It Works</h2>
-      <div class="how-it-works-grid">
-        <article class="how-it-works-card">
-          <p class="how-it-works-step">ONE</p>
-          <h3 class="how-it-works-title">Contact Us</h3>
-          <p class="how-it-works-body">Get in touch with us via phone or e-mail.</p>
-        </article>
-        <article class="how-it-works-card">
-          <p class="how-it-works-step">TWO</p>
-          <h3 class="how-it-works-title">State Your Requirements</h3>
-          <p class="how-it-works-body">We'll give you a free estimate according to the size and distance of your move.</p>
-        </article>
-        <article class="how-it-works-card">
-          <p class="how-it-works-step">THREE</p>
-          <h3 class="how-it-works-title">Enjoy a Smooth Move!</h3>
-          <p class="how-it-works-body">Our experienced movers will take care of all your needs.</p>
-        </article>
+  <!-- ABOUT US -->
+  <section id="about" class="about-hero" aria-labelledby="about-hero-title">
+    <div class="about-hero__container">
+      <div class="about-hero__top">
+        <div class="about-hero__badge-row">
+          <div class="about-hero__badge">
+            <span class="about-hero__badge-star" aria-hidden="true">✱</span>
+            <span data-timeline="0">WHO WE ARE</span>
+          </div>
+        </div>
+        <figure class="about-hero__figure" data-timeline="1" aria-label="Professional movers loading a moving truck">
+          <svg viewBox="0 0 100 40" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <defs>
+              <clipPath id="clip-inverted" clipPathUnits="objectBoundingBox">
+                <path d="M0.0998072 1H0.422076H0.749756C0.767072 1 0.774207 0.961783 0.77561 0.942675V0.807325C0.777053 0.743631 0.791844 0.731953 0.799059 0.734076H0.969813C0.996268 0.730255 1.00088 0.693206 0.999875 0.675159V0.0700637C0.999875 0.0254777 0.985045 0.00477707 0.977629 0H0.902473C0.854975 0 0.890448 0.138535 0.850165 0.138535H0.0204424C0.00408849 0.142357 0 0.180467 0 0.199045V0.410828C0 0.449045 0.0136283 0.46603 0.0204424 0.469745H0.0523086C0.0696245 0.471019 0.0735527 0.497877 0.0733523 0.511146V0.915605C0.0723903 0.983121 0.090588 1 0.0998072 1Z"/>
+              </clipPath>
+            </defs>
+            <g clip-path="url(#clip-inverted)">
+              <image href="assets/about-hero.png" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/>
+            </g>
+          </svg>
+        </figure>
+        <div class="about-hero__stats">
+          <div class="about-hero__stats-left" data-timeline="2">
+            <div class="about-hero__stat">
+              <strong>20+</strong>
+              <span>years of experience</span>
+              <span class="about-hero__stat-sep" aria-hidden="true">|</span>
+            </div>
+            <div class="about-hero__stat">
+              <strong>50,000+</strong>
+              <span>moves completed</span>
+            </div>
+          </div>
+          <div class="about-hero__stats-right">
+            <div class="about-hero__stat about-hero__stat--lg" data-timeline="3">
+              <strong>48</strong>
+              <span>states</span>
+            </div>
+            <div class="about-hero__stat" data-timeline="4">
+              <strong>98%</strong>
+              <span>on-time delivery</span>
+              <span class="about-hero__stat-sep about-hero__stat-sep--mobile" aria-hidden="true">|</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-hero__grid">
+        <div>
+          <h1 id="about-hero-title" class="about-hero__title">Moving You Forward, Every Mile.</h1>
+          <div class="about-hero__copy">
+            <p data-timeline="5">United Global Van Line began with a simple promise: to make every move stress-free, reliable, and handled with care. Today we move families and businesses across the country with that same commitment.</p>
+            <p data-timeline="6">Every move tells a story, and we take pride in handling yours with professionalism and precision. From packing to delivery, our experienced team ensures your belongings arrive safely and on time.</p>
+          </div>
+        </div>
+        <div class="about-hero__aside">
+          <p class="about-hero__brand" data-timeline="7">United Global Van Line</p>
+          <p class="about-hero__tagline" data-timeline="8">Licensed &amp; Insured | Nationwide Movers</p>
+          <p class="about-hero__cta-text" data-timeline="9">Ready to make your next move simple and stress-free?</p>
+          <a href="#consultation" class="btn-with-icon btn-with-icon--orange" data-timeline="10">
+            <span class="btn-with-icon__label">Get A Free Quote</span>
+            <span class="btn-with-icon__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+            </span>
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
 
   <!-- TESTIMONIALS — AnimatedTestimonials (globalvanlines.com reviews) -->
-  <section id="testimonials" class="overflow-hidden bg-[#F4F6F9]/30 py-24" aria-label="Client testimonials">
+  <section id="testimonials" class="overflow-hidden bg-white py-16 md:py-24" aria-label="Client testimonials">
     <div id="animated-testimonials" class="mx-auto max-w-7xl px-4 md:px-6">
       <div class="grid w-full grid-cols-1 gap-16 md:grid-cols-2 lg:gap-24">
         <div class="flex flex-col justify-center">
@@ -1728,33 +2168,42 @@
             <div class="flex items-center gap-3 pt-4" data-testimonial-dots role="tablist" aria-label="Select testimonial"></div>
           </div>
         </div>
-        <div class="relative mr-10 min-h-[300px] md:min-h-[400px]" data-testimonial-stage>
-          <div class="absolute -bottom-6 -left-6 h-24 w-24 rounded-xl bg-[#16335B]/5" aria-hidden="true"></div>
-          <div class="absolute -top-6 -right-6 h-24 w-24 rounded-xl bg-[#16335B]/5" aria-hidden="true"></div>
-        </div>
-      </div>
-      <div class="mt-24 text-center">
-        <h3 class="mb-8 text-sm font-medium text-body">Moves completed across the United States</h3>
-        <div class="flex flex-wrap justify-center gap-x-12 gap-y-8">
-          <span class="text-2xl font-semibold text-body/50">New York</span>
-          <span class="text-2xl font-semibold text-body/50">Chicago</span>
-          <span class="text-2xl font-semibold text-body/50">Dallas</span>
-          <span class="text-2xl font-semibold text-body/50">San Diego</span>
-          <span class="text-2xl font-semibold text-body/50">Raleigh</span>
-          <span class="text-2xl font-semibold text-body/50">Norfolk</span>
+        <div class="relative mr-0 min-h-[300px] md:mr-10 md:min-h-[400px]" data-testimonial-stage>
+          <div class="pointer-events-none absolute -bottom-6 -left-6 h-24 w-24 rounded-xl bg-[#16335B]/5" aria-hidden="true"></div>
+          <div class="pointer-events-none absolute -top-6 -right-6 h-24 w-24 rounded-xl bg-[#16335B]/5" aria-hidden="true"></div>
         </div>
       </div>
     </div>
   </section>
-  <script src="js/animated-testimonials.js" defer></script>
+
+  <!-- AREAS WE SERVE — content from unitedglobalvanline.com -->
+  <section id="areas-we-serve" class="areas-section" aria-labelledby="areas-section-heading">
+    <div class="areas-section__inner">
+      <h2 id="areas-section-heading" class="areas-section__heading">Areas We Serve</h2>
+      <ul class="areas-grid">
+        <li class="areas-grid__item"><a href="#consultation">Nevada</a></li>
+        <li class="areas-grid__item"><a href="#consultation">Texas</a></li>
+        <li class="areas-grid__item"><a href="#consultation">New York</a></li>
+        <li class="areas-grid__item"><a href="#consultation">Virginia</a></li>
+        <li class="areas-grid__item"><a href="#consultation">South Carolina</a></li>
+        <li class="areas-grid__item"><a href="#consultation">Arizona</a></li>
+        <li class="areas-grid__item"><a href="#consultation">Georgia</a></li>
+        <li class="areas-grid__item"><a href="#consultation">Hawaii</a></li>
+        <li class="areas-grid__item"><a href="#consultation">Oklahoma</a></li>
+      </ul>
+      <div class="areas-section__cta">
+        <a href="#consultation" class="areas-section__btn">View All Locations</a>
+      </div>
+    </div>
+  </section>
 
   <!-- ============================================================
        10. FAQ SECTION
        ============================================================ -->
-  <section id="faq" class="faq-section bg-white py-14 sm:py-20 lg:py-28 border-t border-gray-100">
+  <section id="faq" class="faq-section bg-white py-16 md:py-24">
     <div class="faq-section__inner">
-      <h2 class="faq-section__title">Frequently asked questions</h2>
-      <div id="faq-accordion" class="faq-accordion" role="region" aria-label="Frequently asked questions">
+      <h2 class="faq-section__title">Frequently Asked Questions</h2>
+      <div id="faq-accordion" class="faq-accordion" role="region" aria-label="Frequently Asked Questions">
           <div class="accordion-item faq-accordion__item">
             <button type="button" class="accordion-trigger faq-accordion__trigger" aria-expanded="false">
               <span class="faq-accordion__trigger-main">
@@ -1816,14 +2265,16 @@
             <div class="accordion-panel"><div><div class="faq-accordion__answer-wrap"><div class="faq-accordion__answer"><p class="faq-accordion__answer-text">Call us at <a href="tel:+18008230395">800-823-0395</a>, email <a href="mailto:support@unitedglobalvanline.com">support@unitedglobalvanline.com</a>, or submit the quote form above.</p><span class="faq-accordion__msg-icon-wrap" aria-hidden="true"><svg class="faq-accordion__msg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.5L2 22Z"/></svg></span></div></div></div></div>
           </div>
         </div>
+      </div>
     </div>
   </section>
+
 
 
   <!-- ============================================================
        11. FOOTER
        ============================================================ -->
-  <footer id="contact" class="bg-footer-bg pt-16 pb-10">
+  <footer id="contact" class="bg-[#f9f9f9] py-16 md:py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
         <div>
@@ -1831,7 +2282,7 @@
           <ul class="space-y-2.5 text-sm">
             <li><a href="#" class="text-body hover:text-secondary-blue transition-colors">Home</a></li>
             <li><a href="#about" class="text-body hover:text-secondary-blue transition-colors">About Us</a></li>
-            <li><a href="#consultation" class="text-body hover:text-secondary-blue transition-colors">Our Services</a></li>
+            <li><a href="#services" class="text-body hover:text-secondary-blue transition-colors">Our Services</a></li>
             <li><a href="#contact" class="text-body hover:text-secondary-blue transition-colors">Contact Us</a></li>
             <li><a href="#" class="text-body hover:text-secondary-blue transition-colors">Make a Payment</a></li>
             <li><a href="#" class="text-body hover:text-secondary-blue transition-colors">Preferred Carriers</a></li>
@@ -1841,12 +2292,12 @@
         <div>
           <h4 class="font-heading font-bold text-heading text-sm uppercase tracking-wide mb-4">Services</h4>
           <ul class="space-y-2.5 text-sm">
-            <li><a href="#consultation" class="text-body hover:text-secondary-blue transition-colors">Local Moving</a></li>
-            <li><a href="#consultation" class="text-body hover:text-secondary-blue transition-colors">Long Distance Moving</a></li>
-            <li><a href="#consultation" class="text-body hover:text-secondary-blue transition-colors">Commercial Moving</a></li>
-            <li><a href="#consultation" class="text-body hover:text-secondary-blue transition-colors">Furniture Moving</a></li>
-            <li><a href="#consultation" class="text-body hover:text-secondary-blue transition-colors">Piano Moving</a></li>
-            <li><a href="#consultation" class="text-body hover:text-secondary-blue transition-colors">Last-Second Moves</a></li>
+            <li><a href="#services" class="text-body hover:text-secondary-blue transition-colors">Local Moving</a></li>
+            <li><a href="#services" class="text-body hover:text-secondary-blue transition-colors">Long Distance Moving</a></li>
+            <li><a href="#services" class="text-body hover:text-secondary-blue transition-colors">Commercial Moving</a></li>
+            <li><a href="#services" class="text-body hover:text-secondary-blue transition-colors">Furniture Moving</a></li>
+            <li><a href="#services" class="text-body hover:text-secondary-blue transition-colors">Piano Moving</a></li>
+            <li><a href="#services" class="text-body hover:text-secondary-blue transition-colors">Last-Second Moves</a></li>
           </ul>
         </div>
         <div>
@@ -2319,5 +2770,9 @@
       });
     })();
   </script>
+  <script src="js/text-roll-nav.js" defer></script>
+  <script src="js/about-section-scroll.js" defer></script>
+  <script src="js/trust-cards-scroll.js" defer></script>
+  <script src="js/animated-testimonials.js" defer></script>
 </body>
 </html>

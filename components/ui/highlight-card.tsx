@@ -24,7 +24,7 @@ export const HighlightCard: FC<HighlightCardProps> = ({
         className
       )}
     >
-      <Card className="relative flex h-full min-h-[420px] w-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-br from-[#16335B] via-[#1e4a7a] to-[#102141] text-white shadow-2xl shadow-[#16335B]/30 backdrop-blur-xl hover:border-[#ED7D22]/40 hover:shadow-2xl hover:shadow-[#ED7D22]/10">
+      <Card className="relative flex h-full min-h-[420px] w-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-white/[0.08] text-white shadow-2xl shadow-[#16335B]/30 backdrop-blur-[16px] [-webkit-backdrop-filter:blur(16px)] hover:border-[#ED7D22]/40 hover:shadow-2xl hover:shadow-[#ED7D22]/10">
         <div className="absolute inset-0 z-0 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-[#ED7D22]/10 opacity-40 transition-opacity duration-500 group-hover:opacity-60" />
           <div className="absolute -bottom-20 -left-20 h-48 w-48 transform rounded-full bg-gradient-to-tr from-[#ED7D22]/20 to-transparent opacity-30 blur-3xl transition-all duration-700 group-hover:scale-110 group-hover:opacity-50" />
@@ -48,7 +48,7 @@ export const HighlightCard: FC<HighlightCardProps> = ({
           </div>
 
           <div className="flex min-h-0 flex-1 flex-col items-center">
-            <h3 className="mb-4 font-[family-name:var(--font-barlow,'Barlow_Condensed')] text-4xl font-bold uppercase tracking-wide text-white transition-transform duration-300 group-hover:scale-105">
+            <h3 className="font-plus-jakarta mb-4 text-4xl font-extrabold tracking-tight text-white transition-transform duration-300 group-hover:scale-105">
               {title}
             </h3>
 
@@ -56,7 +56,7 @@ export const HighlightCard: FC<HighlightCardProps> = ({
               {description.map((line, idx) => (
                 <p
                   key={idx}
-                  className="text-[1.0625rem] leading-relaxed text-white/95 transition-colors duration-300 group-hover:text-white"
+                  className="font-plus-jakarta text-[1.0625rem] font-normal leading-[1.75] text-white/95 transition-colors duration-300 group-hover:text-white"
                 >
                   {line}
                 </p>

@@ -90,7 +90,7 @@ export function AnimatedTestimonials({
     <section
       ref={sectionRef}
       id="testimonials"
-      className={`overflow-hidden bg-muted/30 py-24 ${className || ""}`}
+      className={`overflow-hidden bg-white py-16 md:py-24 ${className || ""}`}
     >
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         <motion.div

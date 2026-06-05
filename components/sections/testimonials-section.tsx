@@ -1,8 +1,5 @@
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
-import {
-  GLOBAL_VAN_LINES_TESTIMONIALS,
-  TESTIMONIALS_TRUSTED_LOCATIONS,
-} from "@/data/testimonials";
+import { GLOBAL_VAN_LINES_TESTIMONIALS } from "@/data/testimonials";
 
 export function TestimonialsSection() {
   return (
@@ -12,8 +9,7 @@ export function TestimonialsSection() {
       badgeText="Trusted by families nationwide"
       testimonials={GLOBAL_VAN_LINES_TESTIMONIALS}
       autoRotateInterval={6000}
-      trustedCompanies={TESTIMONIALS_TRUSTED_LOCATIONS}
-      trustedCompaniesTitle="Moves completed across the United States"
+      trustedCompanies={[]}
     />
   );
 }

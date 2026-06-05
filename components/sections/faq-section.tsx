@@ -5,12 +5,12 @@ export function FaqSection() {
   return (
     <section
       id="faq"
-      className="border-t border-gray-100 bg-white py-14 sm:py-20 lg:py-28"
+      className="bg-[#f9f9f9] py-16 md:py-24"
     >
       <div className="mx-auto w-full max-w-3xl px-4 sm:px-6">
         <FaqAccordion
           items={MOVING_FAQS}
-          title="Frequently asked questions"
+          title="Frequently Asked Questions"
           centered
         />
       </div>

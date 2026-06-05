@@ -1,7 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { ButtonWithIcon } from "@/components/ui/button-with-icon";
+import TextRoll from "@/components/ui/text-roll";
+import { cn } from "@/lib/utils";
 
 export interface NavLink {
   label: string;
@@ -22,10 +25,10 @@ export interface ResponsiveHeroNavProps {
 
 const defaultNavLinks: NavLink[] = [
   { label: "Home", href: "#", isActive: true },
-  { label: "Local Moving", href: "#consultation" },
-  { label: "Long Distance Moving", href: "#consultation" },
-  { label: "Commercial Moving", href: "#consultation" },
-  { label: "Furniture Moving", href: "#consultation" },
+  { label: "About", href: "#about" },
+  { label: "Services", href: "#services" },
+  { label: "Areas We Serve", href: "#areas-we-serve" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export function ResponsiveHeroNav({
@@ -63,13 +66,18 @@ export function ResponsiveHeroNav({
                 <a
                   key={link.label}
                   href={link.href}
-                  className={`whitespace-nowrap px-3 py-2 font-sans text-sm font-medium transition-colors ${
-                    link.isActive
-                      ? "text-white/90"
-                      : "text-white/80 hover:text-white"
-                  }`}
+                  className="group whitespace-nowrap px-3 py-2"
+                  aria-label={link.label}
                 >
-                  {link.label}
+                  <TextRoll
+                    center
+                    className={cn(
+                      "text-sm font-medium leading-[0.85] text-white/80 transition-colors group-hover:text-white",
+                      link.isActive && "text-white/90"
+                    )}
+                  >
+                    {link.label}
+                  </TextRoll>
                 </a>
               ))}
               <a
@@ -78,13 +86,9 @@ export function ResponsiveHeroNav({
               >
                 {phoneNumber}
               </a>
-              <a
-                href={ctaButtonHref}
-                className="ml-1 inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-white px-3.5 py-2 font-sans text-sm font-medium text-neutral-900 transition-colors hover:bg-white/90"
-              >
+              <ButtonWithIcon href={ctaButtonHref} className="ml-1 shrink-0">
                 {ctaButtonText}
-                <ArrowUpRight className="h-4 w-4 shrink-0" aria-hidden />
-              </a>
+              </ButtonWithIcon>
             </div>
           </nav>
 
@@ -127,14 +131,13 @@ export function ResponsiveHeroNav({
                   {link.label}
                 </a>
               ))}
-              <a
+              <ButtonWithIcon
                 href={ctaButtonHref}
-                className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-medium text-neutral-900 transition-colors hover:bg-white/90"
+                className="mt-2 w-full justify-center"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {ctaButtonText}
-                <ArrowUpRight className="h-4 w-4" aria-hidden />
-              </a>
+              </ButtonWithIcon>
             </div>
           </nav>
         )}
