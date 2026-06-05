@@ -14,6 +14,8 @@ const jsFiles = [
   "about-section-scroll.js",
   "trust-cards-scroll.js",
   "animated-testimonials.js",
+  "svc-overlap-reveal.js",
+  "areas-globe.js",
 ];
 
 for (const file of jsFiles) {

@@ -1,12 +1,10 @@
-/** Service areas from unitedglobalvanline.com */
-export const AREAS_WE_SERVE = [
-  "Nevada",
-  "Texas",
-  "New York",
-  "Virginia",
-  "South Carolina",
-  "Arizona",
-  "Georgia",
-  "Hawaii",
-  "Oklahoma",
-] as const;
+export const AREAS_WE_SERVE_STATES = {
+  columnOne: [
+    "Nevada",
+    "New York",
+    "South Carolina",
+    "Georgia",
+    "Oklahoma",
+  ],
+  columnTwo: ["Texas", "Virginia", "Arizona", "Hawaii"],
+} as const;

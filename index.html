@@ -11,7 +11,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800;900&family=Fredoka:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,500;0,600;0,700;0,800;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800;900&family=Fredoka:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Poppins:ital,wght@0,500;0,600;0,700;0,800;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -345,7 +345,6 @@
 
     /* Uniform section vertical rhythm — py-16 md:py-24 */
     .trust-section,
-    .services-section,
     .about-hero,
     .areas-section {
       padding-top: 4rem;
@@ -353,7 +352,6 @@
     }
     @media (min-width: 768px) {
       .trust-section,
-      .services-section,
       .about-hero,
       .areas-section {
         padding-top: 6rem;
@@ -363,6 +361,10 @@
 
     /* Trust — HighlightCard (brand navy + orange) */
     .trust-section {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      z-index: 1;
       background: linear-gradient(160deg, #16335B 0%, #1a3d6b 42%, #102141 78%, #0d1a2e 100%);
       padding-left: max(5vw, 32px);
       padding-right: max(5vw, 32px);
@@ -1392,175 +1394,222 @@
       transform: translateY(0);
     }
 
-    /* Our Services */
-    .services-section {
-      background: #ffffff;
-      padding-left: max(6vw, 40px);
-      padding-right: max(6vw, 40px);
+    /* Our Services — overlap reveal (scoped under .svc-overlap only) */
+    .svc-overlap {
+      overflow-x: clip;
     }
-    .services-section__inner {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .services-section__heading {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 800;
-      font-size: clamp(36px, 5vw, 52px);
-      letter-spacing: -0.03em;
-      line-height: 1.05;
-      color: #1A1A1A;
-      text-align: center;
-      margin: 0 0 48px;
-    }
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-    .services-card {
-      display: flex;
-      flex-direction: column;
-      background: #ffffff;
-      border: 1px solid #e5e7eb;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 4px 20px rgba(22, 51, 91, 0.06);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .services-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(22, 51, 91, 0.1);
-    }
-    .services-card__media {
-      aspect-ratio: 16 / 10;
-      overflow: hidden;
-      background: #e8edf3;
-    }
-    .services-card__media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .services-card__body {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      padding: 1.5rem 1.5rem 1.75rem;
-    }
-    .services-card__title {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 700;
-      font-size: 1.25rem;
-      letter-spacing: -0.02em;
-      color: #16335B;
-      margin: 0 0 0.75rem;
-      line-height: 1.25;
-    }
-    .services-card__text {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 400;
-      font-size: 15px;
-      line-height: 1.65;
-      color: #555555;
-      margin: 0;
-      flex: 1;
-    }
-    .services-card__link {
-      display: inline-block;
-      margin-top: 1rem;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 600;
-      font-size: 14px;
-      color: #ED7D22;
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-    .services-card__link:hover {
-      color: #D4691A;
-    }
-    @media (max-width: 1024px) {
-      .services-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 640px) {
-      .services-section__heading { margin-bottom: 32px; }
-      .services-grid { grid-template-columns: 1fr; gap: 20px; }
-    }
-
-    /* Areas We Serve */
-    .areas-section {
-      background: #f9f9f9;
-      padding-left: max(6vw, 40px);
-      padding-right: max(6vw, 40px);
+    .svc-overlap .svc-panel {
+      position: relative;
+      z-index: 2;
+      background: #FDFDFD;
+      padding: clamp(3rem, 5vw, 4rem) max(6vw, 40px) clamp(2.5rem, 4vw, 3.5rem);
       scroll-margin-top: 6rem;
     }
-    .areas-section__inner {
-      max-width: 960px;
+    .svc-overlap .svc-panel__inner {
+      max-width: 1200px;
       margin: 0 auto;
+      width: 100%;
+    }
+    .svc-overlap .svc-heading {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      font-size: clamp(32px, 5vw, 56px);
+      letter-spacing: -0.02em;
+      line-height: 1.08;
+      color: #0B0B0B;
+      margin: 0;
       text-align: center;
+    }
+    .svc-overlap .svc-cards-wrap {
+      margin-top: clamp(48px, 7vh, 96px);
+      overflow: hidden;
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      margin-left: -50vw;
+      padding-left: max(6vw, 40px);
+      padding-right: max(6vw, 40px);
+      box-sizing: border-box;
+    }
+    .svc-overlap .svc-cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      will-change: transform, gap;
+    }
+    .svc-overlap .svc-card {
+      background: #F0F0F0;
+      border-radius: 12px;
+      padding: 28px 26px 34px;
+      min-height: 230px;
+      display: flex;
+      flex-direction: column;
+      will-change: transform, opacity;
+    }
+    .svc-overlap .svc-card .num {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 13px;
+      color: #8a8a8a;
+      letter-spacing: 0.04em;
+    }
+    .svc-overlap .svc-card h3 {
+      margin: 14px 0 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(18px, 1.5vw, 23px);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: #0B0B0B;
+      line-height: 1.2;
+    }
+    .svc-overlap .svc-card .body {
+      margin-top: auto;
+      padding-top: 34px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14.5px;
+      line-height: 1.5;
+      color: #3d3d3d;
+    }
+    @media (max-width: 900px) {
+      .svc-overlap .svc-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .svc-overlap .svc-cards { grid-template-columns: 1fr; gap: 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .svc-overlap .svc-heading,
+      .svc-overlap .svc-card,
+      .svc-overlap .svc-card .body {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+
+    /* Areas We Serve — globe + two-column states */
+    .areas-section {
+      background: #f9f9f9;
+      padding: 4rem max(6vw, 40px);
+      scroll-margin-top: 6rem;
+    }
+    @media (min-width: 768px) {
+      .areas-section { padding-top: 6rem; padding-bottom: 6rem; }
+    }
+    .areas-section__inner {
+      max-width: 72rem;
+      margin: 0 auto;
+      text-align: left;
     }
     .areas-section__heading {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 800;
-      font-size: clamp(36px, 5vw, 52px);
-      letter-spacing: -0.03em;
+      font-size: clamp(28px, 4vw, 40px);
+      letter-spacing: -0.02em;
       line-height: 1.05;
+      text-transform: uppercase;
+      text-align: center;
       color: #1A1A1A;
-      margin: 0 0 40px;
+      margin: 0 0 2.5rem;
     }
-    .areas-grid {
+    @media (min-width: 768px) {
+      .areas-section__heading { margin-bottom: 3rem; }
+    }
+    .areas-section__layout {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px 24px;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    @media (min-width: 768px) {
+      .areas-section__layout {
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+      }
+    }
+    @media (min-width: 1024px) {
+      .areas-section__layout { gap: 4rem; }
+    }
+    .areas-section__globe-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 28rem;
+      margin: 0 auto;
+      aspect-ratio: 1;
+    }
+    @media (min-width: 768px) {
+      .areas-section__globe-wrap {
+        max-width: 32rem;
+        margin: 0;
+      }
+    }
+    .areas-section__globe-canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      touch-action: none;
+    }
+    .areas-section__globe-canvas.is-visible {
+      opacity: 1;
+    }
+    .areas-states {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem 2rem;
       list-style: none;
       margin: 0;
       padding: 0;
-      text-align: left;
     }
-    .areas-grid__item a {
-      display: block;
-      padding: 14px 18px;
-      border-radius: 10px;
-      border: 1px solid #e5e7eb;
-      background: #F4F6F9;
+    @media (min-width: 640px) {
+      .areas-states { gap: 0.75rem 3rem; }
+    }
+    .areas-states__col {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .areas-states__item {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 1.0625rem;
-      font-weight: 600;
-      color: #16335B;
-      text-decoration: none;
-      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      font-size: 15px;
+      font-weight: 500;
+      color: #374151;
     }
-    .areas-grid__item a:hover {
-      background: #16335B;
-      border-color: #16335B;
-      color: #ffffff;
+    .areas-states__arrow {
+      flex-shrink: 0;
+      width: 1rem;
+      height: 1rem;
+      color: #ED7D22;
     }
     .areas-section__cta {
-      margin-top: 40px;
+      margin-top: 2rem;
     }
-    .areas-section__btn {
-      display: inline-block;
-      padding: 14px 32px;
-      border-radius: 8px;
-      background: #ED7D22;
+    .areas-section .areas-section__btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.875rem 1.5rem;
+      border-radius: 6px;
+      background-color: #ED7D22;
       color: #ffffff;
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 600;
-      font-size: 16px;
+      font-size: 15px;
       text-decoration: none;
-      transition: background 0.2s ease, transform 0.15s ease;
+      transition: background-color 0.2s ease;
     }
-    .areas-section__btn:hover {
-      background: #D4691A;
-      transform: translateY(-2px);
+    .areas-section .areas-section__btn:hover {
+      background-color: #D4691A;
       color: #ffffff;
     }
-    @media (max-width: 768px) {
-      .areas-grid { grid-template-columns: repeat(2, 1fr); }
-    }
     @media (max-width: 480px) {
-      .areas-section { padding: 60px max(6vw, 24px); }
-      .areas-grid { grid-template-columns: 1fr; }
+      .areas-section { padding: 3.75rem max(6vw, 24px); }
     }
 
 
@@ -1625,7 +1674,6 @@
       .about-hero { padding-left: 20px; padding-right: 20px; }
 
       .trust-section__heading,
-      .services-section__heading,
       .areas-section__heading {
         margin-bottom: 32px;
         font-size: clamp(1.75rem, 7vw, 2.25rem);
@@ -2013,74 +2061,48 @@
     </div>
   </section>
 
-  <!-- OUR SERVICES — content from unitedglobalvanline.com -->
-  <section id="services" class="services-section" aria-labelledby="services-section-heading">
-    <div class="services-section__inner">
-      <h2 id="services-section-heading" class="services-section__heading">Our Services</h2>
-      <div class="services-grid">
-        <article class="services-card">
-          <div class="services-card__media">
-            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=640&q=80" alt="Local moving service" width="640" height="400" loading="lazy" decoding="async">
-          </div>
-          <div class="services-card__body">
-            <h3 class="services-card__title">Local Moving</h3>
-            <p class="services-card__text">Need to pack your stuff up and move it across the city at an affordable price? We've got your back.</p>
-            <a href="#consultation" class="services-card__link">Get a quote</a>
-          </div>
-        </article>
-        <article class="services-card">
-          <div class="services-card__media">
-            <img src="https://images.unsplash.com/photo-1449965404649-47605b6e7f8?w=640&q=80" alt="Long distance moving service" width="640" height="400" loading="lazy" decoding="async">
-          </div>
-          <div class="services-card__body">
-            <h3 class="services-card__title">Long Distance Moving</h3>
-            <p class="services-card__text">Move across long distances without any hassle or worries with the help of our experienced long distance movers.</p>
-            <a href="#consultation" class="services-card__link">Get a quote</a>
-          </div>
-        </article>
-        <article class="services-card">
-          <div class="services-card__media">
-            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=640&q=80" alt="Furniture moving service" width="640" height="400" loading="lazy" decoding="async">
-          </div>
-          <div class="services-card__body">
-            <h3 class="services-card__title">Furniture Moving</h3>
-            <p class="services-card__text">Move your furniture across the state safely and efficiently with the help of our professional movers.</p>
-            <a href="#consultation" class="services-card__link">Get a quote</a>
-          </div>
-        </article>
-        <article class="services-card">
-          <div class="services-card__media">
-            <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=640&q=80" alt="Piano moving service" width="640" height="400" loading="lazy" decoding="async">
-          </div>
-          <div class="services-card__body">
-            <h3 class="services-card__title">Piano Moving</h3>
-            <p class="services-card__text">Our qualified movers can keep your beautiful piano safe as it travels across the state. It'll be just the same as when you handed it over!</p>
-            <a href="#consultation" class="services-card__link">Get a quote</a>
-          </div>
-        </article>
-        <article class="services-card">
-          <div class="services-card__media">
-            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=640&q=80" alt="Commercial moving service" width="640" height="400" loading="lazy" decoding="async">
-          </div>
-          <div class="services-card__body">
-            <h3 class="services-card__title">Commercial Moving</h3>
-            <p class="services-card__text">Coordinate a timely relocation for your business with the help of our smooth, professional moving services.</p>
-            <a href="#consultation" class="services-card__link">Get a quote</a>
-          </div>
-        </article>
-        <article class="services-card">
-          <div class="services-card__media">
-            <img src="https://images.unsplash.com/photo-1600518464441-915949a3f065?w=640&q=80" alt="Last-second moving service" width="640" height="400" loading="lazy" decoding="async">
-          </div>
-          <div class="services-card__body">
-            <h3 class="services-card__title">Last-Second Moves</h3>
-            <p class="services-card__text">Do you need to pack up your exhibition and move it across the city or state at the last second? Don't worry about any extra charges; we've got you covered.</p>
-            <a href="#consultation" class="services-card__link">Get a quote</a>
-          </div>
-        </article>
+  <!-- OUR SERVICES — overlap reveal (scoped .svc-overlap) -->
+  <div class="svc-overlap" id="services">
+    <div class="svc-panel" aria-labelledby="services-section-heading">
+      <div class="svc-panel__inner">
+        <h2 id="services-section-heading" class="svc-heading">Our Services</h2>
+      </div>
+      <div class="svc-cards-wrap">
+        <div class="svc-cards">
+          <article class="svc-card">
+            <span class="num">01</span>
+            <h3>Local Moving</h3>
+            <p class="body">Need to pack your stuff up and move it across the city at an affordable price? We've got your back.</p>
+          </article>
+          <article class="svc-card">
+            <span class="num">02</span>
+            <h3>Long Distance Moving</h3>
+            <p class="body">Move across long distances without any hassle or worries with the help of our experienced long distance movers.</p>
+          </article>
+          <article class="svc-card">
+            <span class="num">03</span>
+            <h3>Furniture Moving</h3>
+            <p class="body">Move your furniture across the state safely and efficiently with the help of our professional movers.</p>
+          </article>
+          <article class="svc-card">
+            <span class="num">04</span>
+            <h3>Piano Moving</h3>
+            <p class="body">Our qualified movers can keep your beautiful piano safe as it travels across the state. It'll be just the same as when you handed it over!</p>
+          </article>
+          <article class="svc-card">
+            <span class="num">05</span>
+            <h3>Commercial Moving</h3>
+            <p class="body">Coordinate a timely relocation for your business with the help of our smooth, professional moving services.</p>
+          </article>
+          <article class="svc-card">
+            <span class="num">06</span>
+            <h3>Last-Second Moves</h3>
+            <p class="body">Do you need to pack up your exhibition and move it across the city or state at the last second? Don't worry about any extra charges; we've got you covered.</p>
+          </article>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- ABOUT US -->
   <section id="about" class="about-hero" aria-labelledby="about-hero-title">
@@ -2176,23 +2198,61 @@
     </div>
   </section>
 
-  <!-- AREAS WE SERVE — content from unitedglobalvanline.com -->
+  <!-- AREAS WE SERVE -->
   <section id="areas-we-serve" class="areas-section" aria-labelledby="areas-section-heading">
     <div class="areas-section__inner">
       <h2 id="areas-section-heading" class="areas-section__heading">Areas We Serve</h2>
-      <ul class="areas-grid">
-        <li class="areas-grid__item"><a href="#consultation">Nevada</a></li>
-        <li class="areas-grid__item"><a href="#consultation">Texas</a></li>
-        <li class="areas-grid__item"><a href="#consultation">New York</a></li>
-        <li class="areas-grid__item"><a href="#consultation">Virginia</a></li>
-        <li class="areas-grid__item"><a href="#consultation">South Carolina</a></li>
-        <li class="areas-grid__item"><a href="#consultation">Arizona</a></li>
-        <li class="areas-grid__item"><a href="#consultation">Georgia</a></li>
-        <li class="areas-grid__item"><a href="#consultation">Hawaii</a></li>
-        <li class="areas-grid__item"><a href="#consultation">Oklahoma</a></li>
-      </ul>
-      <div class="areas-section__cta">
-        <a href="#consultation" class="areas-section__btn">View All Locations</a>
+      <div class="areas-section__layout">
+        <div class="areas-section__globe-wrap" aria-hidden="true">
+          <canvas id="areas-globe-canvas" class="areas-section__globe-canvas"></canvas>
+        </div>
+        <div class="areas-section__content">
+          <div class="areas-states">
+            <ul class="areas-states__col">
+              <li class="areas-states__item">
+                <svg class="areas-states__arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                Nevada
+              </li>
+              <li class="areas-states__item">
+                <svg class="areas-states__arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                New York
+              </li>
+              <li class="areas-states__item">
+                <svg class="areas-states__arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                South Carolina
+              </li>
+              <li class="areas-states__item">
+                <svg class="areas-states__arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                Georgia
+              </li>
+              <li class="areas-states__item">
+                <svg class="areas-states__arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                Oklahoma
+              </li>
+            </ul>
+            <ul class="areas-states__col">
+              <li class="areas-states__item">
+                <svg class="areas-states__arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                Texas
+              </li>
+              <li class="areas-states__item">
+                <svg class="areas-states__arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                Virginia
+              </li>
+              <li class="areas-states__item">
+                <svg class="areas-states__arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                Arizona
+              </li>
+              <li class="areas-states__item">
+                <svg class="areas-states__arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                Hawaii
+              </li>
+            </ul>
+          </div>
+          <div class="areas-section__cta">
+            <a href="#consultation" class="areas-section__btn">View All Locations</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -2770,9 +2830,13 @@
       });
     })();
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="js/svc-overlap-reveal.js" defer></script>
   <script src="js/text-roll-nav.js" defer></script>
   <script src="js/about-section-scroll.js" defer></script>
   <script src="js/trust-cards-scroll.js" defer></script>
   <script src="js/animated-testimonials.js" defer></script>
+  <script src="js/areas-globe.js" defer></script>
 </body>
 </html>

@@ -1,4 +1,6 @@
 import { AboutSectionDemo } from "@/components/demo/about-section-demo";
+import { AreasWeServeDemo } from "@/components/demo/areas-we-serve-demo";
+import { InteractiveGlobeDemo } from "@/components/demo/interactive-globe-demo";
 import { FaqAccordionDemo } from "@/components/demo/faq-accordion-demo";
 import { TestimonialDemo } from "@/components/demo/testimonial-demo";
 
@@ -17,6 +19,8 @@ export default function Home() {
       </div>
       <AboutSectionDemo />
       <TestimonialDemo />
+      <AreasWeServeDemo />
+      <InteractiveGlobeDemo />
       <FaqAccordionDemo />
     </main>
   );
