@@ -52,7 +52,7 @@
       role: "Customer",
       company: "San Diego, CA",
       content:
-        "Global was a great support to make our move so successful. The Move Consultant coached us through the process, assessed our needs, and matched us with the right services for our family.",
+        "Dependable Movers was a great support to make our move so successful. The Move Consultant coached us through the process, assessed our needs, and matched us with the right services for our family.",
       avatar:
         "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop",
     },

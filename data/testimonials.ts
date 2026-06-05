@@ -1,7 +1,7 @@
 import type { Testimonial } from "@/components/ui/animated-testimonials";
 
-/** Reviews sourced from globalvanlines.com customer testimonials */
-export const GLOBAL_VAN_LINES_TESTIMONIALS: Testimonial[] = [
+/** Customer testimonials for Dependable Movers */
+export const DEPENDABLE_MOVERS_TESTIMONIALS: Testimonial[] = [
   {
     id: 1,
     name: "Derrick L.",
@@ -52,7 +52,7 @@ export const GLOBAL_VAN_LINES_TESTIMONIALS: Testimonial[] = [
     role: "Customer",
     company: "San Diego, CA",
     content:
-      "Global was a great support to make our move so successful. The Move Consultant coached us through the process, assessed our needs, and matched us with the right services for our family.",
+      "Dependable Movers was a great support to make our move so successful. The Move Consultant coached us through the process, assessed our needs, and matched us with the right services for our family.",
     rating: 5,
     avatar:
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop",

@@ -169,7 +169,7 @@ export default function AboutSection3() {
                 className="text-xs sm:text-base"
               >
                 <p className="text-justify leading-relaxed">
-                  United Global Van Line began with a simple promise: to make
+                  Dependable Movers began with a simple promise: to make
                   every move stress-free, reliable, and handled with care. Today
                   we move families and businesses across the country with that
                   same commitment.
@@ -203,7 +203,7 @@ export default function AboutSection3() {
                 customVariants={revealVariants}
                 className="mb-2 text-2xl font-extrabold text-[#16335B]"
               >
-                United Global Van Line
+                Dependable Movers
               </TimelineContent>
               <TimelineContent
                 as="div"
