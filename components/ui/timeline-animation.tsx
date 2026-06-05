@@ -3,20 +3,25 @@
 import {
   motion,
   useInView,
-  type HTMLMotionProps,
   type Variants,
 } from "framer-motion";
 import {
-  type ComponentPropsWithoutRef,
-  type ElementType,
   type RefObject,
 } from "react";
 
+type ViewportMargin =
+  | `${number}px`
+  | `${number}px ${number}px`
+  | `${number}px ${number}px ${number}px`
+  | `${number}px ${number}px ${number}px ${number}px`;
+
 export type TimelineInViewOptions = {
   amount?: number;
-  margin?: string;
+  margin?: ViewportMargin;
   once?: boolean;
 };
+
+const DEFAULT_TIMELINE_MARGIN = "0px 0px -80px 0px" as const;
 
 export function useTimelineInView(
   ref: RefObject<HTMLElement | null>,
@@ -25,19 +30,19 @@ export function useTimelineInView(
   return useInView(ref, {
     once: options.once ?? true,
     amount: options.amount ?? 0.2,
-    margin: options.margin ?? "0px 0px -80px 0px",
+    margin: options.margin ?? DEFAULT_TIMELINE_MARGIN,
   });
 }
 
-type TimelineContentProps<T extends ElementType> = {
-  as?: T;
+type TimelineContentProps = {
+  as?: keyof typeof motionMap;
   animationNum?: number;
   timelineRef: RefObject<HTMLElement | null>;
   isInView?: boolean;
   customVariants?: Variants;
   className?: string;
   children?: React.ReactNode;
-} & Omit<ComponentPropsWithoutRef<T>, "children">;
+};
 
 const motionMap = {
   div: motion.div,
@@ -50,7 +55,7 @@ const motionMap = {
   p: motion.p,
 } as const;
 
-export function TimelineContent<T extends ElementType = "div">({
+export function TimelineContent({
   as,
   animationNum = 0,
   timelineRef,
@@ -58,9 +63,8 @@ export function TimelineContent<T extends ElementType = "div">({
   customVariants,
   className,
   children,
-  ...props
-}: TimelineContentProps<T>) {
-  const Tag = (as ?? "div") as keyof typeof motionMap;
+}: TimelineContentProps) {
+  const Tag = as ?? "div";
   const MotionComponent = motionMap[Tag] ?? motion.div;
 
   const isInViewFallback = useTimelineInView(timelineRef);
@@ -85,7 +89,6 @@ export function TimelineContent<T extends ElementType = "div">({
       custom={animationNum}
       variants={variants}
       className={className}
-      {...(props as HTMLMotionProps<"div">)}
     >
       {children}
     </MotionComponent>

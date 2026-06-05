@@ -9,8 +9,8 @@ import {
 } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-export interface ProductHighlightCardProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface ProductHighlightCardProps {
+  className?: string;
   title: string;
   description: string;
   imageSrc: string;
@@ -22,7 +22,7 @@ export const ProductHighlightCard = React.forwardRef<
   ProductHighlightCardProps
 >(
   (
-    { className, title, description, imageSrc, imageAlt, ...props },
+    { className, title, description, imageSrc, imageAlt },
     ref
   ) => {
     const mouseX = useMotionValue(0);
@@ -66,7 +66,6 @@ export const ProductHighlightCard = React.forwardRef<
           "relative mx-auto h-[350px] w-full max-w-[350px] rounded-2xl bg-white shadow-lg transition-shadow duration-300 hover:shadow-2xl",
           className
         )}
-        {...props}
       >
         <div
           style={{ transform: "translateZ(20px)", transformStyle: "preserve-3d" }}
