@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 export interface InteractiveGlobeProps {
   className?: string;
   size?: number;
+  backgroundColor?: string;
   dotColor?: string;
   arcColor?: string;
   markerColor?: string;
@@ -66,6 +67,7 @@ function project(
 export function InteractiveGlobe({
   className,
   size = 600,
+  backgroundColor,
   dotColor = "rgba(100, 180, 255, ALPHA)",
   arcColor = "rgba(100, 180, 255, 0.5)",
   markerColor = "rgba(100, 220, 255, 1)",
@@ -129,24 +131,29 @@ export function InteractiveGlobe({
 
     ctx.clearRect(0, 0, w, h);
 
-    const glowGrad = ctx.createRadialGradient(
-      cx,
-      cy,
-      radius * 0.8,
-      cx,
-      cy,
-      radius * 1.5
-    );
-    glowGrad.addColorStop(0, "rgba(60, 140, 255, 0.03)");
-    glowGrad.addColorStop(1, "rgba(60, 140, 255, 0)");
-    ctx.fillStyle = glowGrad;
-    ctx.fillRect(0, 0, w, h);
+    if (backgroundColor) {
+      ctx.fillStyle = backgroundColor;
+      ctx.fillRect(0, 0, w, h);
+    } else {
+      const glowGrad = ctx.createRadialGradient(
+        cx,
+        cy,
+        radius * 0.8,
+        cx,
+        cy,
+        radius * 1.5
+      );
+      glowGrad.addColorStop(0, "rgba(60, 140, 255, 0.03)");
+      glowGrad.addColorStop(1, "rgba(60, 140, 255, 0)");
+      ctx.fillStyle = glowGrad;
+      ctx.fillRect(0, 0, w, h);
 
-    ctx.beginPath();
-    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-    ctx.strokeStyle = "rgba(100, 180, 255, 0.06)";
-    ctx.lineWidth = 1;
-    ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(100, 180, 255, 0.06)";
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
 
     const ry = rotYRef.current;
     const rx = rotXRef.current;
@@ -254,6 +261,7 @@ export function InteractiveGlobe({
     connections,
     markers,
     size,
+    backgroundColor,
   ]);
 
   useEffect(() => {

@@ -54,6 +54,7 @@ export function AreasWeServeGlobeSection({
           <div className="relative mx-auto md:mx-0">
             <InteractiveGlobe
               size={460}
+              backgroundColor="#f9f9f9"
               markers={[...AREAS_GLOBE_MARKERS]}
               connections={AREAS_GLOBE_CONNECTIONS}
               dotColor="rgba(100, 180, 255, ALPHA)"

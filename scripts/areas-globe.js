@@ -115,24 +115,8 @@
 
       ctx.clearRect(0, 0, w, h);
 
-      var glowGrad = ctx.createRadialGradient(
-        cx,
-        cy,
-        radius * 0.8,
-        cx,
-        cy,
-        radius * 1.5
-      );
-      glowGrad.addColorStop(0, "rgba(22, 51, 91, 0.04)");
-      glowGrad.addColorStop(1, "rgba(22, 51, 91, 0)");
-      ctx.fillStyle = glowGrad;
+      ctx.fillStyle = "#f9f9f9";
       ctx.fillRect(0, 0, w, h);
-
-      ctx.beginPath();
-      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(22, 51, 91, 0.08)";
-      ctx.lineWidth = 1;
-      ctx.stroke();
 
       for (var i = 0; i < dots.length; i++) {
         var x = dots[i][0] * radius;
