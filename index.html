@@ -1237,9 +1237,10 @@
     .progress-connector.complete { background-color: #ED7D22; }
 
     /* Autocomplete dropdown (white panel on navy form) */
-    .autocomplete-wrap { position: relative; }
+    .autocomplete-wrap { position: relative; z-index: 1; }
+    .autocomplete-wrap.is-open { z-index: 40; }
     .autocomplete-list {
-      position: absolute; left: 0; right: 0; top: calc(100% + 4px); z-index: 30;
+      position: absolute; left: 0; right: 0; top: calc(100% + 4px); z-index: 50;
       background: #fff; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.18);
       max-height: 240px; overflow-y: auto; list-style: none; margin: 0; padding: 4px 0;
     }
@@ -1927,7 +1928,7 @@
           <p class="form-step-note">Tell us where you're headed — we'll match you with the right crew and timeline.</p>
           <div class="text-center mt-5">
             <button type="button" data-action="next" class="form-btn-primary">
-              Next
+              Get A Quote
             </button>
           </div>
         </div>
@@ -2826,6 +2827,8 @@
           list.innerHTML = '';
           highlight = -1;
           input.setAttribute('aria-expanded', 'false');
+          var wrapClose = input.closest('.autocomplete-wrap');
+          if (wrapClose) wrapClose.classList.remove('is-open');
         }
 
         function selectItem(label) {
@@ -2850,6 +2853,8 @@
           });
           list.classList.remove('hidden');
           input.setAttribute('aria-expanded', 'true');
+          var wrapOpen = input.closest('.autocomplete-wrap');
+          if (wrapOpen) wrapOpen.classList.add('is-open');
         }
 
         function setHighlight(idx) {
