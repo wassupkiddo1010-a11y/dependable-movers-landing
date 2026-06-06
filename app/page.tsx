@@ -2,6 +2,7 @@ import { AboutSectionDemo } from "@/components/demo/about-section-demo";
 import { AreasWeServeDemo } from "@/components/demo/areas-we-serve-demo";
 import { InteractiveGlobeDemo } from "@/components/demo/interactive-globe-demo";
 import { FaqAccordionDemo } from "@/components/demo/faq-accordion-demo";
+import { FooterSectionDemo } from "@/components/demo/footer-section-demo";
 import { TestimonialDemo } from "@/components/demo/testimonial-demo";
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
       <AreasWeServeDemo />
       <InteractiveGlobeDemo />
       <FaqAccordionDemo />
+      <FooterSectionDemo />
     </main>
   );
 }
