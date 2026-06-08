@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { ButtonWithIcon } from "@/components/ui/button-with-icon";
 import { NAV_LINKS, ROUTES } from "@/lib/routes";
-import { SITE_PHONE, SITE_PHONE_HREF } from "@/lib/site-config";
+import { SITE_NAV_PHONE, SITE_NAV_PHONE_HREF } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 
 function isActive(pathname: string, href: string): boolean {
@@ -56,15 +56,8 @@ export function SiteNav() {
                   {link.label}
                 </Link>
               ))}
-              <a
-                href={SITE_PHONE_HREF}
-                className="hidden items-center gap-1.5 whitespace-nowrap px-3 py-2 text-sm font-semibold text-white/90 transition-colors hover:text-white lg:inline-flex"
-              >
-                <Phone className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
-                {SITE_PHONE}
-              </a>
-              <ButtonWithIcon href={ROUTES.quote} className="shrink-0">
-                Request A Quote
+              <ButtonWithIcon href={SITE_NAV_PHONE_HREF} className="shrink-0">
+                {SITE_NAV_PHONE}
               </ButtonWithIcon>
             </div>
           </nav>
@@ -90,12 +83,6 @@ export function SiteNav() {
             aria-label="Mobile navigation"
           >
             <div className="flex flex-col gap-0.5 font-sans">
-              <a
-                href={SITE_PHONE_HREF}
-                className="py-2.5 text-sm font-semibold text-white/95"
-              >
-                {SITE_PHONE}
-              </a>
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.href}
@@ -112,10 +99,10 @@ export function SiteNav() {
                 </Link>
               ))}
               <ButtonWithIcon
-                href={ROUTES.quote}
+                href={SITE_NAV_PHONE_HREF}
                 className="mt-2 w-full justify-center"
               >
-                Request A Quote
+                {SITE_NAV_PHONE}
               </ButtonWithIcon>
             </div>
           </nav>
