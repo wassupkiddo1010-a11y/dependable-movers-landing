@@ -28,7 +28,7 @@ function StateItem({ name }: { name: string }) {
 
 export function AreasWeServeGlobeSection({
   className,
-  ctaHref = "#consultation",
+  ctaHref = "/areas-we-serve/",
 }: {
   className?: string;
   ctaHref?: string;
