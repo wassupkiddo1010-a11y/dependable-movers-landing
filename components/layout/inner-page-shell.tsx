@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
-import { ButtonWithIcon } from "@/components/ui/button-with-icon";
-import { ROUTES } from "@/lib/routes";
+import { QuoteFormButton } from "@/components/ui/quote-form-button";
 
 type InnerPageShellProps = {
   title: string;
@@ -44,9 +43,7 @@ export function InnerPageShell({
             to your move.
           </p>
           <div className="mt-6 flex justify-center">
-            <ButtonWithIcon href={ROUTES.quote} variant="orange">
-              Get A Quote
-            </ButtonWithIcon>
+            <QuoteFormButton>Get A Quote</QuoteFormButton>
           </div>
         </div>
       </section>

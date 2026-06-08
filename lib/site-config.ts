@@ -8,8 +8,8 @@ export const SITE_PHONE_HREF = "tel:+18008230395";
 /** Navbar CTA — displays as the quote button and opens the dialer. */
 export const SITE_NAV_PHONE = "800-303-7803";
 export const SITE_NAV_PHONE_HREF = "tel:+18003037803";
-export const SITE_EMAIL = "support@dependablemovers.com";
-export const SITE_EMAIL_HREF = "mailto:support@dependablemovers.com";
+export const SITE_EMAIL = "info@depmovers.com";
+export const SITE_EMAIL_HREF = "mailto:info@depmovers.com";
 
 export const SITE_ADDRESS = {
   line1: "7202 S US Highway 1",

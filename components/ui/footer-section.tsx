@@ -8,6 +8,8 @@ import Link from "next/link";
 import { ROUTES } from "@/lib/routes";
 import {
   BROKER_DISCLAIMER,
+  SITE_EMAIL,
+  SITE_EMAIL_HREF,
   SITE_NAME,
   SITE_TAGLINE,
 } from "@/lib/site-config";
@@ -53,8 +55,8 @@ const footerLinks: FooterSection[] = [
     links: [
       { title: "800-823-0395", href: "tel:+18008230395" },
       {
-        title: "support@dependablemovers.com",
-        href: "mailto:support@dependablemovers.com",
+        title: SITE_EMAIL,
+        href: SITE_EMAIL_HREF,
       },
       {
         title: (

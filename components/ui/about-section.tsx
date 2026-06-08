@@ -5,7 +5,7 @@ import {
   useTimelineInView,
 } from "@/components/ui/timeline-animation";
 import { VerticalCutReveal } from "@/components/ui/vertical-cut-reveal";
-import { ButtonWithIcon } from "@/components/ui/button-with-icon";
+import { QuoteFormButton } from "@/components/ui/quote-form-button";
 import { useRef } from "react";
 
 export default function AboutSection3() {
@@ -237,9 +237,7 @@ export default function AboutSection3() {
                 customVariants={revealVariants}
                 className="flex justify-end md:justify-end"
               >
-                <ButtonWithIcon href="#consultation" variant="orange">
-                  Get A Free Quote
-                </ButtonWithIcon>
+                <QuoteFormButton>Get A Free Quote</QuoteFormButton>
               </TimelineContent>
             </div>
           </div>
