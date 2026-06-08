@@ -10,7 +10,7 @@ export const ROUTES = {
   preferredCarriers: "/preferred-carriers/",
   privacyPolicy: "/privacy-policy/",
   termsAndConditions: "/terms-and-conditions/",
-  quote: "/#consultation",
+  quote: "/",
   service: (slug: string) => `/services/${slug}/`,
 } as const;
 

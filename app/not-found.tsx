@@ -2,6 +2,7 @@ import Link from "next/link";
 import { SiteNav } from "@/components/layout/site-nav";
 import { Footer } from "@/components/ui/footer-section";
 import { ButtonWithIcon } from "@/components/ui/button-with-icon";
+import { QuoteFormButton } from "@/components/ui/quote-form-button";
 import { ROUTES } from "@/lib/routes";
 import { SITE_PHONE, SITE_PHONE_HREF } from "@/lib/site-config";
 
@@ -43,7 +44,7 @@ export default function NotFound() {
             <ButtonWithIcon href={ROUTES.home} variant="orange">
               Back to Home
             </ButtonWithIcon>
-            <ButtonWithIcon href={ROUTES.quote}>Get A Quote</ButtonWithIcon>
+            <QuoteFormButton variant="default">Get A Quote</QuoteFormButton>
           </div>
 
           <p className="mt-8 text-sm text-white/60">

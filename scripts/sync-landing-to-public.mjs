@@ -15,6 +15,7 @@ copyFileSync("data/cities-zips.json", "public/data/cities-zips.json");
 const jsFiles = [
   "text-roll-nav.js",
   "about-section-scroll.js",
+  "quote-form-scroll.js",
   "trust-cards-scroll.js",
   "animated-testimonials.js",
   "svc-overlap-reveal.js",
