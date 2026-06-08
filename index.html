@@ -238,7 +238,7 @@
       padding: 14px 16px;
       font-size: 0.9375rem;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background: rgba(255, 255, 255, 0.95);
+      background-color: rgba(255, 255, 255, 0.95);
       border: 2px solid transparent;
       border-radius: 10px;
       color: #1A1A1A;
@@ -252,13 +252,23 @@
     .hero-form-card .form-field:focus {
       outline: none;
       border-color: #ED7D22;
-      background: #ffffff;
+      background-color: #ffffff;
       box-shadow: none;
     }
     .hero-form-card .form-select-light {
+      appearance: none;
+      -webkit-appearance: none;
       color: #1A1A1A;
       background-color: rgba(255, 255, 255, 0.95);
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2316335B'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 16px;
+      padding-right: 2.75rem;
+      cursor: pointer;
+    }
+    .hero-form-card .form-select-light:invalid {
+      color: #888888;
     }
     .hero-form-card .form-select-light option {
       color: #1A1A1A;
@@ -1946,13 +1956,13 @@
               <label for="move-size" class="sr-only">Move Size</label>
               <select id="move-size" name="move-size" required
                 class="form-field form-select-light">
-                <option value="" disabled selected class="text-gray-500">Move Size *</option>
-                <option value="studio">Studio</option>
-                <option value="1">1 Bedroom</option>
-                <option value="2">2 Bedroom</option>
-                <option value="3">3 Bedroom</option>
-                <option value="4">4 Bedroom</option>
-                <option value="5+">5+ Bedroom</option>
+                <option value="" disabled selected>Move Size *</option>
+                <option value="Studio">Studio</option>
+                <option value="1 Bedroom">1 Bedroom</option>
+                <option value="2 Bedrooms">2 Bedrooms</option>
+                <option value="3 Bedrooms">3 Bedrooms</option>
+                <option value="4 Bedrooms">4 Bedrooms</option>
+                <option value="5+ Bedrooms">5+ Bedrooms</option>
               </select>
               <p class="error-msg text-orange text-xs mt-1 hidden">Please fill in this field.</p>
             </div>
@@ -1960,10 +1970,10 @@
               <label for="move-type" class="sr-only">Move Type</label>
               <select id="move-type" name="move-type" required
                 class="form-field form-select-light">
-                <option value="" disabled selected class="text-gray-500">Move Type *</option>
-                <option value="house">House</option>
-                <option value="apartment">Apartment</option>
-                <option value="business">Businesses</option>
+                <option value="" disabled selected>Move Type *</option>
+                <option value="House">House</option>
+                <option value="Apartment">Apartment</option>
+                <option value="Businesses">Businesses</option>
               </select>
               <p class="error-msg text-orange text-xs mt-1 hidden">Please fill in this field.</p>
             </div>
@@ -2331,7 +2341,7 @@
             </ul>
           </div>
           <div class="areas-section__cta">
-            <a href="#consultation" class="areas-section__btn">View All Locations</a>
+            <a href="/areas-we-serve/" class="areas-section__btn">View All Locations</a>
           </div>
         </div>
       </div>
@@ -2722,6 +2732,7 @@
       function validateField(field) {
         var val = field.value.trim();
         if (!val) return false;
+        if (field.tagName === 'SELECT' && field.value === '') return false;
         if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) return false;
         if (field.type === 'tel' && val.replace(/\D/g, '').length < 10) return false;
         return true;
@@ -2731,16 +2742,22 @@
         var stepEl = consultForm.querySelector('[data-step="' + n + '"]');
         clearStepErrors(stepEl);
         var valid = true;
+        var firstInvalid = null;
         stepEl.querySelectorAll('[required]').forEach(function (field) {
           if (!validateField(field)) {
             field.classList.add('border-orange');
             var err = field.closest('.autocomplete-wrap')
               ? field.closest('.autocomplete-wrap').querySelector('.error-msg')
               : field.parentElement.querySelector('.error-msg');
-            if (err) err.classList.remove('hidden');
+            if (err) {
+              err.textContent = 'This field is required.';
+              err.classList.remove('hidden');
+            }
+            if (!firstInvalid) firstInvalid = field;
             valid = false;
           }
         });
+        if (firstInvalid) firstInvalid.focus();
         return valid;
       }
 
@@ -2820,15 +2837,21 @@
       }
 
       function filterCities(query) {
-        if (!citiesData || query.length < 2) return [];
-        var q = query.toLowerCase();
+        if (!citiesData) return [];
+        var q = query.trim();
+        if (!q) return [];
+        var isDigits = /^\d+$/.test(q);
+        var minLen = isDigits ? 1 : 2;
+        if (q.length < minLen) return [];
+        var qLower = q.toLowerCase();
         var results = [];
         for (var i = 0; i < citiesData.length && results.length < 8; i++) {
           var e = citiesData[i];
           var label = formatCity(e);
-          if (label.toLowerCase().indexOf(q) !== -1 ||
-              e.zip.indexOf(q) !== -1 ||
-              e.city.toLowerCase().indexOf(q) === 0) {
+          if (isDigits) {
+            if (e.zip.indexOf(q) === 0) results.push({ label: label, entry: e });
+          } else if (label.toLowerCase().indexOf(qLower) !== -1 ||
+              e.city.toLowerCase().indexOf(qLower) === 0) {
             results.push({ label: label, entry: e });
           }
         }
@@ -2897,15 +2920,24 @@
 
         input.addEventListener('focus', function () {
           loadCities().then(function () {
-            if (input.value.trim().length >= 2) search();
+            if (input.value.trim().length >= 1) search();
           });
         });
 
         input.addEventListener('input', function () {
           clearTimeout(debounceTimer);
-          debounceTimer = setTimeout(function () {
-            loadCities().then(function () { search(); });
-          }, 200);
+          function runSearch() {
+            if (citiesData) {
+              search();
+            } else {
+              loadCities().then(function () { search(); });
+            }
+          }
+          if (citiesData) {
+            runSearch();
+          } else {
+            debounceTimer = setTimeout(runSearch, 50);
+          }
         });
 
         input.addEventListener('keydown', function (e) {
@@ -2933,6 +2965,7 @@
 
       initAutocomplete('moving-from', 'moving-from-list');
       initAutocomplete('moving-to', 'moving-to-list');
+      loadCities();
 
       /* ---- Subscribe form ---- */
       var subForm = document.getElementById('subscribe-form');
