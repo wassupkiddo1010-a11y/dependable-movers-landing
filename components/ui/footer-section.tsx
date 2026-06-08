@@ -3,13 +3,19 @@
 import React from "react";
 import type { ComponentProps, ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { Facebook, Youtube } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { ROUTES } from "@/lib/routes";
+import {
+  BROKER_DISCLAIMER,
+  SITE_NAME,
+  SITE_TAGLINE,
+} from "@/lib/site-config";
+import { SERVICES } from "@/data/services";
 
 interface FooterLink {
   title: ReactNode;
   href?: string;
-  icon?: React.ComponentType<{ className?: string }>;
 }
 
 interface FooterSection {
@@ -21,39 +27,31 @@ const footerLinks: FooterSection[] = [
   {
     label: "Quick Links",
     links: [
-      { title: "Home", href: "#" },
-      { title: "About Us", href: "#about" },
-      { title: "Our Services", href: "#services" },
-      { title: "Contact Us", href: "#contact" },
-      { title: "Make a Payment", href: "#" },
-      { title: "Preferred Carriers", href: "#" },
+      { title: "Home", href: ROUTES.home },
+      { title: "About Us", href: ROUTES.about },
+      { title: "Our Services", href: ROUTES.services },
+      { title: "Contact Us", href: ROUTES.contact },
+      { title: "Preferred Carriers", href: ROUTES.preferredCarriers },
     ],
   },
   {
     label: "Services",
-    links: [
-      { title: "Local Moving", href: "#services" },
-      { title: "Long Distance Moving", href: "#services" },
-      { title: "Commercial Moving", href: "#services" },
-      { title: "Furniture Moving", href: "#services" },
-      { title: "Piano Moving", href: "#services" },
-      { title: "Last-Second Moves", href: "#services" },
-    ],
+    links: SERVICES.map((service) => ({
+      title: service.title,
+      href: service.href,
+    })),
   },
   {
     label: "Support",
     links: [
-      { title: "Privacy Policy", href: "#" },
-      { title: "Terms & Conditions", href: "#" },
+      { title: "Privacy Policy", href: ROUTES.privacyPolicy },
+      { title: "Terms & Conditions", href: ROUTES.termsAndConditions },
     ],
   },
   {
     label: "Get in Touch",
     links: [
-      {
-        title: "800-823-0395",
-        href: "tel:+18008230395",
-      },
+      { title: "800-823-0395", href: "tel:+18008230395" },
       {
         title: "support@dependablemovers.com",
         href: "mailto:support@dependablemovers.com",
@@ -72,25 +70,6 @@ const footerLinks: FooterSection[] = [
   },
 ];
 
-const socialLinks = [
-  { label: "Facebook", href: "#", icon: Facebook },
-  { label: "Twitter", href: "#", icon: TwitterIcon },
-  { label: "YouTube", href: "#", icon: Youtube },
-] as const;
-
-function TwitterIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      fill="currentColor"
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-    >
-      <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
-    </svg>
-  );
-}
-
 export function Footer() {
   return (
     <footer
@@ -101,21 +80,20 @@ export function Footer() {
 
       <div className="grid w-full gap-8 xl:grid-cols-3 xl:gap-8">
         <AnimatedContainer className="space-y-4">
-          <a href="#" aria-label="Dependable Movers home" className="inline-block">
+          <Link href={ROUTES.home} aria-label={`${SITE_NAME} home`} className="inline-block">
             <Image
               src="/assets/logo.png"
-              alt="Dependable Movers"
+              alt={SITE_NAME}
               width={220}
               height={70}
               className="h-14 w-auto max-w-[11rem] object-contain"
             />
-          </a>
+          </Link>
           <p className="font-heading text-sm font-semibold text-[#ED7D22]">
-            Top-notch moving services for businesses and individuals across the
-            U.S.
+            {SITE_TAGLINE}
           </p>
           <p className="text-muted-foreground mt-2 text-sm md:mt-0">
-            © {new Date().getFullYear()} Dependable Movers. All rights reserved.
+            © {new Date().getFullYear()} {SITE_NAME}. All rights reserved.
           </p>
         </AnimatedContainer>
 
@@ -130,13 +108,21 @@ export function Footer() {
                   {section.links.map((link, linkIndex) => (
                     <li key={`${section.label}-${linkIndex}`}>
                       {link.href ? (
-                        <a
-                          href={link.href}
-                          className="inline-flex items-center transition-all duration-300 hover:text-[#2E6DB4]"
-                        >
-                          {link.icon && <link.icon className="me-1 size-4" />}
-                          {link.title}
-                        </a>
+                        link.href.startsWith("/") ? (
+                          <Link
+                            href={link.href}
+                            className="inline-flex items-center transition-all duration-300 hover:text-[#2E6DB4]"
+                          >
+                            {link.title}
+                          </Link>
+                        ) : (
+                          <a
+                            href={link.href}
+                            className="inline-flex items-center transition-all duration-300 hover:text-[#2E6DB4]"
+                          >
+                            {link.title}
+                          </a>
+                        )
                       ) : (
                         <span className="inline-flex items-center leading-relaxed">
                           {link.title}
@@ -151,33 +137,16 @@ export function Footer() {
         </div>
       </div>
 
-      <AnimatedContainer delay={0.5} className="mt-12 w-full border-t border-gray-200 pt-10">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex items-center gap-4">
-            {socialLinks.map(({ label, href, icon: Icon }) => (
-              <a
-                key={label}
-                href={href}
-                aria-label={label}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 text-[#16335B] transition-colors hover:border-[#16335B] hover:bg-[#16335B] hover:text-white"
-              >
-                <Icon className="size-4" />
-              </a>
-            ))}
-          </div>
-
+      <AnimatedContainer
+        delay={0.5}
+        className="mt-12 w-full border-t border-gray-200 pt-10"
+      >
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-end">
           <SubscribeForm />
         </div>
 
         <p className="mt-10 mb-4 text-xs leading-relaxed text-gray-500">
-          Please note that a properly licensed interstate broker, such as
-          Dependable Movers, is not a motor carrier and will not transport an
-          individual shipper&apos;s household goods, but will coordinate and
-          arrange for the transportation of household goods by an FMCSA authorized
-          motor carrier, whose charges will be determined by its published tariff.
-          All estimated charges and final actual charges will be based upon the
-          carrier&apos;s tariff which is available for inspection from the carrier
-          upon reasonable request. (1) 70% OFF on Tariff Rates.
+          {BROKER_DISCLAIMER}
         </p>
       </AnimatedContainer>
     </footer>
@@ -187,15 +156,33 @@ export function Footer() {
 function SubscribeForm() {
   const [submitted, setSubmitted] = React.useState(false);
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    const email = form.elements.namedItem("subscribe-email") as HTMLInputElement;
+    const email = form.elements.namedItem(
+      "subscribe-email"
+    ) as HTMLInputElement;
     if (
-      email.value.trim() &&
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)
+      !email.value.trim() ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)
     ) {
-      setSubmitted(true);
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/subscribe/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.value.trim() }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        window.alert(data.error ?? "Subscription failed. Please try again.");
+      }
+    } catch {
+      window.alert("Subscription failed. Please try again.");
     }
   }
 

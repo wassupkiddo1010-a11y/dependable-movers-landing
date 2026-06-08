@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  trailingSlash: true,
   /* Production landing page lives at repo root (index.html). */
   async rewrites() {
     return {
