@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 import { ButtonWithIcon } from "@/components/ui/button-with-icon";
 import TextRoll from "@/components/ui/text-roll";
 import { cn } from "@/lib/utils";
+import { SITE_NAV_PHONE, SITE_NAV_PHONE_HREF } from "@/lib/site-config";
 
 export interface NavLink {
   label: string;
@@ -16,8 +17,6 @@ export interface ResponsiveHeroNavProps {
   logoUrl?: string;
   logoAlt?: string;
   navLinks?: NavLink[];
-  phoneNumber?: string;
-  phoneHref?: string;
   ctaButtonText?: string;
   ctaButtonHref?: string;
   className?: string;
@@ -35,10 +34,8 @@ export function ResponsiveHeroNav({
   logoUrl = "/assets/logo.png",
   logoAlt = "Dependable Movers",
   navLinks = defaultNavLinks,
-  phoneNumber = "800-823-0395",
-  phoneHref = "tel:+18008230395",
-  ctaButtonText = "Request A Quote",
-  ctaButtonHref = "#consultation",
+  ctaButtonText = SITE_NAV_PHONE,
+  ctaButtonHref = SITE_NAV_PHONE_HREF,
   className = "",
 }: ResponsiveHeroNavProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -80,12 +77,6 @@ export function ResponsiveHeroNav({
                   </TextRoll>
                 </a>
               ))}
-              <a
-                href={phoneHref}
-                className="hidden items-center gap-1.5 whitespace-nowrap px-3 py-2 font-sans text-sm font-semibold text-white/90 transition-colors hover:text-white lg:inline-flex"
-              >
-                {phoneNumber}
-              </a>
               <ButtonWithIcon href={ctaButtonHref} className="ml-1 shrink-0">
                 {ctaButtonText}
               </ButtonWithIcon>
@@ -113,12 +104,6 @@ export function ResponsiveHeroNav({
             aria-label="Mobile navigation"
           >
             <div className="flex flex-col gap-0.5 px-4 py-3">
-              <a
-                href={phoneHref}
-                className="py-2.5 text-sm font-semibold text-white/95"
-              >
-                {phoneNumber}
-              </a>
               {navLinks.map((link) => (
                 <a
                   key={link.label}
