@@ -1,10 +1,12 @@
 import type { MigratedPage } from "@/data/pages/types";
+import { quoteFormBlock } from "@/data/pages/shared-blocks";
 
 export const aboutPage: MigratedPage = {
   title: "About Us",
   description:
     "Dependable Movers brings 50+ years of combined experience to every local and long-distance relocation.",
   blocks: [
+    { type: "h2", text: "The Most Reliable Moving Services For Businesses And Individuals Across The US" },
     {
       type: "p",
       text: "Welcome to Dependable Movers! Our professional moving company has over 50 years of combined experience serving individuals and businesses across the USA. Our team of dependable, hardworking, and responsible workers has just one goal—to satisfy our customers!",
@@ -32,8 +34,10 @@ export const aboutPage: MigratedPage = {
       text: "We have competitive prices based on the distance and size of your move. Don't worry about having to spend extra cash on hidden costs—our agents will give you a thorough and accurate estimate along with a full explanation of the relocation process.",
     },
     { type: "p", text: "Get in touch with us today!" },
+    quoteFormBlock,
     {
       type: "testimonial",
+      headline: "Amazing Experience",
       quote:
         "Dependable Movers completed my move across the state without any problems, and they had a wonderful attitude throughout the move. It felt like I was getting help from family and friends! I would definitely recommend their moving services.",
       author: "Billy W.",

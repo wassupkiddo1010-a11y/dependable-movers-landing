@@ -1,26 +1,39 @@
 import type { ReactNode } from "react";
-import { QuoteFormButton } from "@/components/ui/quote-form-button";
 
 type InnerPageShellProps = {
   title: string;
   description?: string;
   children: ReactNode;
+  kicker?: string;
 };
+
+function PageKicker({ children }: { children: ReactNode }) {
+  return (
+    <p className="mb-3 flex items-center justify-center gap-2 font-[family-name:var(--font-ibm-plex-mono)] text-[11px] font-medium uppercase tracking-[0.22em] text-[#ED7D22] md:justify-start">
+      <span aria-hidden className="text-base leading-none">
+        ✱
+      </span>
+      {children}
+    </p>
+  );
+}
 
 export function InnerPageShell({
   title,
   description,
   children,
+  kicker = "Dependable Movers",
 }: InnerPageShellProps) {
   return (
     <>
-      <section className="border-b border-[#16335B]/10 bg-[#f9f9f9] px-4 py-14 md:py-20">
-        <div className="mx-auto max-w-3xl text-center">
-          <h1 className="font-[family-name:var(--font-poppins)] text-3xl font-bold tracking-tight text-[#1A1A1A] md:text-4xl lg:text-5xl">
+      <section className="border-b border-slate-200 bg-slate-50 px-4 py-14 md:py-20">
+        <div className="mx-auto max-w-6xl text-center md:text-left">
+          <PageKicker>{kicker}</PageKicker>
+          <h1 className="font-[family-name:var(--font-barlow-condensed)] text-4xl font-extrabold uppercase leading-[0.92] tracking-tight text-[#0F172A] md:text-5xl lg:text-6xl">
             {title}
           </h1>
           {description ? (
-            <p className="mt-4 text-base leading-relaxed text-[#555555] md:text-lg">
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-600 md:mx-0 md:text-lg">
               {description}
             </p>
           ) : null}
@@ -28,24 +41,7 @@ export function InnerPageShell({
       </section>
 
       <section className="px-4 py-12 md:py-16">
-        <div className="mx-auto max-w-3xl space-y-4 text-base leading-relaxed text-[#555555] [&_a]:text-[#2E6DB4] [&_a]:transition-colors hover:[&_a]:text-[#16335B] [&_h2]:font-[family-name:var(--font-poppins)] [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-[#1A1A1A] [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5">
-          {children}
-        </div>
-      </section>
-
-      <section className="border-t border-gray-200 bg-[#16335B] px-4 py-12 text-center text-white md:py-16">
-        <div className="mx-auto max-w-2xl">
-          <h2 className="font-[family-name:var(--font-poppins)] text-2xl font-bold md:text-3xl">
-            Ready to get started?
-          </h2>
-          <p className="mt-3 text-sm text-white/80 md:text-base">
-            Request a free quote and our coordinators will build a plan tailored
-            to your move.
-          </p>
-          <div className="mt-6 flex justify-center">
-            <QuoteFormButton>Get A Quote</QuoteFormButton>
-          </div>
-        </div>
+        <div className="mx-auto max-w-6xl">{children}</div>
       </section>
     </>
   );

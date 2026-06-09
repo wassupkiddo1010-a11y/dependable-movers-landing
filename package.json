@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "clean": "rm -rf .next",
     "dev": "next dev",
+    "dev:clean": "npm run clean && next dev",
     "build": "node scripts/sync-landing-to-public.mjs && next build",
+    "build:clean": "npm run clean && npm run build",
     "process-logo": "python3 scripts/process-logo.py",
     "process-trust-icons": "python3 scripts/process-trust-icons.py",
     "start": "next start",

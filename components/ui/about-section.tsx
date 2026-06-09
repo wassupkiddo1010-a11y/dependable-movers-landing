@@ -139,7 +139,7 @@ export default function AboutSection3() {
 
         <div className="mt-4 grid gap-10 md:grid-cols-3 md:gap-12 lg:mt-6">
           <div className="md:col-span-2">
-            <h1 className="mb-10 text-2xl font-extrabold !leading-[110%] tracking-tight text-[#1A1A1A] sm:mb-12 sm:text-4xl md:text-5xl">
+            <h1 className="mb-10 text-2xl font-extrabold !leading-[125%] tracking-tight text-[#1A1A1A] sm:mb-12 sm:text-4xl md:text-5xl">
               <VerticalCutReveal
                 autoStart={false}
                 viewportRef={heroRef}
@@ -148,6 +148,7 @@ export default function AboutSection3() {
                 staggerDuration={0.08}
                 staggerFrom="first"
                 reverse
+                wordLevelClassName="pb-[0.14em]"
                 transition={{
                   type: "spring",
                   stiffness: 250,
