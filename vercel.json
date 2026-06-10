@@ -1,4 +1,39 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "yourdependablemovers.com"
+        }
+      ],
+      "destination": "https://depmovers.com/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.yourdependablemovers.com"
+        }
+      ],
+      "destination": "https://depmovers.com/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.depmovers.com"
+        }
+      ],
+      "destination": "https://depmovers.com/$1",
+      "permanent": true
+    }
+  ]
 }
