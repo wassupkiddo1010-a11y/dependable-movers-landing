@@ -1,5 +1,5 @@
 import type { MigratedPage } from "@/data/pages/types";
-import { SITE_EMAIL, SITE_NAME } from "@/lib/site-config";
+import { SITE_EMAIL, SITE_NAME, SITE_URL } from "@/lib/site-config";
 
 export const termsPage: MigratedPage = {
   title: "Terms & Conditions",
@@ -14,7 +14,7 @@ export const termsPage: MigratedPage = {
         },
         {
           type: "p",
-          text: `This Website is provided by dependablemovers.com. Owner contact email: ${SITE_EMAIL}`,
+          text: `This Website is provided by ${SITE_URL.replace(/^https?:\/\//, "")}. Owner contact email: ${SITE_EMAIL}`,
         },
         { type: "h2", text: "What the User should know at a glance" },
         {
