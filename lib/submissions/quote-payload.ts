@@ -10,7 +10,6 @@ export type QuoteFormPayload = {
   phone: string;
   sms_marketing_consent: boolean;
   sms_account_consent: boolean;
-  contact_consent: boolean;
   source: string;
   submitted_at: string;
 };
@@ -74,7 +73,6 @@ export function buildQuotePayload(input: {
   phone: string;
   smsMarketingConsent: boolean;
   smsAccountConsent: boolean;
-  contactConsent: boolean;
 }): QuoteFormPayload {
   return {
     moving_from: input.movingFrom.trim(),
@@ -88,7 +86,6 @@ export function buildQuotePayload(input: {
     phone: input.phone.trim(),
     sms_marketing_consent: input.smsMarketingConsent,
     sms_account_consent: input.smsAccountConsent,
-    contact_consent: input.contactConsent,
     source: "dependablemovers.com",
     submitted_at: new Date().toISOString(),
   };
@@ -147,15 +144,6 @@ export function validateQuotePayload(
   }
   if (payload.phone.replace(/\D/g, "").length < 10) {
     return "Please enter a valid phone number.";
-  }
-  if (!payload.sms_marketing_consent) {
-    return "Please agree to the marketing text message consent to continue.";
-  }
-  if (!payload.sms_account_consent) {
-    return "Please agree to the account text message consent to continue.";
-  }
-  if (!payload.contact_consent) {
-    return "Please agree to the contact consent to continue.";
   }
   return null;
 }

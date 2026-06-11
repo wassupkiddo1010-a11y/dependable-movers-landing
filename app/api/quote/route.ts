@@ -25,7 +25,6 @@ export async function POST(request: Request) {
       smsAccountConsent: Boolean(
         body.sms_account_consent ?? body.smsAccountConsent
       ),
-      contactConsent: Boolean(body.contact_consent ?? body.contactConsent),
     });
 
     const validationError = validateQuotePayload(payload);

@@ -15,6 +15,3 @@ export const SMS_MARKETING_CONSENT_LABEL =
 
 export const SMS_ACCOUNT_CONSENT_LABEL =
   "I consent to receive non-marketing text messages from Dependable Movers about account updates, service alerts, and support-related communications. Message frequency may vary, message and data rates may apply. Text HELP for assistance, reply STOP to opt out.";
-
-export const QUOTE_CONTACT_CONSENT_LABEL =
-  "By submitting this form, I consent to be contacted by Dependable Movers at the phone number provided, including via automated telephone calls and AI-generated voice messages, regarding my move request. I understand I can opt out at any time by saying 'stop' during any call. Message and data rates may apply.";
