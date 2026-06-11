@@ -12,6 +12,7 @@ export type QuoteFormValues = {
   phone: string;
   sms_marketing_consent: boolean;
   sms_account_consent: boolean;
+  contact_consent: boolean;
 };
 
 export type QuoteSubmitResult =
