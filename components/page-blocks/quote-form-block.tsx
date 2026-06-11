@@ -7,6 +7,7 @@ import { LocationAutocompleteField } from "@/components/page-blocks/location-aut
 import {
   MOVE_SIZE_OPTIONS,
   MOVE_TYPE_OPTIONS,
+  QUOTE_CONTACT_CONSENT_LABEL,
   SMS_ACCOUNT_CONSENT_LABEL,
   SMS_MARKETING_CONSENT_LABEL,
 } from "@/lib/quote-form-constants";
@@ -27,6 +28,7 @@ const EMPTY_FORM: QuoteFormValues = {
   phone: "",
   sms_marketing_consent: false,
   sms_account_consent: false,
+  contact_consent: false,
 };
 
 const selectChevron =
@@ -62,6 +64,15 @@ export function QuoteFormBlock() {
     }
     if (form.phone.replace(/\D/g, "").length < 10) {
       next.phone = "Please enter a valid phone number.";
+    }
+    if (!form.sms_marketing_consent) {
+      next.sms_marketing_consent = "This consent is required.";
+    }
+    if (!form.sms_account_consent) {
+      next.sms_account_consent = "This consent is required.";
+    }
+    if (!form.contact_consent) {
+      next.contact_consent = "This consent is required.";
     }
     setErrors(next);
     return Object.keys(next).length === 0;
@@ -254,28 +265,60 @@ export function QuoteFormBlock() {
           </div>
 
           <div className="space-y-3 pt-1">
-            <label className="flex items-start gap-3 text-xs leading-relaxed text-slate-600">
-              <input
-                type="checkbox"
-                checked={form.sms_marketing_consent}
-                onChange={(event) =>
-                  setField("sms_marketing_consent", event.target.checked)
-                }
-                className="mt-0.5 h-4 w-4 rounded border-slate-300 text-[#ED7D22] focus:ring-[#ED7D22]"
-              />
-              {SMS_MARKETING_CONSENT_LABEL}
-            </label>
-            <label className="flex items-start gap-3 text-xs leading-relaxed text-slate-600">
-              <input
-                type="checkbox"
-                checked={form.sms_account_consent}
-                onChange={(event) =>
-                  setField("sms_account_consent", event.target.checked)
-                }
-                className="mt-0.5 h-4 w-4 rounded border-slate-300 text-[#ED7D22] focus:ring-[#ED7D22]"
-              />
-              {SMS_ACCOUNT_CONSENT_LABEL}
-            </label>
+            <div>
+              <label className="flex items-start gap-3 text-xs leading-relaxed text-slate-600">
+                <input
+                  type="checkbox"
+                  required
+                  checked={form.sms_marketing_consent}
+                  onChange={(event) =>
+                    setField("sms_marketing_consent", event.target.checked)
+                  }
+                  className={cn(
+                    "mt-0.5 h-4 w-4 rounded border-slate-300 text-[#ED7D22] focus:ring-[#ED7D22]",
+                    errors.sms_marketing_consent && "border-[#ED7D22]"
+                  )}
+                />
+                {SMS_MARKETING_CONSENT_LABEL}
+              </label>
+              <FieldError message={errors.sms_marketing_consent} />
+            </div>
+            <div>
+              <label className="flex items-start gap-3 text-xs leading-relaxed text-slate-600">
+                <input
+                  type="checkbox"
+                  required
+                  checked={form.sms_account_consent}
+                  onChange={(event) =>
+                    setField("sms_account_consent", event.target.checked)
+                  }
+                  className={cn(
+                    "mt-0.5 h-4 w-4 rounded border-slate-300 text-[#ED7D22] focus:ring-[#ED7D22]",
+                    errors.sms_account_consent && "border-[#ED7D22]"
+                  )}
+                />
+                {SMS_ACCOUNT_CONSENT_LABEL}
+              </label>
+              <FieldError message={errors.sms_account_consent} />
+            </div>
+            <div>
+              <label className="flex items-start gap-3 text-xs leading-relaxed text-slate-600">
+                <input
+                  type="checkbox"
+                  required
+                  checked={form.contact_consent}
+                  onChange={(event) =>
+                    setField("contact_consent", event.target.checked)
+                  }
+                  className={cn(
+                    "mt-0.5 h-4 w-4 rounded border-slate-300 text-[#ED7D22] focus:ring-[#ED7D22]",
+                    errors.contact_consent && "border-[#ED7D22]"
+                  )}
+                />
+                {QUOTE_CONTACT_CONSENT_LABEL}
+              </label>
+              <FieldError message={errors.contact_consent} />
+            </div>
           </div>
 
           <p className="text-center text-xs leading-relaxed text-slate-500">
