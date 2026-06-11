@@ -1,3 +1,5 @@
+import { FORMSPREE_CONTACT_ENDPOINT } from "@/lib/formspree-config";
+
 export type QuoteFormValues = {
   moving_from: string;
   moving_to: string;
@@ -10,6 +12,7 @@ export type QuoteFormValues = {
   phone: string;
   sms_marketing_consent: boolean;
   sms_account_consent: boolean;
+  contact_consent: boolean;
 };
 
 export type QuoteSubmitResult =
@@ -57,18 +60,35 @@ export async function submitContactForm(
   values: ContactFormValues
 ): Promise<QuoteSubmitResult> {
   try {
-    const response = await fetch("/api/contact/", {
+    const response = await fetch(FORMSPREE_CONTACT_ENDPOINT, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        full_name: values.full_name.trim(),
+        phone: values.phone.trim(),
+        email: values.email.trim(),
+        message: values.message.trim(),
+        sms_marketing_consent: values.sms_marketing_consent ? "Yes" : "No",
+        sms_account_consent: values.sms_account_consent ? "Yes" : "No",
+        _subject: "Dependable Movers — Website Contact",
+      }),
     });
 
-    const data = (await response.json()) as { error?: string };
+    const data = (await response.json()) as {
+      error?: string;
+      errors?: Array<{ message: string }>;
+    };
 
     if (!response.ok) {
       return {
         ok: false,
-        error: data.error ?? "Unable to submit your message. Please try again.",
+        error:
+          data.error ??
+          data.errors?.[0]?.message ??
+          "Unable to submit your message. Please try again.",
       };
     }
 

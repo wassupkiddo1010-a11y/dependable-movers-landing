@@ -84,6 +84,7 @@ export function ContactFormBlock() {
               </label>
               <input
                 id="contact-full-name"
+                name="full_name"
                 type="text"
                 required
                 placeholder="Full Name *"
@@ -100,6 +101,7 @@ export function ContactFormBlock() {
                 </label>
                 <input
                   id="contact-phone"
+                  name="phone"
                   type="tel"
                   required
                   placeholder="Phone *"
@@ -115,6 +117,7 @@ export function ContactFormBlock() {
                 </label>
                 <input
                   id="contact-email"
+                  name="email"
                   type="email"
                   required
                   placeholder="Email *"
@@ -131,6 +134,7 @@ export function ContactFormBlock() {
               </label>
               <textarea
                 id="contact-message"
+                name="message"
                 required
                 placeholder="How can we help? *"
                 value={form.message}

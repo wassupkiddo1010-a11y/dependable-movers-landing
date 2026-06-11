@@ -2088,17 +2088,32 @@
           </div>
 
           <div class="space-y-2.5 mb-4">
-            <div class="flex items-start gap-2">
-              <input type="checkbox" id="sms-marketing" name="sms-marketing" class="mt-1 w-4 h-4 rounded border-white/40 bg-transparent focus:ring-orange">
-              <label for="sms-marketing" class="text-white/50 text-xs leading-relaxed">
-                I consent to receive marketing text messages, about special offers, discounts, and service updates, from Dependable Movers at the phone number provided. Message frequency may vary. Message &amp; data rates may apply. Text HELP for assistance, reply STOP to opt out.
-              </label>
+            <div>
+              <div class="flex items-start gap-2">
+                <input type="checkbox" id="sms-marketing" name="sms-marketing" required class="mt-1 w-4 h-4 rounded border-white/40 bg-transparent focus:ring-orange">
+                <label for="sms-marketing" class="text-white/50 text-xs leading-relaxed">
+                  I consent to receive marketing text messages, about special offers, discounts, and service updates, from Dependable Movers at the phone number provided. Message frequency may vary. Message &amp; data rates may apply. Text HELP for assistance, reply STOP to opt out.
+                </label>
+              </div>
+              <p class="error-msg text-orange text-xs mt-1 hidden">This consent is required.</p>
             </div>
-            <div class="flex items-start gap-2">
-              <input type="checkbox" id="sms-consent" name="sms-consent" class="mt-1 w-4 h-4 rounded border-white/40 bg-transparent focus:ring-orange">
-              <label for="sms-consent" class="text-white/50 text-xs leading-relaxed">
-                I consent to receive non-marketing text messages from Dependable Movers about account updates, service alerts, and support-related communications. Message frequency may vary, message and data rates may apply. Text HELP for assistance, reply STOP to opt out.
-              </label>
+            <div>
+              <div class="flex items-start gap-2">
+                <input type="checkbox" id="sms-consent" name="sms-consent" required class="mt-1 w-4 h-4 rounded border-white/40 bg-transparent focus:ring-orange">
+                <label for="sms-consent" class="text-white/50 text-xs leading-relaxed">
+                  I consent to receive non-marketing text messages from Dependable Movers about account updates, service alerts, and support-related communications. Message frequency may vary, message and data rates may apply. Text HELP for assistance, reply STOP to opt out.
+                </label>
+              </div>
+              <p class="error-msg text-orange text-xs mt-1 hidden">This consent is required.</p>
+            </div>
+            <div>
+              <div class="flex items-start gap-2">
+                <input type="checkbox" id="contact-consent" name="contact-consent" required class="mt-1 w-4 h-4 rounded border-white/40 bg-transparent focus:ring-orange">
+                <label for="contact-consent" class="text-white/50 text-xs leading-relaxed">
+                  By submitting this form, I consent to be contacted by Dependable Movers at the phone number provided, including via automated telephone calls and AI-generated voice messages, regarding my move request. I understand I can opt out at any time by saying &apos;stop&apos; during any call. Message and data rates may apply.
+                </label>
+              </div>
+              <p class="error-msg text-orange text-xs mt-1 hidden">This consent is required.</p>
             </div>
           </div>
           <p class="text-white/50 text-xs leading-relaxed mb-5 text-center">
@@ -2799,6 +2814,7 @@
       }
 
       function validateField(field) {
+        if (field.type === 'checkbox') return field.checked;
         var val = field.value.trim();
         if (!val) return false;
         if (field.tagName === 'SELECT' && field.value === '') return false;
@@ -2814,12 +2830,20 @@
         var firstInvalid = null;
         stepEl.querySelectorAll('[required]').forEach(function (field) {
           if (!validateField(field)) {
-            field.classList.add('border-orange');
-            var err = field.closest('.autocomplete-wrap')
+            if (field.type === 'checkbox') {
+              field.classList.add('border-orange');
+            } else {
+              field.classList.add('border-orange');
+            }
+            var err = field.type === 'checkbox'
+              ? field.closest('div').parentElement.querySelector('.error-msg')
+              : field.closest('.autocomplete-wrap')
               ? field.closest('.autocomplete-wrap').querySelector('.error-msg')
               : field.parentElement.querySelector('.error-msg');
             if (err) {
-              err.textContent = 'This field is required.';
+              err.textContent = field.type === 'checkbox'
+                ? 'This consent is required.'
+                : 'This field is required.';
               err.classList.remove('hidden');
             }
             if (!firstInvalid) firstInvalid = field;
@@ -2854,7 +2878,8 @@
           email: document.getElementById('email').value.trim(),
           phone: document.getElementById('phone').value.trim(),
           sms_marketing_consent: document.getElementById('sms-marketing').checked,
-          sms_account_consent: document.getElementById('sms-consent').checked
+          sms_account_consent: document.getElementById('sms-consent').checked,
+          contact_consent: document.getElementById('contact-consent').checked
         };
 
         fetch('/api/quote/', {
