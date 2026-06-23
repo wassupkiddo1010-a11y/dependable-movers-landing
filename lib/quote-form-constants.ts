@@ -1,4 +1,6 @@
 /** Matches homepage hero form options (index.html). */
+import { SITE_NAME } from "@/lib/site-config";
+
 export const MOVE_SIZE_OPTIONS = [
   "Studio",
   "1 Bedroom",
@@ -18,3 +20,6 @@ export const SMS_ACCOUNT_CONSENT_LABEL =
 
 export const QUOTE_CONTACT_CONSENT_LABEL =
   "By submitting this form, I consent to be contacted by Dependable Movers at the phone number provided, including via automated telephone calls and AI-generated voice messages, regarding my move request. I understand I can opt out at any time by saying 'stop' during any call. Message and data rates may apply.";
+
+/** 8x8 / carrier SMS disclosure — shown on the contact form before submit. */
+export const CONTACT_SMS_DISCLOSURE_PREFIX = `By providing my phone number to ${SITE_NAME}, I agree and acknowledge that ${SITE_NAME} may send text messages to my wireless phone number for any purpose. Message and data rates may apply. Message frequency will vary, and you will be able to opt out by replying "STOP". Assistance can be found by texting "HELP". For more information on how your data will be handled please visit:`;

@@ -1,6 +1,10 @@
 import type { MigratedPage } from "@/data/pages/types";
 import { SITE_EMAIL, SITE_NAME } from "@/lib/site-config";
 
+/** Exact wording required for SMS carrier / 8x8 campaign compliance. */
+const MOBILE_INFO_SHARING_STATEMENT =
+  "No mobile information will be shared with third parties or affiliates for marketing or promotional purposes. All the above categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties.";
+
 export const privacyPolicyPage: MigratedPage = {
   title: "Privacy Policy",
   description: `How ${SITE_NAME} collects, uses, and protects your personal information.`,
@@ -42,9 +46,13 @@ export const privacyPolicyPage: MigratedPage = {
         },
         {
           type: "p",
-          text: "All categories above exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties, excluding aggregators and providers of the Text Message services.",
+          text: "All the above categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties.",
         },
         { type: "h2", text: "SMS/Text Messaging Privacy" },
+        {
+          type: "p",
+          text: MOBILE_INFO_SHARING_STATEMENT,
+        },
         {
           type: "p",
           text: `When you opt in to receive SMS messages from ${SITE_NAME} by checking the SMS consent checkbox on our website forms, we collect your mobile phone number, your consent and opt-in records (including the method and timestamp of consent), and message interaction data (delivery status, responses).`,
@@ -81,7 +89,7 @@ export const privacyPolicyPage: MigratedPage = {
         },
         {
           type: "p",
-          text: "No mobile information will be shared with third parties or affiliates for marketing or promotional purposes. Information sharing to subcontractors in support services, such as customer service, is permitted.",
+          text: MOBILE_INFO_SHARING_STATEMENT,
         },
       ],
     },
