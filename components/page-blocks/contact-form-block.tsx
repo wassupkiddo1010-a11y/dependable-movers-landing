@@ -9,11 +9,12 @@ import {
   innerTextareaClass,
 } from "@/components/page-blocks/block-primitives";
 import {
+  CONTACT_SMS_DISCLOSURE_PREFIX,
   SMS_ACCOUNT_CONSENT_LABEL,
   SMS_MARKETING_CONSENT_LABEL,
 } from "@/lib/quote-form-constants";
 import { submitContactForm, type ContactFormValues } from "@/lib/quote-submit";
-import { ROUTES } from "@/lib/routes";
+import { ROUTES, absoluteUrl } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
 const EMPTY: ContactFormValues = {
@@ -191,6 +192,13 @@ export function ContactFormBlock() {
                 {statusMessage}
               </p>
             ) : null}
+
+            <p className="text-xs leading-relaxed text-slate-600">
+              {CONTACT_SMS_DISCLOSURE_PREFIX}{" "}
+              <Link href={ROUTES.privacyPolicy} className="underline">
+                {absoluteUrl("privacy-policy").replace(/^https?:\/\//, "")}
+              </Link>
+            </p>
 
             <button
               type="submit"
