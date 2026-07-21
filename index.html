@@ -2820,6 +2820,7 @@
         if (field.tagName === 'SELECT' && field.value === '') return false;
         if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) return false;
         if (field.type === 'tel' && val.replace(/\D/g, '').length < 10) return false;
+        if (field.closest('.autocomplete-wrap') && !isKnownCityLabel(val)) return false;
         return true;
       }
 
@@ -2839,6 +2840,8 @@
             if (err) {
               err.textContent = field.type === 'checkbox'
                 ? 'This consent is required.'
+                : field.closest('.autocomplete-wrap') && field.value.trim()
+                ? 'Please select a location from the dropdown.'
                 : 'This field is required.';
               err.classList.remove('hidden');
             }
@@ -2908,26 +2911,37 @@
       var moveDate = document.getElementById('move-date');
       if (moveDate) moveDate.setAttribute('min', new Date().toISOString().split('T')[0]);
 
-      /* ---- ZIP/City autocomplete (data source: local cities-zips.json, lazy-loaded) ---- */
-      var citiesData = null;
-      var citiesLoading = null;
+      /* ---- ZIP/City autocomplete (chunked data in data/zips/, lazy-loaded per query) ---- */
+      var zipChunks = {};
+      var zipChunkPromises = {};
 
-      function loadCities() {
-        if (citiesData) return Promise.resolve(citiesData);
-        if (citiesLoading) return citiesLoading;
-        citiesLoading = fetch('data/cities-zips.json')
+      function chunkKeyFor(query) {
+        var q = query.trim();
+        if (!q) return null;
+        var first = q.charAt(0).toLowerCase();
+        if (first >= '0' && first <= '9') return 'zip-' + first;
+        if (first >= 'a' && first <= 'z') return 'city-' + first;
+        return null;
+      }
+
+      function loadChunk(query) {
+        var key = chunkKeyFor(query);
+        if (!key) return Promise.resolve([]);
+        if (zipChunks[key]) return Promise.resolve(zipChunks[key]);
+        if (zipChunkPromises[key]) return zipChunkPromises[key];
+        zipChunkPromises[key] = fetch('data/zips/' + key + '.json')
           .then(function (r) { return r.json(); })
-          .then(function (data) { citiesData = data; return data; })
-          .catch(function () { citiesData = []; return []; });
-        return citiesLoading;
+          .then(function (data) { zipChunks[key] = data; delete zipChunkPromises[key]; return data; })
+          .catch(function () { delete zipChunkPromises[key]; return []; });
+        return zipChunkPromises[key];
       }
 
       function formatCity(entry) {
         return entry.city + ', ' + entry.state + ' ' + entry.zip;
       }
 
-      function filterCities(query) {
-        if (!citiesData) return [];
+      function filterCities(data, query) {
+        if (!data || !data.length) return [];
         var q = query.trim();
         if (!q) return [];
         var isDigits = /^\d+$/.test(q);
@@ -2935,8 +2949,8 @@
         if (q.length < minLen) return [];
         var qLower = q.toLowerCase();
         var results = [];
-        for (var i = 0; i < citiesData.length && results.length < 8; i++) {
-          var e = citiesData[i];
+        for (var i = 0; i < data.length && results.length < 8; i++) {
+          var e = data[i];
           var label = formatCity(e);
           if (isDigits) {
             if (e.zip.indexOf(q) === 0) results.push({ label: label, entry: e });
@@ -2946,6 +2960,21 @@
           }
         }
         return results;
+      }
+
+      /* Value is valid only if it exactly matches a "City, ST 12345" label
+         from the dataset (any chunk the user has already triggered a load for). */
+      function isKnownCityLabel(value) {
+        var label = value.trim().toLowerCase();
+        if (!label) return false;
+        var keys = Object.keys(zipChunks);
+        for (var k = 0; k < keys.length; k++) {
+          var entries = zipChunks[keys[k]];
+          for (var i = 0; i < entries.length; i++) {
+            if (formatCity(entries[i]).toLowerCase() === label) return true;
+          }
+        }
+        return false;
       }
 
       var autocompleteInstances = [];
@@ -3004,29 +3033,26 @@
         }
 
         function search() {
-          var items = filterCities(input.value.trim());
-          renderSuggestions(items);
+          var query = input.value.trim();
+          loadChunk(query).then(function (data) {
+            // Ignore stale responses if the user kept typing into a
+            // different chunk while this one was loading.
+            if (input.value.trim() !== query) return;
+            renderSuggestions(filterCities(data, query));
+          });
         }
 
         input.addEventListener('focus', function () {
-          loadCities().then(function () {
-            if (input.value.trim().length >= 1) search();
-          });
+          if (input.value.trim().length >= 1) search();
         });
 
         input.addEventListener('input', function () {
           clearTimeout(debounceTimer);
-          function runSearch() {
-            if (citiesData) {
-              search();
-            } else {
-              loadCities().then(function () { search(); });
-            }
-          }
-          if (citiesData) {
-            runSearch();
+          var key = chunkKeyFor(input.value);
+          if (key && zipChunks[key]) {
+            search();
           } else {
-            debounceTimer = setTimeout(runSearch, 50);
+            debounceTimer = setTimeout(search, 50);
           }
         });
 
@@ -3055,7 +3081,6 @@
 
       initAutocomplete('moving-from', 'moving-from-list');
       initAutocomplete('moving-to', 'moving-to-list');
-      loadCities();
 
       /* ---- Subscribe form ---- */
       var subForm = document.getElementById('subscribe-form');

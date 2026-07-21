@@ -40,23 +40,62 @@ export function filterCities(
   return results;
 }
 
-let citiesCache: CityEntry[] | null = null;
-let citiesPromise: Promise<CityEntry[]> | null = null;
+/**
+ * ZIP data is split into chunks (data/zips/zip-{0-9}.json by first zip digit,
+ * data/zips/city-{a-z}.json by first city letter) so the browser only fetches
+ * the slice relevant to what the user is typing.
+ */
+function chunkKeyForQuery(query: string): string | null {
+  const q = query.trim();
+  if (!q) return null;
+  const first = q[0].toLowerCase();
+  if (first >= "0" && first <= "9") return `zip-${first}`;
+  if (first >= "a" && first <= "z") return `city-${first}`;
+  return null;
+}
 
-export function loadCitiesData(): Promise<CityEntry[]> {
-  if (citiesCache) return Promise.resolve(citiesCache);
-  if (citiesPromise) return citiesPromise;
+const chunkCache = new Map<string, CityEntry[]>();
+const chunkPromises = new Map<string, Promise<CityEntry[]>>();
 
-  citiesPromise = fetch("/data/cities-zips.json")
+export function loadCitiesForQuery(query: string): Promise<CityEntry[]> {
+  const key = chunkKeyForQuery(query);
+  if (!key) return Promise.resolve([]);
+
+  const cached = chunkCache.get(key);
+  if (cached) return Promise.resolve(cached);
+
+  const pending = chunkPromises.get(key);
+  if (pending) return pending;
+
+  const promise = fetch(`/data/zips/${key}.json`)
     .then((response) => response.json())
     .then((data: CityEntry[]) => {
-      citiesCache = data;
+      chunkCache.set(key, data);
+      chunkPromises.delete(key);
       return data;
     })
     .catch(() => {
-      citiesCache = [];
+      chunkPromises.delete(key);
       return [];
     });
 
-  return citiesPromise;
+  chunkPromises.set(key, promise);
+  return promise;
+}
+
+/**
+ * True when the value exactly matches a "City, ST 12345" label from the
+ * dataset. Only cached chunks are checked, but any value produced by picking
+ * a suggestion (or typing/pasting, which triggers a chunk load) will have its
+ * chunk cached by the time validation runs.
+ */
+export function isKnownCityLabel(value: string): boolean {
+  const label = value.trim().toLowerCase();
+  if (!label) return false;
+  for (const entries of chunkCache.values()) {
+    for (const entry of entries) {
+      if (formatCityLabel(entry).toLowerCase() === label) return true;
+    }
+  }
+  return false;
 }

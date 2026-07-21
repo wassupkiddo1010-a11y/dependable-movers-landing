@@ -11,6 +11,7 @@ import {
   SMS_ACCOUNT_CONSENT_LABEL,
   SMS_MARKETING_CONSENT_LABEL,
 } from "@/lib/quote-form-constants";
+import { isKnownCityLabel } from "@/lib/city-autocomplete";
 import { submitQuoteForm, type QuoteFormValues } from "@/lib/quote-submit";
 import { ROUTES } from "@/lib/routes";
 import { SITE_PHONE, SITE_PHONE_HREF } from "@/lib/site-config";
@@ -52,8 +53,16 @@ export function QuoteFormBlock() {
 
   function validate(): boolean {
     const next: Partial<Record<keyof QuoteFormValues, string>> = {};
-    if (!form.moving_from.trim()) next.moving_from = "This field is required.";
-    if (!form.moving_to.trim()) next.moving_to = "This field is required.";
+    if (!form.moving_from.trim()) {
+      next.moving_from = "This field is required.";
+    } else if (!isKnownCityLabel(form.moving_from)) {
+      next.moving_from = "Please select a location from the dropdown.";
+    }
+    if (!form.moving_to.trim()) {
+      next.moving_to = "This field is required.";
+    } else if (!isKnownCityLabel(form.moving_to)) {
+      next.moving_to = "Please select a location from the dropdown.";
+    }
     if (!form.move_date) next.move_date = "This field is required.";
     if (!form.move_size) next.move_size = "This field is required.";
     if (!form.move_type) next.move_type = "This field is required.";

@@ -10,7 +10,7 @@ cpSync("assets", "public/assets", { recursive: true });
 copyFileSync("assets/favicon.png", "public/favicon.png");
 copyFileSync("assets/logo.png", "public/logo.png");
 
-copyFileSync("data/cities-zips.json", "public/data/cities-zips.json");
+cpSync("data/zips", "public/data/zips", { recursive: true });
 
 const jsFiles = [
   "text-roll-nav.js",
