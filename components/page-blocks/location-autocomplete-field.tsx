@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import {
   filterCities,
   formatCityLabel,
-  loadCitiesData,
+  loadCitiesForQuery,
   type CityEntry,
 } from "@/lib/city-autocomplete";
 import { FieldError, innerFieldClass } from "@/components/page-blocks/block-primitives";
@@ -34,10 +34,7 @@ export function LocationAutocompleteField({
   const [suggestions, setSuggestions] = useState<CityEntry[]>([]);
   const [highlight, setHighlight] = useState(-1);
   const wrapRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    loadCitiesData();
-  }, []);
+  const latestQueryRef = useRef("");
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -50,7 +47,9 @@ export function LocationAutocompleteField({
   }, []);
 
   async function search(query: string) {
-    const data = await loadCitiesData();
+    latestQueryRef.current = query;
+    const data = await loadCitiesForQuery(query);
+    if (latestQueryRef.current !== query) return;
     const results = filterCities(data, query);
     setSuggestions(results);
     setOpen(results.length > 0);
