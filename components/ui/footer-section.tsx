@@ -11,6 +11,8 @@ import {
   SITE_EMAIL,
   SITE_EMAIL_HREF,
   SITE_NAME,
+  SITE_PHONE,
+  SITE_PHONE_HREF,
   SITE_TAGLINE,
 } from "@/lib/site-config";
 import { SERVICES } from "@/data/services";
@@ -53,7 +55,7 @@ const footerLinks: FooterSection[] = [
   {
     label: "Get in Touch",
     links: [
-      { title: "800-823-0395", href: "tel:+18008230395" },
+      { title: SITE_PHONE, href: SITE_PHONE_HREF },
       {
         title: SITE_EMAIL,
         href: SITE_EMAIL_HREF,

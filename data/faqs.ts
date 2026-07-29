@@ -32,6 +32,6 @@ export const MOVING_FAQS: FaqItem[] = [
   {
     question: "How can I get in touch?",
     answer:
-      "Call us at 800-823-0395, email info@depmovers.com, or submit the quote form above.",
+      "Call us at 800-303-7803, email info@depmovers.com, or submit the quote form above.",
   },
 ];

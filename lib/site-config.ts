@@ -3,8 +3,8 @@ export const SITE_NAME = "Dependable Movers";
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://depmovers.com";
 
-export const SITE_PHONE = "800-823-0395";
-export const SITE_PHONE_HREF = "tel:+18008230395";
+export const SITE_PHONE = "800-303-7803";
+export const SITE_PHONE_HREF = "tel:+18003037803";
 /** Navbar CTA — displays as the quote button and opens the dialer. */
 export const SITE_NAV_PHONE = "800-303-7803";
 export const SITE_NAV_PHONE_HREF = "tel:+18003037803";
