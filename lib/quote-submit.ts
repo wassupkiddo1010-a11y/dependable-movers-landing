@@ -59,6 +59,13 @@ export type ContactFormValues = {
 export async function submitContactForm(
   values: ContactFormValues
 ): Promise<QuoteSubmitResult> {
+  if (!FORMSPREE_CONTACT_ENDPOINT) {
+    return {
+      ok: false,
+      error: "Contact form is not available. Please call us instead.",
+    };
+  }
+
   try {
     const response = await fetch(FORMSPREE_CONTACT_ENDPOINT, {
       method: "POST",

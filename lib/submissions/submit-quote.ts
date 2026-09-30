@@ -3,34 +3,42 @@ import { buildN8nLeadPayload } from "@/lib/submissions/quote-payload";
 
 type SubmitResult = { ok: true } | { ok: false; error: string };
 
-const DEFAULT_N8N_QUOTE_WEBHOOK =
-  "https://your-n8n-instance/webhook/your-path";
-
 export async function submitQuoteLead(
   payload: QuoteFormPayload
 ): Promise<SubmitResult> {
-  const n8nUrl =
-    process.env.N8N_QUOTE_WEBHOOK_URL ?? DEFAULT_N8N_QUOTE_WEBHOOK;
+  const n8nUrl = process.env.N8N_QUOTE_WEBHOOK_URL?.trim();
   const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const tableName = process.env.SUPABASE_QUOTE_TABLE ?? "quote_leads";
   const testRun = process.env.N8N_TEST_RUN === "true";
 
+  if (!n8nUrl && !(supabaseUrl && supabaseKey)) {
+    console.error(
+      "[submitQuoteLead] N8N_QUOTE_WEBHOOK_URL or Supabase must be configured"
+    );
+    return {
+      ok: false,
+      error: "We could not submit your request. Please try again or call us.",
+    };
+  }
+
   const n8nPayload = buildN8nLeadPayload(payload, { testRun });
 
   const errors: string[] = [];
 
-  try {
-    const response = await fetch(n8nUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(n8nPayload),
-    });
-    if (!response.ok) {
-      errors.push(`n8n webhook failed (${response.status})`);
+  if (n8nUrl) {
+    try {
+      const response = await fetch(n8nUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(n8nPayload),
+      });
+      if (!response.ok) {
+        errors.push(`n8n webhook failed (${response.status})`);
+      }
+    } catch {
+      errors.push("n8n webhook unreachable");
     }
-  } catch {
-    errors.push("n8n webhook unreachable");
   }
 
   if (supabaseUrl && supabaseKey) {
